@@ -24,8 +24,6 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <ExcludeFoldersFromDeployment>App_MasterPages;</ExcludeFoldersFromDeployment>
-    <ExcludeFilesFromDeployment>packages.config;Web.config;</ExcludeFilesFromDeployment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <UseGlobalApplicationHostFile />
   </PropertyGroup>
@@ -47,6 +45,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <ExcludeFoldersFromDeployment>App_MasterPages;</ExcludeFoldersFromDeployment>
+    <ExcludeFilesFromDeployment>packages.config;Web.config;Setup\applications\*\SchemaInstallScripts\mysql\**;Setup\applications\*\SchemaUpgradeScripts\mysql\**;Setup\applications\*\SchemaInstallScripts\pgsql\**;Setup\applications\*\SchemaUpgradeScripts\pgsql\**;</ExcludeFilesFromDeployment>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - MySql|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -66,6 +66,8 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <Prefer32Bit>false</Prefer32Bit>
+    <ExcludeFoldersFromDeployment>App_MasterPages;</ExcludeFoldersFromDeployment>
+    <ExcludeFilesFromDeployment>packages.config;Web.config;Setup\applications\*\SchemaInstallScripts\mssql\**;Setup\applications\*\SchemaUpgradeScripts\mssql\**;Setup\applications\*\SchemaInstallScripts\pgsql\**;Setup\applications\*\SchemaUpgradeScripts\pgsql\**;</ExcludeFilesFromDeployment>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug - Firebird|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
