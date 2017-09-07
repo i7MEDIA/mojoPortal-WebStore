@@ -29,7 +29,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -179,15 +179,15 @@
     <Compile Include="Store.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
+    <ProjectReference Include="..\..\mojoportal\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
       <Project>{4EAD30EC-4F97-4F38-8530-1B7EDDB8FC8E}</Project>
       <Name>mojoPortal.Business.WebHelpers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\mojoPortal.Business\mojoPortal.Business.csproj">
+    <ProjectReference Include="..\..\mojoportal\mojoPortal.Business\mojoPortal.Business.csproj">
       <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
       <Name>mojoPortal.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
+    <ProjectReference Include="..\..\mojoportal\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
       <Project>{e0d12031-bfdd-4069-9024-8b00a2aa6dbc}</Project>
       <Name>mojoPortal.Web.Framework</Name>
     </ProjectReference>

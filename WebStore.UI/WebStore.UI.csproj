@@ -38,7 +38,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -155,40 +155,81 @@
     <Reference Include="GCheckout, Version=1.3.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_libs\GCheckout1.3.2\GCheckout.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
+    <Reference Include="System">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Data">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.1.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Extensions.Design" />
+    <Reference Include="System.Web">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Web.DynamicData">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Web.Entity">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Web.Extensions.Design">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System.Web.Http, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.1.2\lib\net45\System.Web.Http.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.1.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Web.Mobile" />
-    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Configuration">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.EnterpriseServices">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Web.Mobile">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
@@ -497,37 +538,47 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
+    <ProjectReference Include="..\..\mojoportal\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
       <Project>{4EAD30EC-4F97-4F38-8530-1B7EDDB8FC8E}</Project>
       <Name>mojoPortal.Business.WebHelpers</Name>
+      <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\mojoPortal.Business\mojoPortal.Business.csproj">
+    <ProjectReference Include="..\..\mojoportal\mojoPortal.Business\mojoPortal.Business.csproj">
       <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
       <Name>mojoPortal.Business</Name>
+      <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\mojoPortal.Net\mojoPortal.Net.csproj">
+    <ProjectReference Include="..\..\mojoportal\mojoPortal.Net\mojoPortal.Net.csproj">
       <Project>{30916752-1A97-49CA-95D6-81A5F784EEB5}</Project>
       <Name>mojoPortal.Net</Name>
+      <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\mojoPortal.Web.Controls\mojoPortal.Web.Controls.csproj">
+    <ProjectReference Include="..\..\mojoportal\mojoPortal.Web.Controls\mojoPortal.Web.Controls.csproj">
       <Project>{A2DCD1E2-A5C3-4E37-A5F2-093659BC1C38}</Project>
       <Name>mojoPortal.Web.Controls</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\mojoPortal.Web.Editor\mojoPortal.Web.Editor.csproj">
+    <ProjectReference Include="..\..\mojoportal\mojoPortal.Web.Editor\mojoPortal.Web.Editor.csproj">
       <Project>{4F6DDA2C-C9B8-45B2-AADA-3FF922317661}</Project>
       <Name>mojoPortal.Web.Editor</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
+    <ProjectReference Include="..\..\mojoportal\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
       <Project>{E0D12031-BFDD-4069-9024-8B00A2AA6DBC}</Project>
       <Name>mojoPortal.Web.Framework</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\WebStore.Business\WebStore.Business.csproj">
       <Project>{58B4BA40-343B-4B4A-8A7B-AB92D2D60BBC}</Project>
       <Name>WebStore.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Web\mojoPortal.Web.csproj">
+    <ProjectReference Include="..\..\mojoportal\Web\mojoPortal.Web.csproj">
       <Project>{8e511d65-4779-4689-82d4-811d3fe6866e}</Project>
       <Name>mojoPortal.Web</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -679,6 +730,114 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\HelpFiles\en-US-webstore-IndexOffersSetting-help.config" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Setup\applications\webstore\SchemaInstallScripts\mysql\0.0.0.1.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.2.7.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.2.8.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.2.9.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.3.0.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.3.1.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.3.2.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.3.3.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.3.4.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.3.5.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.3.6.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.3.7.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.3.8.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.3.9.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.4.0.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.4.1.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.4.2.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.4.3.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.4.4.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.4.5.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.4.6.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.4.7.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.4.8.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.4.9.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.5.0.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.5.1.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.5.2.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.5.3.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.5.4.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.5.5.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.5.6.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.5.7.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.5.8.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.5.9.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.6.0.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.6.1.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.6.2.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.6.3.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.6.4.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.6.5.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.6.6.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.6.7.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.6.8.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.6.9.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.7.0.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.7.1.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.7.2.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.7.3.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.7.4.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\7.5.0.0.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.2.7.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.2.8.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.2.9.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.3.0.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.3.1.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.3.2.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.3.3.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.3.4.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.3.5.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.3.6.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.3.7.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.3.8.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.3.9.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.4.0.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.4.1.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.4.2.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.4.3.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.4.4.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.4.5.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.4.6.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.4.7.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.4.8.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.4.9.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.5.0.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.5.1.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.5.2.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.5.3.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.5.4.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.5.5.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.5.6.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.5.7.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.5.8.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.5.9.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.6.0.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.6.1.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.6.2.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.6.3.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.6.4.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.6.5.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.6.6.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.6.7.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.6.8.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.6.9.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.7.0.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.7.1.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.7.2.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.7.3.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.7.4.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\7.5.0.0.config" />
+    <Content Include="Setup\ProviderConfig\worldpayresponsehandlers\webstoreworldpayresponsehandler.config" />
+    <Content Include="Setup\ProviderConfig\sitepredeletehandlers\009_webstoredeleter.config" />
+    <Content Include="Setup\ProviderConfig\indexbuilders\webstoreofferindexbuilder.config" />
+    <Content Include="Setup\ProviderConfig\indexbuilders\webstoreproductindexbuilder.config" />
+    <Content Include="Setup\ProviderConfig\contentdeletehandlers\webstoredeletehandler.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -29,7 +29,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -169,7 +169,7 @@
     <Compile Include="WebStoreConnectionString.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\mojoPortal.Data.MSSQL\mojoPortal.Data.MSSQL.csproj">
+    <ProjectReference Include="..\..\mojoportal\mojoPortal.Data.MSSQL\mojoPortal.Data.MSSQL.csproj">
       <Project>{6DDFE292-37AA-4A02-B2F0-BA7968A026EF}</Project>
       <Name>mojoPortal.Data.MSSQL</Name>
     </ProjectReference>
