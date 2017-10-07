@@ -78,25 +78,31 @@ namespace WebStore.UI
 
             if (product.TeaserFile.Length > 0)
             {
-                lnkPreview.Text = product.TeaserFileLink;
+                lnkPreview.Text = product.Name;
                 lnkPreview.NavigateUrl = teaserFileBaseUrl + product.TeaserFile;
                 lnkPreview.Visible = true;
-                if (product.TeaserFile.EndsWith(".mp3"))
+				string teaserFileExt = product.TeaserFile.Substring(product.TeaserFile.LastIndexOf('.'));
+				var mediaExtensions = WebConfigSettings.JPlayerVideoFileExtensions.SplitOnCharAndTrim('|');
+				mediaExtensions.AddRange(WebConfigSettings.JPlayerAudioFileExtensions.SplitOnCharAndTrim('|'));
+
+				if (mediaExtensions.Contains(teaserFileExt) && displaySettings.UsejPlayerForMediaTeasers)
                 {
-                    if (displaySettings.UsejPlayerForMediaTeasers)
-                    {
-                        jPlayerPanel.RenderPlayer = true;
-                    }
+                    jPlayerPanel.RenderPlayer = true;
                 }
             }
 
             if (product.EnableRating)
             {
+				//mojoRating rating = new mojoRating();
+				((mojoRating)Rating).ContainerCssClass = displaySettings.ProductDetailsRatingPanelDivCssClass;
+				((mojoRating)Rating).ShowPrompt = true;
                 ((mojoRating)Rating).ContentGuid = product.Guid;
-                ((mojoRating)Rating).AllowFeedback = enableRatingComments;
-            }
+				((mojoRating)Rating).AllowFeedback = enableRatingComments;
+				((mojoRating)Rating).PromptText = WebStoreResources.RatingPrompt;
+				((mojoRating)Rating).Visible = true;
+			}
 
-            DataTable dataTable = Offer.GetByProduct(product.Guid);
+			DataTable dataTable = Offer.GetByProduct(product.Guid);
             rptOffers.DataSource = dataTable;
             rptOffers.DataBind();
 
@@ -175,7 +181,6 @@ namespace WebStore.UI
                 
             }
 
-            ((mojoRating)Rating).PromptText = WebStoreResources.RatingPrompt;
 
             lnkCart.PageID = pageId;
             lnkCart.ModuleID = moduleId;

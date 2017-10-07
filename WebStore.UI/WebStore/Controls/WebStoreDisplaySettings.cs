@@ -137,6 +137,20 @@ namespace WebStore.UI
 			set => additionalBodyClass = value;
 		}
 
+		private string productDetailsRatingPanelDivCssClass = "productratingwrapper";
+		public string ProductDetailsRatingPanelDivCssClass
+		{
+			get => productDetailsRatingPanelDivCssClass;
+			set => productDetailsRatingPanelDivCssClass = value;
+		}
+
+		//private string addToCartButtonCssClass = "addtocartbutton jqbutton ui-button ui-widget ui-state-default ui-corner-all";
+		private string addToCartButtonCssClass = "store-btn-addtocart btn btn-success";
+		public string AddToCartButtonCssClass
+		{
+			get => addToCartButtonCssClass;
+			set => addToCartButtonCssClass = value;
+		}
 		protected override void Render(HtmlTextWriter writer)
         {
             if (HttpContext.Current == null)
