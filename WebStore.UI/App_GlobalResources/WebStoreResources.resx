@@ -1755,4 +1755,16 @@
   <data name="ProductShippingAmountLabel" xml:space="preserve">
     <value>Shipping Amount</value>
   </data>
+  <data name="EmptyCartMessage" xml:space="preserve">
+    <value>Your Shopping Cart is empty!</value>
+  </data>
+  <data name="EmptyCartGoShopping" xml:space="preserve">
+    <value>Let's fill it up!</value>
+  </data>
+  <data name="LoginToCheckout" xml:space="preserve">
+    <value>Login to Checkout</value>
+  </data>
+  <data name="StartShopping" xml:space="preserve">
+    <value>Start Shopping</value>
+  </data>
 </root>

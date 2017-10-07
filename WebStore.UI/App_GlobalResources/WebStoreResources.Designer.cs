@@ -2167,6 +2167,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Let&apos;s fill it up!.
+        /// </summary>
+        internal static string EmptyCartGoShopping {
+            get {
+                return ResourceManager.GetString("EmptyCartGoShopping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Shopping Cart is empty!.
+        /// </summary>
+        internal static string EmptyCartMessage {
+            get {
+                return ResourceManager.GetString("EmptyCartMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable Rating in Product List?.
         /// </summary>
         internal static string EnableContentRatingInProductListSetting {
@@ -2433,6 +2451,15 @@ namespace Resources {
         internal static string LoginLink {
             get {
                 return ResourceManager.GetString("LoginLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login to Checkout.
+        /// </summary>
+        internal static string LoginToCheckout {
+            get {
+                return ResourceManager.GetString("LoginToCheckout", resourceCulture);
             }
         }
         
@@ -4197,6 +4224,15 @@ namespace Resources {
         internal static string SiteUserLabel {
             get {
                 return ResourceManager.GetString("SiteUserLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Shopping.
+        /// </summary>
+        internal static string StartShopping {
+            get {
+                return ResourceManager.GetString("StartShopping", resourceCulture);
             }
         }
         

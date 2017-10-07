@@ -22,15 +22,6 @@ namespace WebStore.UI {
         protected global::mojoPortal.Web.UI.OuterWrapperPanel pnlOuterWrap;
         
         /// <summary>
-        /// ctop1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderTop ctop1;
-        
-        /// <summary>
         /// pnlInnerWrap control.
         /// </summary>
         /// <remarks>
@@ -76,6 +67,15 @@ namespace WebStore.UI {
         protected global::WebStore.UI.WebStoreDisplaySettings displaySettings;
         
         /// <summary>
+        /// litEmptyCart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litEmptyCart;
+        
+        /// <summary>
         /// pnlCartItems control.
         /// </summary>
         /// <remarks>
@@ -103,24 +103,6 @@ namespace WebStore.UI {
         protected global::WebStore.UI.Controls.CartListAlt cartListAlt;
         
         /// <summary>
-        /// pnlSubTotal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlSubTotal;
-        
-        /// <summary>
-        /// SiteLabel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel1;
-        
-        /// <summary>
         /// litSubTotal control.
         /// </summary>
         /// <remarks>
@@ -130,22 +112,13 @@ namespace WebStore.UI {
         protected global::System.Web.UI.WebControls.Literal litSubTotal;
         
         /// <summary>
-        /// pnlDiscountAmount control.
+        /// litShippingTotal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlDiscountAmount;
-        
-        /// <summary>
-        /// SiteLabel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel2;
+        protected global::System.Web.UI.WebControls.Literal litShippingTotal;
         
         /// <summary>
         /// litDiscount control.
@@ -155,24 +128,6 @@ namespace WebStore.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal litDiscount;
-        
-        /// <summary>
-        /// pnlTotal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlTotal;
-        
-        /// <summary>
-        /// SiteLabel3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel3;
         
         /// <summary>
         /// litTotal control.
@@ -190,7 +145,7 @@ namespace WebStore.UI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlDiscountCode;
+        protected global::mojoPortal.Web.UI.FormGroupPanel pnlDiscountCode;
         
         /// <summary>
         /// SiteLabel4 control.
@@ -229,31 +184,49 @@ namespace WebStore.UI {
         protected global::mojoPortal.Web.UI.mojoLabel lblDiscountError;
         
         /// <summary>
-        /// lnkCheckout control.
+        /// pnlCheckoutLinks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkCheckout;
+        protected global::mojoPortal.Web.UI.FormGroupPanel pnlCheckoutLinks;
         
         /// <summary>
-        /// lnkKeepShopping control.
+        /// litConfirmOrder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkKeepShopping;
+        protected global::System.Web.UI.WebControls.Literal litConfirmOrder;
         
         /// <summary>
-        /// litOr control.
+        /// litKeepShopping control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litOr;
+        protected global::System.Web.UI.WebControls.Literal litKeepShopping;
+        
+        /// <summary>
+        /// lnkLogin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.LoginLink lnkLogin;
+        
+        /// <summary>
+        /// pnlPayPal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.FormGroupPanel pnlPayPal;
         
         /// <summary>
         /// btnPayPal control.
@@ -263,15 +236,6 @@ namespace WebStore.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnPayPal;
-        
-        /// <summary>
-        /// btnGoogleCheckout control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoGCheckoutButton btnGoogleCheckout;
         
         /// <summary>
         /// lblMessage control.
@@ -292,15 +256,6 @@ namespace WebStore.UI {
         protected global::System.Web.UI.WebControls.Literal litPayPalFormVariables;
         
         /// <summary>
-        /// lblGoogleMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoLabel lblGoogleMessage;
-        
-        /// <summary>
         /// commerceWarning control.
         /// </summary>
         /// <remarks>
@@ -310,15 +265,6 @@ namespace WebStore.UI {
         protected global::mojoPortal.Web.UI.CommerceTestModeWarning commerceWarning;
         
         /// <summary>
-        /// pam1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UserControl pam1;
-        
-        /// <summary>
         /// litCartFooter control.
         /// </summary>
         /// <remarks>
@@ -326,23 +272,5 @@ namespace WebStore.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal litCartFooter;
-        
-        /// <summary>
-        /// divCleared control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.EmptyPanel divCleared;
-        
-        /// <summary>
-        /// cbottom1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderBottom cbottom1;
     }
 }

@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				2007-02-13
-/// Last Modified:		    2013-06-06
+/// Last Modified:		    2017-10-06
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -26,8 +26,8 @@ using mojoPortal.Business.WebHelpers.PaymentGateway;
 using WebStore.Business;
 using Resources;
 using WebStore.Helpers;
-using GCheckout.Checkout;
-using GCheckout.Util;
+//using GCheckout.Checkout;
+//using GCheckout.Util;
 
 namespace WebStore.UI
 {
@@ -64,7 +64,6 @@ namespace WebStore.UI
                 WebUtils.SetupRedirect(this, SiteUtils.GetCurrentPageUrl());
                 return;
             }
-
             
             PopulateLabels();
             ShowCart();
@@ -76,19 +75,41 @@ namespace WebStore.UI
         {
             if (Page.IsPostBack) { return; }
 
-            if ((store != null)&&(cart != null))
+            if (store != null && cart != null && cart.CartOffers.Count != 0)
             {
-              
-                litDiscount.Text = cart.Discount.ToString("c", currencyCulture);
-                pnlDiscountAmount.Visible = (cart.Discount > 0);
-                litSubTotal.Text = cart.SubTotal.ToString("c", currencyCulture);
-                pnlTotal.Visible = pnlDiscountAmount.Visible;
-                decimal totalWithoutTax = cart.SubTotal - cart.Discount;
-                litTotal.Text = totalWithoutTax.ToString("c", currencyCulture);
-                
+				bool showTotal = false;
+
+				litSubTotal.Text = String.Format(displaySettings.CartSubTotalFormat, WebStoreResources.CartSubTotalLabel, cart.SubTotal.ToString("c", currencyCulture));
+
+				if (cart.Discount > 0)
+				{
+					showTotal = true;
+					decimal discount = -cart.Discount;
+					litDiscount.Text = String.Format(displaySettings.CartDiscountTotalFormat, WebStoreResources.CartDiscountTotalLabel, discount.ToString("c", currencyCulture));
+				}
+				
+				if (cart.ShippingTotal > 0)
+				{
+					showTotal = true;
+					litShippingTotal.Text = String.Format(displaySettings.CartShippingTotalFormat, WebStoreResources.CartShippingTotalLabel, cart.ShippingTotal.ToString("c", currencyCulture));
+				}
+
+				if (showTotal)
+				{
+					decimal totalWithoutTax = cart.SubTotal - cart.Discount + cart.ShippingTotal;
+					litTotal.Text = String.Format(displaySettings.CartTotalFormat, WebStoreResources.CartTotalLabel, totalWithoutTax.ToString("c", currencyCulture));
+				}
             }
-
-
+			else
+			{
+				pnlCartItems.Visible = false;
+				//pnlSubTotal.Visible = false;
+				//pnlDiscountAmount.Visible = false;
+				//pnlTotal.Visible = false;
+				pnlDiscountCode.Visible = false;
+				litEmptyCart.Text = String.Format(displaySettings.EmptyCartFormat, WebStoreResources.EmptyCartMessage, SiteUtils.GetCurrentPageUrl(), WebStoreResources.EmptyCartGoShopping);
+				litKeepShopping.Text = String.Format(displaySettings.StartShoppingLinkFormat, SiteUtils.GetCurrentPageUrl(), WebStoreResources.StartShopping);
+			}
         }
 
         void btnApplyDiscount_Click(object sender, EventArgs e)
@@ -100,7 +121,6 @@ namespace WebStore.UI
                 return;
             }
             lblDiscountError.Text = errorMessage;
-
         }
 
         private void SetupPayPalStandardForm()
@@ -149,9 +169,7 @@ namespace WebStore.UI
                 DoPayPalExpressCeckout();
             }
         }
-
-        
-
+		
         private void DoPayPalExpressCeckout()
         {
             PayPalExpressGateway gateway
@@ -218,11 +236,8 @@ namespace WebStore.UI
                     payPalLog.Save();
 
                     Response.Redirect(gateway.PayPalExpressUrl);
-
                 }
-                
             }
-            
         }
 
         /// <summary>
@@ -267,83 +282,6 @@ namespace WebStore.UI
 
         }
 
-        
-
-        void btnGoogleCheckout_Click(object sender, ImageClickEventArgs e)
-        {
-            if (
-                (store != null)
-                && (cart != null)
-                )
-            { //&& (IsValidForCheckout()) ?
-
-                int cartTimeoutInMinutes = 30;
-                
-                CheckoutShoppingCartRequest Req = new CheckoutShoppingCartRequest(
-                    commerceConfig.GoogleMerchantID,
-                    commerceConfig.GoogleMerchantKey,
-                    commerceConfig.GoogleEnvironment,
-                    siteSettings.GetCurrency().Code,
-                    cartTimeoutInMinutes);
-
-
-                foreach (CartOffer cartOffer in cart.CartOffers)
-                {
-
-                    Req.AddItem(
-                        cartOffer.Name,
-                        string.Empty,
-                        cartOffer.OfferPrice,
-                        cartOffer.Quantity);
-                }
-
-                //Req.AddMerchantCalculatedShippingMethod
-                //Req.AnalyticsData
-                //Req.ContinueShoppingUrl
-                //Req.EditCartUrl
-
-                //Req.RequestInitialAuthDetails
-                //Req.AddParameterizedUrl
-
-                // we need to serialize the cart and it items to xml here
-                // so when we get it back from google
-                // we can validate against the existing cart
-                // as its possible items were added to the cart
-                // after we passed the user to google
-
-                //Req.MerchantPrivateData = cart.CartGuid.ToString();
-                //cart.SerializeCartOffers();
-                //Req.MerchantPrivateData = SerializationHelper.SerializeToSoap(cart);
-
-                cart.SerializeCartOffers();
-                MerchantData merchantData = new MerchantData();
-                merchantData.ProviderName = "WebStoreGCheckoutNotificationHandlerProvider";
-                merchantData.SerializedObject = SerializationHelper.RemoveXmlDeclaration(SerializationHelper.SerializeToString(cart));
-                Req.MerchantPrivateData = SerializationHelper.RemoveXmlDeclaration(SerializationHelper.SerializeToString(merchantData));
-                Req.RequestBuyerPhoneNumber = true;
-
-                // flat rate shipping example
-                //Req.AddFlatRateShippingMethod("UPS Ground", 5);
-
-                //Add a rule to tax all items at 7.5% for Ohio
-                //Req.AddStateTaxRule("NC", .15, true);
-                //TODO: lookup tax 
-
-                GCheckoutResponse Resp = Req.Send();
-
-                if (Resp.IsGood)
-                {
-                    Response.Redirect(Resp.RedirectUrl, true);
-                }
-                else
-                {
-                    lblMessage.Text = Resp.ErrorMessage;
-                }
-            }
-
-        }
-
-
         private void PopulateLabels()
         {
             Control c = Master.FindControl("Breadcrumbs");
@@ -356,75 +294,55 @@ namespace WebStore.UI
             Title = SiteUtils.FormatPageTitle(siteSettings, CurrentPage.PageName + " - " + WebStoreResources.CartHeader);
             heading.Text = WebStoreResources.CartHeader;
 
-            lnkCheckout.Text = WebStoreResources.ProceedToCheckout;
-            lnkCheckout.NavigateUrl = SiteRoot +
-                "/WebStore/ConfirmOrder.aspx?pageid=" + pageId.ToInvariantString()
-                + "&mid=" + moduleId.ToInvariantString();
+			string confirmOrderUrl = SiteRoot +
+				"/WebStore/ConfirmOrder.aspx?pageid=" + pageId.ToInvariantString()
+				+ "&mid=" + moduleId.ToInvariantString();
 
-            lnkCheckout.CssClass = displaySettings.CheckoutLinkCssClass;
+			litConfirmOrder.Text = String.Format(displaySettings.ConfirmOrderLinkFormat, confirmOrderUrl, WebStoreResources.ProceedToCheckout);
 
-            lnkKeepShopping.Text = WebStoreResources.CartKeepShoppingLink;
-            lnkKeepShopping.NavigateUrl = SiteUtils.GetCurrentPageUrl();
-            lnkKeepShopping.CssClass = displaySettings.ContinueShoppingLinkCssClass;
-            litOr.Text = WebStoreResources.LiteralOr;
-            btnApplyDiscount.Text = WebStoreResources.ApplyDiscountButton;
+			litKeepShopping.Text = String.Format(displaySettings.ContinueShoppingLinkFormat, SiteUtils.GetCurrentPageUrl(), WebStoreResources.CartKeepShoppingLink);
+
+			pnlDiscountCode.CssClass = "settingrow discountcode";
+
+
+			btnApplyDiscount.Text = WebStoreResources.ApplyDiscountButton;
 
             lblDiscountError.Text = string.Empty;
-        }
+
+			lnkLogin.OverrideText = WebStoreResources.LoginToCheckout;
+			lnkLogin.CssClass = displaySettings.LoginToCheckoutCssClass;
+
+			pnlCheckoutLinks.CssClass = displaySettings.CartCheckoutLinksDivCssClass;
+
+			if (!Request.IsAuthenticated && !canCheckoutWithoutAuthentication)
+			{
+				pnlCheckoutLinks.CssClass += $" {displaySettings.CartCheckoutLinksDivAnonymousExtraCssClass}";
+			}
+
+			pnlPayPal.CssClass = displaySettings.CartPayPalDivCssClass;
+		}
 
         private void LoadParams()
-        {
-            
+        {            
             pageId = WebUtils.ParseInt32FromQueryString("pageid", pageId);
             moduleId = WebUtils.ParseInt32FromQueryString("mid", true, moduleId);
-
-
         }
 
         private void ConfigureCheckoutButtons()
         {
             bool shouldShowPayPal = ShouldShowPayPal();
-            bool shouldShowGoogle = ShouldShowGoogle();
 
-            btnPayPal.Visible = shouldShowPayPal;
-            btnGoogleCheckout.Visible = shouldShowGoogle;
-            litOr.Visible = (shouldShowPayPal || shouldShowGoogle);
-
-            if (shouldShowGoogle)
-            {
-                if ((!commerceConfig.Is503TaxExempt)&&(cart.HasDonations()))
-                {
-                    //lblGoogleMessage.Text = WebStoreResources.GoogleCheckoutDisabledForDonationsMessage;
-                    //lblGoogleMessage.Visible = true;
-                    btnGoogleCheckout.Visible = false;
-                    if (!Request.IsAuthenticated)
-                    {
-                        PaymentAcceptanceMark mark = (PaymentAcceptanceMark)pam1;
-                        mark.SuppressGoogleCheckout = true;
-                    }
-                }
-                
-            }
+            pnlPayPal.Visible = shouldShowPayPal;
 
             if((shouldShowPayPal)&&(commerceConfig.PayPalUsePayPalStandard))
             {
                 SetupPayPalStandardForm();
             }
-
-            
-
-           
         }
-
-        
-
-        
-
-        
-
+		
         private void LoadSettings()
         {
-            AddClassToBody("webstore webstorecart");
+            AddClassToBody($"webstore webstorecart {displaySettings.AdditionalBodyClass}");
 
             SiteUtils.AddNoIndexMeta(Page);
 
@@ -459,16 +377,18 @@ namespace WebStore.UI
             //and the order can be processed wtithout the user signing in or if the user is already signed in
             if (
                 ((!commerceConfig.CanProcessStandardCards)&&(commerceConfig.WorldPayInstallationId.Length == 0))
-                && ((Request.IsAuthenticated) || (canCheckoutWithoutAuthentication))
+                //&& ((Request.IsAuthenticated) || (canCheckoutWithoutAuthentication)) //moved login prompt to cart so we don't need to have a link to the confirmorder page
                 )
             {
-                lnkCheckout.Visible = false;
+				//lnkConfirmOrder.Visible = false;
+				litConfirmOrder.Visible = false;
             }
 
             if (cart == null) 
             {
                 pnlDiscountCode.Visible = false; 
-                lnkCheckout.Visible = false;
+                //lnkConfirmOrder.Visible = false;
+				litConfirmOrder.Visible = false;
                 return; 
             }
 
@@ -495,10 +415,6 @@ namespace WebStore.UI
                 cartList.Visible = false;
                 cartListAlt.Visible = true;
             }
-            
-
-            // disable till I finish
-            //canCheckoutWithoutAuthentication = false;
 
             ConfigureCheckoutButtons();
 
@@ -511,16 +427,16 @@ namespace WebStore.UI
                 // allow checkout if cart has items (support checkout with free items)
                 if (cart.CartOffers.Count == 0)
                 {
-                    lnkCheckout.Visible = false;
+                    //lnkConfirmOrder.Visible = false;
+					litConfirmOrder.Visible = false;
                 }
                 else
                 {
                     //cart has free items
-                    lnkCheckout.Visible = true;
+                    //lnkConfirmOrder.Visible = true;
                 }
                 //litOr.Visible = false;
                 //btnPayPal.Visible = false;
-                //btnGoogleCheckout.Visible = false;
                 pnlDiscountCode.Visible = false; 
             }
 
@@ -528,78 +444,6 @@ namespace WebStore.UI
             bool disableDiscounts = false;
             ConfigHelper.GetBoolProperty("WebStoreDisabledDiscounts", disableDiscounts);
             if (disableDiscounts) { pnlDiscountCode.Visible = false; }
-
-            
-          
-            //if (!Page.IsPostBack)
-            //{
-            //    if ((commerceConfig.PayPalIsEnabled) && (commerceConfig.PayPalUsePayPalStandard))
-            //    {
-            //        if (Request.IsAuthenticated)
-            //        {
-            //            siteUser = SiteUtils.GetCurrentSiteUser();
-            //            SetupPayPalStandardForm();
-            //        }
-            //        else
-            //        {
-            //            //TODO: if the cart has no download items allow checkout without registration/sign in
-
-            //            // we need the user to be signed in before we send them to paypal if using PayPal Standard
-            //            // because we want to return them to their order summary and that requires login
-            //            // so we need to know who the user is before sending them to PayPal
-            //            litOr.Visible = false;
-            //            btnPayPal.Visible = false;
-            //            btnGoogleCheckout.Visible = false;
-            //        }
-            //    }
-            //}
-
-            
-
-
-            //if (!Request.IsAuthenticated)
-            //{
-                
-
-            //    if (commerceConfig.GoogleCheckoutIsEnabled)
-            //    {
-            //        if (
-            //        (!commerceConfig.Is503TaxExempt)
-            //        && (cart != null)
-            //        && (cart.HasDonations())
-            //        )
-            //        {
-            //            lblGoogleMessage.Text = WebStoreResources.GoogleCheckoutDisabledForDonationsMessage;
-            //            lblGoogleMessage.Visible = true;
-            //            PaymentAcceptanceMark mark = (PaymentAcceptanceMark)pam1;
-            //            mark.SuppressGoogleCheckout = true;
-
-            //            btnGoogleCheckout.Visible = true;
-            //            btnGoogleCheckout.Enabled = false;
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    if (
-            //        (!commerceConfig.Is503TaxExempt)
-            //        && (cart != null)
-            //        && (cart.HasDonations())
-            //        && (commerceConfig.GoogleCheckoutIsEnabled)
-            //        )
-            //    {
-            //        btnGoogleCheckout.Visible = true;
-            //        btnGoogleCheckout.Enabled = false;
-            //        lblGoogleMessage.Text = WebStoreResources.GoogleCheckoutDisabledForDonationsMessage;
-            //        lblGoogleMessage.Visible = true;
-            //    }
-
-
-            //}
-
-            
-            
-
         }
 
         private bool ShouldShowPayPal()
@@ -611,34 +455,9 @@ namespace WebStore.UI
             if (commerceConfig == null) { return false; }
             if ((!Request.IsAuthenticated) && (!canCheckoutWithoutAuthentication)) { return false; }
             if (!commerceConfig.PayPalIsEnabled) { return false; }
-
-
-
+			
             return true;
         }
-
-        private bool ShouldShowGoogle()
-        {
-            if (store == null) { return false; }
-            if (cart == null) { return false; }
-            if (cart.SubTotal == 0) { return false; }
-            if (cart.OrderTotal == 0) { return false; }
-            if (commerceConfig == null) { return false; }
-            if ((!Request.IsAuthenticated) && (!canCheckoutWithoutAuthentication)) { return false; }
-            if (!commerceConfig.GoogleCheckoutIsEnabled) { return false;}
-
-            // google checkout goes away 2013-11-20
-            DateTime endDate = new DateTime(2013,11,20);
-            if (DateTime.UtcNow > endDate) { return false; }
-
-            if((cart.HasDonations()) && (!commerceConfig.Is503TaxExempt)) { return false; }
-
-
-            return true;
-        }
-
-        
-
 
         #region OnInit
 
@@ -653,67 +472,13 @@ namespace WebStore.UI
             base.OnInit(e);
 
             this.Load += new EventHandler(this.Page_Load);
-            //this.rptCartItems.ItemCommand += new RepeaterCommandEventHandler(rptCartItems_ItemCommand);
 
             btnPayPal.Click += new ImageClickEventHandler(btnPayPal_Click);
-            btnGoogleCheckout.Click += new ImageClickEventHandler(btnGoogleCheckout_Click);
             btnApplyDiscount.Click += new EventHandler(btnApplyDiscount_Click);
 
             SuppressPageMenu();
             SuppressGoogleAds();
         }
-
-        
-
-        
-
-        
-
         #endregion
-
-        //private void rptCartItems_ItemCommand(object source, RepeaterCommandEventArgs e)
-        //{
-        //    if (cart == null) { return; }
-
-        //    string strGuid = e.CommandArgument.ToString();
-        //    if (strGuid.Length != 36) { return; }
-
-        //    Guid itemGuid = new Guid(strGuid);
-
-        //    switch (e.CommandName)
-        //    {
-        //        case "updateQuantity":
-
-        //            int quantity = 1;
-        //            TextBox txtQty = e.Item.FindControl("txtQuantity") as TextBox;
-        //            if (txtQty != null)
-        //            {
-        //                try
-        //                {
-        //                    int.TryParse(txtQty.Text, NumberStyles.Integer, CultureInfo.InvariantCulture, out quantity);
-        //                }
-        //                catch (ArgumentException) { }
-        //            }
-        //            cart.UpdateCartItemQuantity(itemGuid, quantity);
-
-        //            break;
-
-        //        case "delete":
-
-        //            cart.DeleteItem(itemGuid);
-        //            cart.ResetCartOffers();
-        //            cart.RefreshTotals();
-        //            cart.Save();
-
-        //            break;
-
-        //    }
-
-        //    StoreHelper.EnsureValidDiscounts(store, cart);
-
-        //    WebUtils.SetupRedirect(this, Request.RawUrl);
-
-        //}
-
     }
 }

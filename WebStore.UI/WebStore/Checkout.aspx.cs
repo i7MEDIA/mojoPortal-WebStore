@@ -27,8 +27,8 @@ using mojoPortal.Business.Commerce;
 using mojoPortal.Business.WebHelpers.PaymentGateway;
 using Resources;
 using WebStore.Helpers;
-using GCheckout.Checkout;
-using GCheckout.Util;
+//using GCheckout.Checkout;
+//using GCheckout.Util;
 
 namespace WebStore.UI
 {
@@ -511,81 +511,81 @@ namespace WebStore.UI
 
         }
 
-        void btnGoogleCheckout_Click(object sender, ImageClickEventArgs e)
-        {
-            if (
-                (store != null)
-                && (cart != null)
-                )
-            { //&& (IsValidForCheckout()) ?
+        //void btnGoogleCheckout_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    if (
+        //        (store != null)
+        //        && (cart != null)
+        //        )
+        //    { //&& (IsValidForCheckout()) ?
 
-                int cartTimeoutInMinutes = 30;
+        //        int cartTimeoutInMinutes = 30;
                
-                CheckoutShoppingCartRequest Req = new CheckoutShoppingCartRequest(
-                    commerceConfig.GoogleMerchantID,
-                    commerceConfig.GoogleMerchantKey,
-                    commerceConfig.GoogleEnvironment,
-                    siteSettings.GetCurrency().Code,
-                    cartTimeoutInMinutes);
+        //        CheckoutShoppingCartRequest Req = new CheckoutShoppingCartRequest(
+        //            commerceConfig.GoogleMerchantID,
+        //            commerceConfig.GoogleMerchantKey,
+        //            commerceConfig.GoogleEnvironment,
+        //            siteSettings.GetCurrency().Code,
+        //            cartTimeoutInMinutes);
 
 
-                foreach (CartOffer cartOffer in cartOffers)
-                {
+        //        foreach (CartOffer cartOffer in cartOffers)
+        //        {
 
-                    Req.AddItem(
-                        cartOffer.Name, 
-                        string.Empty, 
-                        cartOffer.OfferPrice, 
-                        cartOffer.Quantity);
-                }
+        //            Req.AddItem(
+        //                cartOffer.Name, 
+        //                string.Empty, 
+        //                cartOffer.OfferPrice, 
+        //                cartOffer.Quantity);
+        //        }
 
-                //Req.AddMerchantCalculatedShippingMethod
-                //Req.AnalyticsData
-                //Req.ContinueShoppingUrl
-                //Req.EditCartUrl
+        //        //Req.AddMerchantCalculatedShippingMethod
+        //        //Req.AnalyticsData
+        //        //Req.ContinueShoppingUrl
+        //        //Req.EditCartUrl
                 
-                //Req.RequestInitialAuthDetails
-                //Req.AddParameterizedUrl
+        //        //Req.RequestInitialAuthDetails
+        //        //Req.AddParameterizedUrl
 
-                // we need to serialize the cart and it items to xml here
-                // so when we get it back from google
-                // we can validate against the existing cart
-                // as its possible items were added to the cart
-                // after we passed the user to google
+        //        // we need to serialize the cart and it items to xml here
+        //        // so when we get it back from google
+        //        // we can validate against the existing cart
+        //        // as its possible items were added to the cart
+        //        // after we passed the user to google
                 
-                //Req.MerchantPrivateData = cart.CartGuid.ToString();
-                //cart.SerializeCartOffers();
-                //Req.MerchantPrivateData = SerializationHelper.SerializeToSoap(cart);
+        //        //Req.MerchantPrivateData = cart.CartGuid.ToString();
+        //        //cart.SerializeCartOffers();
+        //        //Req.MerchantPrivateData = SerializationHelper.SerializeToSoap(cart);
 
-                cart.SerializeCartOffers();
-                MerchantData merchantData = new MerchantData();
-                merchantData.ProviderName = "WebStoreGCheckoutNotificationHandlerProvider";
-                merchantData.SerializedObject = SerializationHelper.RemoveXmlDeclaration(SerializationHelper.SerializeToString(cart));
+        //        cart.SerializeCartOffers();
+        //        MerchantData merchantData = new MerchantData();
+        //        merchantData.ProviderName = "WebStoreGCheckoutNotificationHandlerProvider";
+        //        merchantData.SerializedObject = SerializationHelper.RemoveXmlDeclaration(SerializationHelper.SerializeToString(cart));
 
-                Req.MerchantPrivateData = SerializationHelper.RemoveXmlDeclaration(SerializationHelper.SerializeToString(merchantData));
+        //        Req.MerchantPrivateData = SerializationHelper.RemoveXmlDeclaration(SerializationHelper.SerializeToString(merchantData));
 
-                Req.RequestBuyerPhoneNumber = true;
+        //        Req.RequestBuyerPhoneNumber = true;
 
-                // flat rate shipping example
-                //Req.AddFlatRateShippingMethod("UPS Ground", 5);
+        //        // flat rate shipping example
+        //        //Req.AddFlatRateShippingMethod("UPS Ground", 5);
 
-                //Add a rule to tax all items at 7.5% for Ohio
-                //Req.AddStateTaxRule("NC", .15, true);
-                //TODO: lookup tax 
+        //        //Add a rule to tax all items at 7.5% for Ohio
+        //        //Req.AddStateTaxRule("NC", .15, true);
+        //        //TODO: lookup tax 
 
-                GCheckoutResponse Resp = Req.Send();
+        //        GCheckoutResponse Resp = Req.Send();
          
-                if (Resp.IsGood)
-                {
-                    Response.Redirect(Resp.RedirectUrl, true);
-                }
-                else
-                {
-                    lblMessage.Text = Resp.ErrorMessage;
-                }
-            }
+        //        if (Resp.IsGood)
+        //        {
+        //            Response.Redirect(Resp.RedirectUrl, true);
+        //        }
+        //        else
+        //        {
+        //            lblMessage.Text = Resp.ErrorMessage;
+        //        }
+        //    }
             
-        }
+        //}
 
         /// <summary>
         /// This is really a fallback method, it will not be executed in normal use of PayPalStandard because we are setting the postbackurl of the button
@@ -1070,7 +1070,7 @@ namespace WebStore.UI
 
             this.btnMakePayment.Click += new EventHandler(btnMakePayment_Click);
 
-            this.btnGoogleCheckout.Click += new ImageClickEventHandler(btnGoogleCheckout_Click);
+            //this.btnGoogleCheckout.Click += new ImageClickEventHandler(btnGoogleCheckout_Click);
             this.btnPayPal.Click += new ImageClickEventHandler(btnPayPal_Click);
             btnFreeCheckout.Click += new EventHandler(btnFreeCheckout_Click);
 
