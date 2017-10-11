@@ -75,7 +75,7 @@ namespace WebStore.UI
             MetaDescription = product.MetaDescription;
             MetaKeywordCsv = product.MetaKeywords;
             AdditionalMetaMarkup = product.CompiledMeta;
-
+			pnlOffers.CssClass = displaySettings.ProductDetailsOffersDivCssClass;
             if (product.TeaserFile.Length > 0)
             {
                 lnkPreview.Text = product.Name;

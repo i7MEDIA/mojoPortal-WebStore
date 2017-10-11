@@ -13,9 +13,9 @@
         <portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent productdetail">
             <webstore:WebStoreDisplaySettings id="displaySettings" runat="server" />
 			<portal:mojoRating ID="Rating" runat="server" Visible="false"/>
-            <asp:Panel ID="pnlOffers" runat="server" CssClass="clearpanel offerspanel">
-                    <asp:Repeater ID="rptOffers" runat="server">
-                        <ItemTemplate>
+			<portal:BasePanel ID="pnlOffers" runat="server">
+				<asp:Repeater ID="rptOffers" runat="server">
+					<itemtemplate>
 							<div class="offercontainer form-group store-product-offer">
 								<div class="productname store-product-offer-name">
 									<%# Eval("ProductListName") %>
@@ -28,10 +28,9 @@
 								</div>
 								<asp:Button ID="btnAddToCart" runat="server" Text='<%# Resources.WebStoreResources.AddToCartLink%>' CommandName="addToCart" CommandArgument='<%# Eval("Guid") %>' CausesValidation="false" CssClass="<%# displaySettings.AddToCartButtonCssClass %>" />
 							</div>
-                        </ItemTemplate>
-                    </asp:Repeater>
-                   
-                </asp:Panel>
+                        </itemtemplate>
+				</asp:Repeater>
+			</portal:BasePanel>
                 <div class="description settingrow" id="divOfferDescription" runat="server" EnableViewState="false">
                     <asp:Literal ID="litDescription" runat="server" EnableViewState="false" />
                 </div>

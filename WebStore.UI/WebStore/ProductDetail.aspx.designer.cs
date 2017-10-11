@@ -91,7 +91,7 @@ namespace WebStore.UI {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlOffers;
+        protected global::mojoPortal.Web.UI.BasePanel pnlOffers;
         
         /// <summary>
         /// rptOffers control.

@@ -144,6 +144,13 @@ namespace WebStore.UI
 			set => productDetailsRatingPanelDivCssClass = value;
 		}
 
+		private string productDetailsOffersDivCssClass = "clearpanel offerspanel";
+		public string ProductDetailsOffersDivCssClass
+		{
+			get => productDetailsOffersDivCssClass;
+			set => productDetailsOffersDivCssClass = value;
+		}
+
 		//private string addToCartButtonCssClass = "addtocartbutton jqbutton ui-button ui-widget ui-state-default ui-corner-all";
 		private string addToCartButtonCssClass = "store-btn-addtocart btn btn-success";
 		public string AddToCartButtonCssClass
