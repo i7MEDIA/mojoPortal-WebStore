@@ -34,3 +34,6 @@
 
 ## More Information
 Read more about the WebStore [here](https://www.mojoportal.com/using-the-webstore-feature.aspx).
+
+## Download
+You can download the WebStore from [here](https://github.com/i7MEDIA/mojoportal/releases/tag/v2.6.0.0).
