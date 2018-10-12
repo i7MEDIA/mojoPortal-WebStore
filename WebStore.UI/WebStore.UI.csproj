@@ -26,6 +26,7 @@
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -162,8 +163,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\mojoPortal-RepoTest\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -542,47 +542,37 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\mojoportal\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
-      <Project>{4EAD30EC-4F97-4F38-8530-1B7EDDB8FC8E}</Project>
+    <ProjectReference Include="..\..\mojoPortal-RepoTest\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
+      <Project>{4ead30ec-4f97-4f38-8530-1b7eddb8fc8e}</Project>
       <Name>mojoPortal.Business.WebHelpers</Name>
-      <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\mojoportal\mojoPortal.Business\mojoPortal.Business.csproj">
-      <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
+    <ProjectReference Include="..\..\mojoPortal-RepoTest\mojoPortal.Business\mojoPortal.Business.csproj">
+      <Project>{8582d51e-126b-4d64-b080-07ad8245b38f}</Project>
       <Name>mojoPortal.Business</Name>
-      <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\mojoportal\mojoPortal.Net\mojoPortal.Net.csproj">
-      <Project>{30916752-1A97-49CA-95D6-81A5F784EEB5}</Project>
+    <ProjectReference Include="..\..\mojoPortal-RepoTest\mojoPortal.Net\mojoPortal.Net.csproj">
+      <Project>{30916752-1a97-49ca-95d6-81a5f784eeb5}</Project>
       <Name>mojoPortal.Net</Name>
-      <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\mojoportal\mojoPortal.Web.Controls\mojoPortal.Web.Controls.csproj">
-      <Project>{A2DCD1E2-A5C3-4E37-A5F2-093659BC1C38}</Project>
+    <ProjectReference Include="..\..\mojoPortal-RepoTest\mojoPortal.Web.Controls\mojoPortal.Web.Controls.csproj">
+      <Project>{a2dcd1e2-a5c3-4e37-a5f2-093659bc1c38}</Project>
       <Name>mojoPortal.Web.Controls</Name>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\mojoportal\mojoPortal.Web.Editor\mojoPortal.Web.Editor.csproj">
-      <Project>{4F6DDA2C-C9B8-45B2-AADA-3FF922317661}</Project>
+    <ProjectReference Include="..\..\mojoPortal-RepoTest\mojoPortal.Web.Editor\mojoPortal.Web.Editor.csproj">
+      <Project>{4f6dda2c-c9b8-45b2-aada-3ff922317661}</Project>
       <Name>mojoPortal.Web.Editor</Name>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\mojoportal\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
-      <Project>{E0D12031-BFDD-4069-9024-8B00A2AA6DBC}</Project>
+    <ProjectReference Include="..\..\mojoPortal-RepoTest\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
+      <Project>{e0d12031-bfdd-4069-9024-8b00a2aa6dbc}</Project>
       <Name>mojoPortal.Web.Framework</Name>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mojoPortal-RepoTest\Web\mojoPortal.Web.csproj">
+      <Project>{8e511d65-4779-4689-82d4-811d3fe6866e}</Project>
+      <Name>mojoPortal.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebStore.Business\WebStore.Business.csproj">
       <Project>{58B4BA40-343B-4B4A-8A7B-AB92D2D60BBC}</Project>
       <Name>WebStore.Business</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\mojoportal\Web\mojoPortal.Web.csproj">
-      <Project>{8e511d65-4779-4689-82d4-811d3fe6866e}</Project>
-      <Name>mojoPortal.Web</Name>
-      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -733,11 +723,7 @@
     <Content Include="WebStore\upload.ashx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Data\HelpFiles\en-US-webstore-IndexOffersSetting-help.config" />
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Setup\applications\webstore\SchemaInstallScripts\mysql\0.0.0.1.config" />
     <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.2.7.config" />
     <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.2.8.config" />
@@ -787,7 +773,6 @@
     <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.7.2.config" />
     <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.7.3.config" />
     <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\0.0.7.4.config" />
-    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\7.5.0.0.config" />
     <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.2.7.config" />
     <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.2.8.config" />
     <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.2.9.config" />
@@ -836,12 +821,18 @@
     <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.7.2.config" />
     <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.7.3.config" />
     <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\0.0.7.4.config" />
-    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\7.5.0.0.config" />
     <Content Include="Setup\ProviderConfig\worldpayresponsehandlers\webstoreworldpayresponsehandler.config" />
     <Content Include="Setup\ProviderConfig\sitepredeletehandlers\009_webstoredeleter.config" />
     <Content Include="Setup\ProviderConfig\indexbuilders\webstoreofferindexbuilder.config" />
     <Content Include="Setup\ProviderConfig\indexbuilders\webstoreproductindexbuilder.config" />
     <Content Include="Setup\ProviderConfig\contentdeletehandlers\webstoredeletehandler.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\7.5.0.1.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\7.5.0.1.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\webstore-mssql.pubxml" />
+    <None Include="Properties\PublishProfiles\webstore-mysql.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
