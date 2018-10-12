@@ -20,29 +20,32 @@
 			<asp:Literal ID="litShippingTotal" runat="server" />
             <asp:Literal ID="litDiscount" runat="server" />
             <asp:Literal ID="litTotal" runat="server" />
-           
-			<portal:FormGroupPanel ID="pnlDiscountCode" runat="server">
+           <portal:FormGroupPanel ID="pnlCheckoutActions" runat="server">
+
+			<portal:FormGroupPanel ID="pnlDiscountCode" runat="server" SkinID="CartCheckoutDiscountPanel">
                 <mp:SiteLabel ID="SiteLabel4" runat="server" CssClass="storelabel" ConfigKey="CartDiscountCodeLabel" ResourceFile="WebStoreResources" />
                 <asp:TextBox ID="txtDiscountCode" runat="server" CssClass="discountcode" />
                 <portal:mojoButton ID="btnApplyDiscount" runat="server"  />
                 <portal:mojoLabel ID="lblDiscountError" runat="server" CssClass="txterror warning alert alert-warning" />        
 			</portal:FormGroupPanel>
             
-			<portal:FormGroupPanel id="pnlCheckoutLinks" runat="server">
+			<portal:FormGroupPanel id="pnlCheckoutLinks" runat="server" SkinID="CartCheckoutLinksPanel">
 				<asp:Literal ID="litConfirmOrder" runat="server" EnableViewState="false" />
 				<asp:Literal ID="litKeepShopping" runat="server" EnableViewState="false" />
 				<portal:LoginLink id="lnkLogin" runat="server" />
 			</portal:FormGroupPanel>
 			
-			<portal:FormGroupPanel ID="pnlPayPal" runat="server" Visible="false">
+			<portal:FormGroupPanel ID="pnlPayPal" runat="server" Visible="false" SkinID="CartCheckoutPayPalPanel">
                 <asp:ImageButton ID="btnPayPal" runat="server" ImageUrl="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"
                     AlternateText="Checkout with PayPal" />
                 <br />
                     <portal:mojoLabel ID="lblMessage" runat="server" CssClass="txterror info alert alert-info"></portal:mojoLabel>
                 <asp:Literal ID="litPayPalFormVariables" runat="server" />
 			</portal:FormGroupPanel>
-            <portal:CommerceTestModeWarning ID="commerceWarning" runat="server" />
-			<div class="clearpanel"></div>
+		   </portal:FormGroupPanel>
+
+			<portal:CommerceTestModeWarning ID="commerceWarning" runat="server" />
+			<div class="clearpanel clearfix"></div>
             <asp:Literal ID="litCartFooter" runat="server" EnableViewState="false" />
         </portal:InnerBodyPanel>
         </portal:OuterBodyPanel>

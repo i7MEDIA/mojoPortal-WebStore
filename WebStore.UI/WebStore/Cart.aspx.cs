@@ -109,6 +109,8 @@ namespace WebStore.UI
 				pnlDiscountCode.Visible = false;
 				litEmptyCart.Text = String.Format(displaySettings.EmptyCartFormat, WebStoreResources.EmptyCartMessage, SiteUtils.GetCurrentPageUrl(), WebStoreResources.EmptyCartGoShopping);
 				litKeepShopping.Text = String.Format(displaySettings.StartShoppingLinkFormat, SiteUtils.GetCurrentPageUrl(), WebStoreResources.StartShopping);
+				pnlCheckoutActions.OutsideTopMarkup = displaySettings.CartCheckoutActionsEmptyCartOutsideTopMarkup;
+				pnlCheckoutActions.OutsideBottomMarkup = displaySettings.CartCheckoutActionsEmptyCartOutsideBottomMarkup;
 			}
         }
 
@@ -282,44 +284,51 @@ namespace WebStore.UI
 
         }
 
-        private void PopulateLabels()
-        {
-            Control c = Master.FindControl("Breadcrumbs");
-            if (c != null)
-            {
-                BreadcrumbsControl crumbs = (BreadcrumbsControl)c;
-                crumbs.ForceShowBreadcrumbs = true;
-                
-            }
-            Title = SiteUtils.FormatPageTitle(siteSettings, CurrentPage.PageName + " - " + WebStoreResources.CartHeader);
-            heading.Text = WebStoreResources.CartHeader;
+		private void PopulateLabels()
+		{
+			Control c = Master.FindControl("Breadcrumbs");
+			if (c != null)
+			{
+				BreadcrumbsControl crumbs = (BreadcrumbsControl)c;
+				crumbs.ForceShowBreadcrumbs = true;
 
-			string confirmOrderUrl = SiteRoot +
-				"/WebStore/ConfirmOrder.aspx?pageid=" + pageId.ToInvariantString()
-				+ "&mid=" + moduleId.ToInvariantString();
+			}
+			Title = SiteUtils.FormatPageTitle(siteSettings, CurrentPage.PageName + " - " + WebStoreResources.CartHeader);
+			heading.Text = WebStoreResources.CartHeader;
+
+			string confirmOrderUrl = $"{SiteRoot}/WebStore/ConfirmOrder.aspx?pageid={pageId.ToInvariantString()}&mid={moduleId.ToInvariantString()}";
 
 			litConfirmOrder.Text = String.Format(displaySettings.ConfirmOrderLinkFormat, confirmOrderUrl, WebStoreResources.ProceedToCheckout);
 
 			litKeepShopping.Text = String.Format(displaySettings.ContinueShoppingLinkFormat, SiteUtils.GetCurrentPageUrl(), WebStoreResources.CartKeepShoppingLink);
 
-			pnlDiscountCode.CssClass = "settingrow discountcode";
+			pnlDiscountCode.CssClass = displaySettings.CartCheckoutDiscountDivCssClass;
 
 
 			btnApplyDiscount.Text = WebStoreResources.ApplyDiscountButton;
 
-            lblDiscountError.Text = string.Empty;
+			lblDiscountError.Text = string.Empty;
 
 			lnkLogin.OverrideText = WebStoreResources.LoginToCheckout;
 			lnkLogin.CssClass = displaySettings.LoginToCheckoutCssClass;
 
+			pnlCheckoutActions.CssClass = displaySettings.CartCheckoutActionsDivClass;
+
+
 			pnlCheckoutLinks.CssClass = displaySettings.CartCheckoutLinksDivCssClass;
+			pnlCheckoutLinks.OutsideTopMarkup = displaySettings.CartCheckoutLinksDivOutsideTopMarkup;
+			pnlCheckoutLinks.OutsideBottomMarkup = displaySettings.CartCheckoutLinksDivOutsideBottomMarkup;
 
 			if (!Request.IsAuthenticated && !canCheckoutWithoutAuthentication)
 			{
 				pnlCheckoutLinks.CssClass += $" {displaySettings.CartCheckoutLinksDivAnonymousExtraCssClass}";
+				pnlCheckoutLinks.OutsideTopMarkup = displaySettings.CartCheckoutLinksDivAnonymousOutsideTopMarkup;
+				pnlCheckoutLinks.OutsideBottomMarkup = displaySettings.CartCheckoutLinksDivAnonymousOutsideBottomMarkup;
 			}
 
 			pnlPayPal.CssClass = displaySettings.CartPayPalDivCssClass;
+			pnlPayPal.OutsideTopMarkup = displaySettings.CartPayPalDivOutsideTopMarkup;
+			pnlPayPal.OutsideBottomMarkup = displaySettings.CartPayPalDivOutsideBottomMarkup;
 		}
 
         private void LoadParams()

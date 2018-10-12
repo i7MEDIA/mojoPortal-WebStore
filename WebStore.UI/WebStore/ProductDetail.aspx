@@ -15,8 +15,27 @@
 			<portal:mojoRating ID="Rating" runat="server" Visible="false"/>
 			<portal:BasePanel ID="pnlOffers" runat="server">
 				<asp:Repeater ID="rptOffers" runat="server">
-					<itemtemplate>
-							<div class="offercontainer form-group store-product-offer">
+					<HeaderTemplate> 
+                        <table> 
+                         <tbody> 
+                    </HeaderTemplate> 
+					<ItemTemplate>
+						<tr class="offercontainer"> 
+								<td class="productname"> 
+									<%# Eval("ProductListName") %> 
+									<asp:HyperLink ID="lnkOfferDetail" runat="server" EnableViewState="false" Visible='<%# Convert.ToBoolean(Eval("ShowDetailLink")) %>' NavigateUrl='<%# SiteRoot + Eval("Url") %>' Text='<%# Resources.WebStoreResources.OfferDetailLink %>' /> 
+								</td> 
+								<td class="price"> 
+									<span class="price"><%# string.Format(currencyCulture, "{0:c}",Convert.ToDecimal(Eval("Price"))) %></span> 
+								</td> 
+								<td class="quantity"> 
+									<asp:TextBox ID="txtQuantity" runat="server" Text="1" Columns="3" /> 
+								</td> 
+								<td class="addtocartbutton"> 
+									<asp:Button ID="btnAddToCart" runat="server" Text='<%# Resources.WebStoreResources.AddToCartLink%>' CommandName="addToCart" CommandArgument='<%# Eval("Guid") %>' CausesValidation="false" CssClass="addtocartbutton jqbutton ui-button ui-widget ui-state-default ui-corner-all" /> 
+								</td> 
+						</tr> 
+							<%--<div class="offercontainer form-group store-product-offer">
 								<div class="productname store-product-offer-name">
 									<%# Eval("ProductListName") %>
 									<asp:HyperLink ID="lnkOfferDetail" runat="server" EnableViewState="false" Visible='<%# Convert.ToBoolean(Eval("ShowDetailLink")) %>' NavigateUrl='<%# SiteRoot + Eval("Url") %>' Text='<%# Resources.WebStoreResources.OfferDetailLink %>' />
@@ -27,8 +46,12 @@
 									<asp:TextBox ID="txtQuantity" runat="server" Text="1" CssClass="form-control"/>
 								</div>
 								<asp:Button ID="btnAddToCart" runat="server" Text='<%# Resources.WebStoreResources.AddToCartLink%>' CommandName="addToCart" CommandArgument='<%# Eval("Guid") %>' CausesValidation="false" CssClass="<%# displaySettings.AddToCartButtonCssClass %>" />
-							</div>
-                        </itemtemplate>
+							</div>--%>
+                        </ItemTemplate>
+						<FooterTemplate> 
+                                   </tbody> 
+							</table> 
+                        </FooterTemplate>
 				</asp:Repeater>
 			</portal:BasePanel>
                 <div class="description settingrow" id="divOfferDescription" runat="server" EnableViewState="false">

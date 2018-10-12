@@ -1,6 +1,6 @@
 /// Author:					
 /// Created:				2007-02-24
-/// Last Modified:			2015-04-13 (Joe Davis)
+/// Last Modified:			20181012 (Joe Davis)
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -325,13 +325,9 @@ namespace WebStore.UI
 
             if ((product.Url.Length == 0) && (txtName.Text.Length > 0))
             {
-                product.Url = "/"
-                    + SiteUtils.SuggestFriendlyUrl(
-                    txtName.Text + WebStoreResources.ProductUrlSuffix,
-                    siteSettings);
+                product.Url = "/" + SiteUtils.SuggestFriendlyUrl(txtName.Text + WebStoreResources.ProductUrlSuffix,siteSettings, "");
 
                 needToCreateFriendlyUrl = true;
-
             }
             else
             {
@@ -352,10 +348,7 @@ namespace WebStore.UI
                     newUrl.SiteGuid = siteSettings.SiteGuid;
                     newUrl.PageGuid = product.Guid;
                     newUrl.Url = product.Url.Replace("/", string.Empty);
-                    newUrl.RealUrl = "~/WebStore/ProductDetail.aspx?pageid="
-                        + pageId.ToInvariantString()
-                        + "&mid=" + moduleId.ToInvariantString()
-                        + "&product=" + product.Guid.ToString();
+                    newUrl.RealUrl = $"~/WebStore/ProductDetail.aspx?pageid={pageId.ToInvariantString()}&mid={moduleId.ToInvariantString()}&product={product.Guid.ToString()}";
 
                     newUrl.Save();
 
@@ -384,8 +377,7 @@ namespace WebStore.UI
 
             if (WebConfigSettings.LogIpAddressForContentDeletions)
             {
-                log.Info("user deleted product " + p.Name + " from ip address " + SiteUtils.GetIP4Address());
-
+                log.Info($"user deleted product {p.Name} from ip address {SiteUtils.GetIP4Address()}");
             }
 
             FriendlyUrl.DeleteByPageGuid(p.Guid);
@@ -1014,21 +1006,12 @@ namespace WebStore.UI
 
         protected string GetRefreshUrl()
         {
-
-            string result = SiteRoot + "/WebStore/AdminProductEdit.aspx?pageid="
-                + pageId.ToInvariantString()
-                + "&mid=" + moduleId.ToInvariantString()
-                + "&prod=" + productGuid.ToString();
-
-            return result;
-
+            return $"{SiteRoot}/WebStore/AdminProductEdit.aspx?pageid={pageId.ToInvariantString()}&mid={moduleId.ToInvariantString()}&prod={productGuid.ToString()}";
         }
 
         private string GetReturnUrl()
         {
-            return SiteRoot + "/WebStore/AdminProduct.aspx?pageid="
-                + pageId.ToInvariantString()
-                + "&mid=" + moduleId.ToInvariantString();
+            return $"{SiteRoot}/WebStore/AdminProduct.aspx?pageid={pageId.ToInvariantString()}&mid={moduleId.ToInvariantString()}";
         }
 
         private void LoadSettings()

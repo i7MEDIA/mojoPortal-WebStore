@@ -1,6 +1,6 @@
 ﻿/// Author:					
 /// Created:				2008-10-19
-/// Last Modified:			2012-10-02
+/// Last Modified:			2018-10-11
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -221,6 +221,15 @@ namespace WebStore.UI
             {
                 ScriptConfig.IncludeYahooMediaPlayer = true;
             }
+
+			if (pageId > -1)
+			{
+				PageSettings pageSettings = new PageSettings(SiteId, pageId);
+				if (pageSettings != null && !String.IsNullOrWhiteSpace(pageSettings.BodyCssClass))
+				{
+					AddClassToBody(pageSettings.BodyCssClass.Replace("temp-ws-hide", string.Empty));
+				}
+			}
 
             AddClassToBody("webstore webstoreproductdetail");
 

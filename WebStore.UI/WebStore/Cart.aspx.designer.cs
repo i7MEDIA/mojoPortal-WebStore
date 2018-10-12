@@ -139,6 +139,15 @@ namespace WebStore.UI {
         protected global::System.Web.UI.WebControls.Literal litTotal;
         
         /// <summary>
+        /// pnlCheckoutActions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.FormGroupPanel pnlCheckoutActions;
+        
+        /// <summary>
         /// pnlDiscountCode control.
         /// </summary>
         /// <remarks>
