@@ -52,6 +52,8 @@ namespace WebStore.UI
 		public string ProductDetailsRatingPanelDivCssClass { get; set; } = "productratingwrapper";
 		public string ProductDetailsOffersDivCssClass { get; set; } = "clearpanel offerspanel";
 		public string AddToCartButtonCssClass { get; set; } = "store-btn-addtocart btn btn-success";
+		public string CartTableCssClass { get; set; } = "cartgrid table table-bordered table-striped";
+		public string OfferTableCssClass { get; set; } = "offergrid table table-bordered table-striped";
 		protected override void Render(HtmlTextWriter writer)
         {
             if (HttpContext.Current == null)

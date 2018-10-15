@@ -1,5 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="false" MasterPageFile="~/App_MasterPages/layout.Master"
-    CodeBehind="AdminStoreSettings.aspx.cs" Inherits="WebStore.UI.AdminStoreSettingsPage" %>
+<%@ Page Language="C#" AutoEventWireup="false" MasterPageFile="~/App_MasterPages/layout.Master" CodeBehind="AdminStoreSettings.aspx.cs" Inherits="WebStore.UI.AdminStoreSettingsPage" %>
 
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
@@ -88,7 +87,6 @@
                             ResourceFile="WebStoreResources" />
                         <asp:TextBox ID="txtOrderBCCEmail"  runat="server" MaxLength="100" CssClass="verywidetextbox forminput" />
                     </div>
-                    <div class="settingrow">&nbsp;</div>
                 </div>
                 <div id="tab2">
                     <div class="settingrow">
@@ -110,15 +108,11 @@
                             ResourceFile="WebStoreResources" />
                         <asp:CheckBox ID="chkIsClosed" runat="server" CssClass="forminput" />
                     </div>
-                    <div class="settingrow">
-                         <mp:SiteLabel ID="SiteLabel1" runat="server" CssClass="settinglabel" ConfigKey="spacer" />
-                    </div>
                 </div>
             
             </div>
             <div class="settingrow">
-                <mp:SiteLabel ID="lblspacer1" runat="server" ConfigKey="spacer" />
-                <portal:mojoButton ID="btnSave" runat="server" Text="Update" />&nbsp;
+                <portal:mojoButton ID="btnSave" runat="server" Text="Update" SkinID="SaveButton" />
             </div>
         </portal:InnerBodyPanel>
         </portal:OuterBodyPanel>

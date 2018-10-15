@@ -414,6 +414,7 @@ namespace WebStore.UI
             cartList.Store = store;
             cartList.ShoppingCart = cart;
             cartList.CurrencyCulture = currencyCulture;
+			cartList.DisplaySettings = displaySettings;
 
             cartListAlt.Store = store;
             cartListAlt.ShoppingCart = cart;

@@ -4,7 +4,6 @@
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
     <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
-        <mp:CornerRounderTop ID="ctop1" runat="server" />
         <portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper webstore webstoreadminoffer">
             <portal:HeadingControl ID="heading" runat="server" />
             <portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
@@ -74,8 +73,6 @@
                                     ResourceFile="WebStoreResources" ForControl="chkShowDetailLink" />
                                 <asp:CheckBox ID="chkShowDetailLink" runat="server" CssClass="forminput" />
                             </div>
-                            <div class="settingrow">
-                                &nbsp;</div>
                         </div>
                          <div id="tabAbstract">
                             <div class="settingrow">
@@ -98,7 +95,7 @@
                                             <Columns>
                                                 <asp:TemplateField ItemStyle-CssClass="editgridcell" HeaderStyle-CssClass="editgridheader">
                                                     <ItemTemplate>
-                                                        <asp:Button ID="btnEdit" runat="server" CommandName="Edit" CssClass="buttonlink"
+                                                        <asp:Button ID="btnEdit" runat="server" CommandName="Edit" SkinID="LinkButton"
                                                             Text='<%# Resources.WebStoreResources.OfferProductGridEditButton %>' />
                                                     </ItemTemplate>
                                                     <EditItemTemplate>
@@ -135,11 +132,11 @@
                                                                 CssClass="forminput" />
                                                         </div>
                                                         <asp:Button ID="btnGridUpdate" runat="server" Text='<%# Resources.WebStoreResources.OfferProductGridUpdateButton %>'
-                                                            CommandName="Update" />
+                                                            CommandName="Update" SkinID="SaveButton" />
                                                         <asp:Button ID="btnGridDelete" runat="server" Text='<%# Resources.WebStoreResources.OfferProductGridDeleteButton %>'
-                                                            CommandName="Delete" />
+                                                            CommandName="Delete" SkinID="DeleteButtonSmall" />
                                                         <asp:Button ID="btnGridCancel" runat="server" Text='<%# Resources.WebStoreResources.OfferProductGridCancelButton %>'
-                                                            CommandName="Cancel" />
+                                                            CommandName="Cancel" SkinID="LinkButton" />
                                                     </EditItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:TemplateField SortExpression="FullfillType" ItemStyle-CssClass="editgridcell"
@@ -185,11 +182,11 @@
                                                     </ItemTemplate>
                                                     <EditItemTemplate>
                                                         <asp:Button ID="btnGridUpdate" runat="server" Text='<%# Resources.WebStoreResources.OfferAvailabilityGridUpdateButton %>'
-                                                            CommandName="Update" />
+                                                            CommandName="Update" SkinID="SaveButton" />
                                                         <asp:Button ID="btnGridDelete" runat="server" Text='<%# Resources.WebStoreResources.OfferAvailabilityGridDeleteButton %>'
-                                                            CommandName="Delete" />
+                                                            CommandName="Delete" SkinID="DeleteButtonSmall" />
                                                         <asp:Button ID="btnGridCancel" runat="server" Text='<%# Resources.WebStoreResources.OfferAvailabilityGridCancelButton %>'
-                                                            CommandName="Cancel" />
+                                                            CommandName="Cancel" SkinID="LinkButton" />
                                                     </EditItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:TemplateField SortExpression="BeginUTC" ItemStyle-CssClass="editgridcell" HeaderStyle-CssClass="editgridheader">
@@ -310,11 +307,11 @@
                                                         </div>
                                                         <div class="settingrow">
                                                             <asp:Button ID="btnUpdateMetaLink" runat="server" Text='<%# Resources.WebStoreResources.ContentMetaGridUpdateButton %>'
-                                                                CommandName="Update" ValidationGroup="metalink" CausesValidation="true" />
+                                                                CommandName="Update" ValidationGroup="metalink" CausesValidation="true" SkinID="SaveButton" />
                                                             <asp:Button ID="btnDeleteMetaLink" runat="server" Text='<%# Resources.WebStoreResources.ContentMetaGridDeleteButton %>'
-                                                                CommandName="Delete" CausesValidation="false" />
+                                                                CommandName="Delete" CausesValidation="false" SkinID="DeleteButtonSmall" />
                                                             <asp:Button ID="btnCancelMetaLink" runat="server" Text='<%# Resources.WebStoreResources.ContentMetaGridCancelButton %>'
-                                                                CommandName="Cancel" CausesValidation="false" />
+                                                                CommandName="Cancel" CausesValidation="false" SkinID="LinkButton" />
                                                         </div>
                                                     </EditItemTemplate>
                                                 </asp:TemplateField>
@@ -407,11 +404,11 @@
                                                         </div>
                                                         <div class="settingrow">
                                                             <asp:Button ID="btnUpdateMeta" runat="server" Text='<%# Resources.WebStoreResources.ContentMetaGridUpdateButton %>'
-                                                                CommandName="Update" ValidationGroup="meta" CausesValidation="true" />
+                                                                CommandName="Update" ValidationGroup="meta" CausesValidation="true" SkinID="SaveButton" />
                                                             <asp:Button ID="btnDeleteMeta" runat="server" Text='<%# Resources.WebStoreResources.ContentMetaGridDeleteButton %>'
-                                                                CommandName="Delete" CausesValidation="false" />
+                                                                CommandName="Delete" CausesValidation="false" SkinID="DeleteButtonSmall" />
                                                             <asp:Button ID="btnCancelMeta" runat="server" Text='<%# Resources.WebStoreResources.ContentMetaGridCancelButton %>'
-                                                                CommandName="Cancel" CausesValidation="false" />
+                                                                CommandName="Cancel" CausesValidation="false" SkinID="LinkButton" />
                                                         </div>
                                                     </EditItemTemplate>
                                                 </asp:TemplateField>
@@ -433,8 +430,7 @@
                                                     <td>
                                                         <asp:UpdateProgress ID="prgMeta" runat="server" AssociatedUpdatePanelID="upMeta">
                                                             <ProgressTemplate>
-                                                                <img src='<%= Page.ResolveUrl("~/Data/SiteImages/indicators/indicator1.gif") %>'
-                                                                    alt=' ' />
+                                                                <img src='<%= Page.ResolveUrl("~/Data/SiteImages/indicators/indicator1.gif") %>' alt=' ' />
                                                             </ProgressTemplate>
                                                         </asp:UpdateProgress>
                                                     </td>
@@ -444,14 +440,10 @@
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
-                            <div class="settingrow">
-                                &nbsp;</div>
                         </div>
                         <div>
-                            &nbsp;</div>
-                        <div>
-                            <portal:mojoButton ID="btnSave" runat="server" ValidationGroup="Product" />
-                            <portal:mojoButton ID="btnDelete" runat="server" CausesValidation="false" />
+                            <portal:mojoButton ID="btnSave" runat="server" ValidationGroup="Product" SkinID="SaveButton" />
+                            <portal:mojoButton ID="btnDelete" runat="server" CausesValidation="false" SkinID="DeleteButtonSmall"/>
                         </div>
                         <div>
                             <asp:RequiredFieldValidator ID="reqName" runat="server" ControlToValidate="txtName"
@@ -466,7 +458,6 @@
             </portal:OuterBodyPanel>
             <portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
         </portal:InnerWrapperPanel>
-        <mp:CornerRounderBottom ID="cbottom1" runat="server" />
     </portal:OuterWrapperPanel>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />

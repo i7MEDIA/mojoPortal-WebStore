@@ -2,7 +2,7 @@
 
 <asp:Repeater ID="rptCartItems" runat="server">
     <HeaderTemplate>
-        <table class="cartgrid">
+        <table class='<%# DisplaySettings.CartTableCssClass %>'>
 			<thead>
 				<tr>
 					<th class="cartitems">
@@ -25,9 +25,9 @@
             <td class="cartprice"><%# string.Format(CurrencyCulture, "{0:c}", Convert.ToDecimal(Eval("OfferPrice")))%></td>
             <td class="cartquantity"><asp:TextBox ID="txtQuantity" runat="server" Text='<%# Eval("Quantity") %>' Columns="4" /></td>
             <td class="cartactions">
-                <portal:mojoButton ID="btnUpdateQuantity" runat="server" Text='<%# Resources.WebStoreResources.UpdateQuantityButton %>' CommandName="updateQuantity" CommandArgument='<%# Eval("ItemGuid") %>' CausesValidation="false" CssClass="cartbutton" />
-                <portal:mojoButton ID="btnDelete" runat="server" CssClass="cartbutton" CommandArgument='<%# Eval("ItemGuid") %>'
-                    CommandName="delete" Text='<%# Resources.WebStoreResources.DeleteCartItemButton %>' CausesValidation="false" />
+                <portal:mojobutton id="btnUpdateQuantity" runat="server" text='<%# Resources.WebStoreResources.UpdateQuantityButton %>' commandname="updateQuantity" commandargument='<%# Eval("ItemGuid") %>' causesvalidation="false" skinid="PrimaryButton" />
+                <portal:mojobutton id="btnDelete" runat="server" cssclass="cartbutton" commandargument='<%# Eval("ItemGuid") %>'
+					commandname="delete" text='<%# Resources.WebStoreResources.DeleteCartItemButton %>' causesvalidation="false" skinid="DeleteButtonSmall" />
             </td>
         </tr>
     </ItemTemplate>

@@ -391,24 +391,6 @@ namespace WebStore.UI {
         protected global::System.Web.UI.WebControls.CheckBox chkIsClosed;
         
         /// <summary>
-        /// SiteLabel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel1;
-        
-        /// <summary>
-        /// lblspacer1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel lblspacer1;
-        
-        /// <summary>
         /// btnSave control.
         /// </summary>
         /// <remarks>

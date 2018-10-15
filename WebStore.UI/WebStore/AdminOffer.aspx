@@ -39,7 +39,7 @@
             </Columns>
         </mp:mojoGridView>
         <div class="settingrow">
-            <asp:HyperLink ID="lnkAddNew" runat="server" />
+            <asp:HyperLink ID="lnkAddNew" runat="server" SkinID="AddButton" />
         </div>
         <portal:mojoCutePager ID="pgrOffer" runat="server" />
         <portal:EmptyPanel id="EmptyPanel1" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>

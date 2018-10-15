@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" MasterPageFile="~/App_MasterPages/layout.Master" CodeBehind="AdminCartBrowser.aspx.cs" Inherits="WebStore.UI.AdminCartBrowserPage" %>
 
-<asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
-<asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
+<asp:content contentplaceholderid="leftContent" id="MPLeftPane" runat="server" />
+<asp:content contentplaceholderid="mainContent" id="MPContent" runat="server">
 <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
 <mp:CornerRounderTop id="ctop1" runat="server" />
 <portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper cart">
@@ -48,15 +48,14 @@
 </mp:mojoGridView>
 
 <div class="settingrow">
-	<br /><asp:HyperLink ID="lnkAddNew" runat="server" />
+	<br /><asp:HyperLink ID="lnkAddNew" runat="server" SkinID="AddButton" />
 </div>
 <portal:mojoCutePager ID="pgrCart" runat="server" />
 <br class="clear" />
 <div class="settingrow">
-<asp:CheckBox ID="chkOnlyAnonymous" runat="server" />
-<portal:mojoButton ID="btnDelete" runat="server" />
-<asp:TextBox ID="txtDaysOld" runat="server" CssClass="smalltextbox" /> <asp:Literal ID="litDays" runat="server" />
-
+	<asp:CheckBox ID="chkOnlyAnonymous" runat="server" />
+	<portal:mojoButton ID="btnDelete" runat="server" SkinID="DeleteButtonSmall" />
+	<asp:TextBox ID="txtDaysOld" runat="server" CssClass="smalltextbox" /> <asp:Literal ID="litDays" runat="server" />
 </div>
 
 </portal:InnerBodyPanel>
@@ -65,6 +64,6 @@
 </portal:InnerWrapperPanel>
 <mp:CornerRounderBottom id="cbottom1" runat="server" />
 </portal:OuterWrapperPanel>
-</asp:Content>
-<asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />
-<asp:Content ContentPlaceHolderID="pageEditContent" ID="MPPageEdit" runat="server" />
+</asp:content>
+<asp:content contentplaceholderid="rightContent" id="MPRightPane" runat="server" />
+<asp:content contentplaceholderid="pageEditContent" id="MPPageEdit" runat="server" />

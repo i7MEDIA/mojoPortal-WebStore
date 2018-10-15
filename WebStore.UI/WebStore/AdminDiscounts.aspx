@@ -35,7 +35,7 @@
            <portal:mojoCutePager ID="pgrDiscounts" runat="server" />
         <br class="clear" />
         <div class="settingrow">
-            <asp:HyperLink ID="lnkNewDiscount" runat="server" />
+            <asp:HyperLink ID="lnkNewDiscount" runat="server" SkinID="AddButton" />
         </div>
 </portal:InnerBodyPanel>
 </portal:OuterBodyPanel>

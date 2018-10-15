@@ -9,8 +9,7 @@
         <portal:HeadingControl ID="heading" runat="server" />
         <portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
         <portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
-            <h3 class="heading productlistheading">
-                <asp:Literal ID="litProductListHeader" runat="server" /></h3>
+            <h3 class="heading productlistheading"><asp:Literal ID="litProductListHeader" runat="server" /></h3>
             <asp:Repeater ID="rptProducts" runat="server">
                 <ItemTemplate>
                     <div class="hproduct hreview productcontainer">
@@ -29,7 +28,7 @@
                                         <%# string.Format(currencyCulture, "{0:c}",Convert.ToDecimal(Eval("Price"))) %></span>
                                     <asp:TextBox ID="txtQuantity" runat="server" Text="1" MaxLength="20" CssClass="smalltextbox" />
                                     <portal:mojoButton ID="btnAddToCart" runat="server" CommandName="AddToCart" CommandArgument='<%# Eval("Guid") %>'
-                                        Text='<%# Resources.WebStoreResources.AddToCartLink%>' />
+                                        Text='<%# Resources.WebStoreResources.AddToCartLink%>' SkindID="AddButton" />
                                 </div>
                             </ItemTemplate>
                         </asp:Repeater>
@@ -37,12 +36,14 @@
                 </ItemTemplate>
             </asp:Repeater>
             <portal:mojoCutePager ID="pgr" runat="server" />
-            <asp:Panel ID="pnlCartItems" runat="server" CssClass="clearpanel">
-                <h3 class="heading cartheading">
-                    <asp:Literal ID="litCartHeader" runat="server" /></h3>
+            <asp:Panel ID="pnlCartItems" runat="server" CssClass="panel panel-default">
+				<div class="panel panel-heading">
+					<h3 class="heading cartheading"><asp:Literal ID="litCartHeader" runat="server" /></h3>
+				</div>
                 <asp:Repeater ID="rptCartItems" runat="server">
                     <HeaderTemplate>
-                        <table class="cartgrid">
+						<div class="panel panel-body">
+                        <table class="cartgrid table table-bordered table-striped">
                             <tr>
                                 <th>
                                     <%# Resources.WebStoreResources.CartItemsHeading%>
@@ -72,18 +73,19 @@
                             <td>
                                 <portal:mojoButton ID="btnUpdateQuantity" runat="server" Text='<%# Resources.WebStoreResources.UpdateQuantityButton %>'
                                     CommandName="updateQuantity" CommandArgument='<%# Eval("ItemGuid") %>' CausesValidation="false"
-                                    CssClass="cartbutton" />
+                                    SkinID="PrimaryButton" />
                                 <portal:mojoButton ID="btnDelete" runat="server" CssClass="cartbutton" CommandArgument='<%# Eval("ItemGuid") %>'
                                     CommandName="delete" Text='<%# Resources.WebStoreResources.DeleteCartItemButton %>'
-                                    CausesValidation="false" />
+                                    CausesValidation="false" SkinID="DeleteButtonSmall" />
                             </td>
                         </tr>
                     </ItemTemplate>
                     <FooterTemplate>
                         </table>
+						</div>
                     </FooterTemplate>
                 </asp:Repeater>
-                <div class="carttotalwrapper ">
+                <div class="carttotalwrapper panel-footer text-right">
                     <asp:Panel ID="pnlSubTotal" runat="server" CssClass="settingrowtight storerow">
                         <mp:SiteLabel ID="SiteLabel1" runat="server" CssClass="settinglabeltight storelabel"
                             ConfigKey="CartSubTotalLabel" ResourceFile="WebStoreResources" />
@@ -119,17 +121,17 @@
                 <mp:SiteLabel ID="SiteLabel4" runat="server" CssClass="storelabel" ForControl="txtDiscountCode"
                     ConfigKey="CartDiscountCodeLabel" ResourceFile="WebStoreResources" />
                 <asp:TextBox ID="txtDiscountCode" runat="server" />
-                <portal:mojoButton ID="btnApplyDiscount" runat="server" />
+                <portal:mojoButton ID="btnApplyDiscount" runat="server" SkinID="PrimaryButton" />
                 <portal:mojoLabel ID="lblDiscountError" runat="server" CssClass="txterror" />
             </asp:Panel>
             <asp:Panel ID="pnlManualDiscount" runat="server" Visible="false" CssClass="settingrow">
                 <mp:SiteLabel ID="SiteLabel5" runat="server" ForControl="txtDiscountAmount" CssClass="storelabel"
                     ConfigKey="DiscountAmountLabel" ResourceFile="WebStoreResources" />
                 <asp:TextBox ID="txtDiscountAmount" runat="server" />
-                <portal:mojoButton ID="btnApplyManualDiscount" runat="server" />
+                <portal:mojoButton ID="btnApplyManualDiscount" runat="server" SkinID="PrimaryButton"/>
             </asp:Panel>
             <div id="divCheckoutLink" runat="server" visible="false" class="settingrow">
-                <asp:HyperLink ID="lnkCheckout" runat="server" CssClass="admincheckoutlink" />
+                <asp:HyperLink ID="lnkCheckout" runat="server" CssClass="admincheckoutlink" SkinID="SuccessButton" />
             </div>
         </portal:InnerBodyPanel>
         </portal:OuterBodyPanel>

@@ -16,7 +16,7 @@
 			<portal:BasePanel ID="pnlOffers" runat="server">
 				<asp:Repeater ID="rptOffers" runat="server">
 					<HeaderTemplate> 
-                        <table> 
+                        <table class='<%# displaySettings.OfferTableCssClass %>'> 
                          <tbody> 
                     </HeaderTemplate> 
 					<ItemTemplate>
@@ -32,7 +32,7 @@
 									<asp:TextBox ID="txtQuantity" runat="server" Text="1" Columns="3" /> 
 								</td> 
 								<td class="addtocartbutton"> 
-									<asp:Button ID="btnAddToCart" runat="server" Text='<%# Resources.WebStoreResources.AddToCartLink%>' CommandName="addToCart" CommandArgument='<%# Eval("Guid") %>' CausesValidation="false" CssClass="addtocartbutton jqbutton ui-button ui-widget ui-state-default ui-corner-all" /> 
+									<asp:Button ID="btnAddToCart" runat="server" Text='<%# Resources.WebStoreResources.AddToCartLink%>' CommandName="addToCart" CommandArgument='<%# Eval("Guid") %>' CausesValidation="false" CssClass="addtocartbutton jqbutton ui-button ui-widget ui-state-default ui-corner-all" SkinID="PrimaryButton" /> 
 								</td> 
 						</tr> 
 							<%--<div class="offercontainer form-group store-product-offer">

@@ -23,32 +23,14 @@ namespace WebStore.UI.Controls
 {
     public partial class CartList : UserControl
     {
-        private Cart cart = null;
+		public Cart ShoppingCart { get; set; } = null;
 
-        public Cart ShoppingCart
-        {
-            get { return cart; }
-            set { cart = value; }
-        }
+		public Store Store { get; set; } = null;
 
-        private Store store = null;
+		public CultureInfo CurrencyCulture { get; set; } = CultureInfo.CurrentCulture;
 
-        public Store Store
-        {
-            get { return store; }
-            set { store = value; }
-        }
-
-
-        private CultureInfo currencyCulture = CultureInfo.CurrentCulture;
-
-        public CultureInfo CurrencyCulture
-        {
-            get { return currencyCulture; }
-            set { currencyCulture = value; }
-        }
-
-        protected void Page_Load(object sender, EventArgs e)
+		public WebStoreDisplaySettings DisplaySettings { get; set; }
+		protected void Page_Load(object sender, EventArgs e)
         {
             if (!Visible) { return; }
 
@@ -58,9 +40,9 @@ namespace WebStore.UI.Controls
         private void PopulateControls()
         {
             if (Page.IsPostBack) { return; }
-            if (cart == null) { return; }
+            if (ShoppingCart == null) { return; }
             
-            using (IDataReader reader = cart.GetItems())
+            using (IDataReader reader = ShoppingCart.GetItems())
             {
                 rptCartItems.DataSource = reader;
                 rptCartItems.DataBind();
@@ -71,8 +53,8 @@ namespace WebStore.UI.Controls
 
         private void rptCartItems_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            if (cart == null) { return; }
-            if (store == null) { return; }
+            if (ShoppingCart == null) { return; }
+            if (Store == null) { return; }
 
             string strGuid = e.CommandArgument.ToString();
             if (strGuid.Length != 36) { return; }
@@ -93,22 +75,22 @@ namespace WebStore.UI.Controls
                         }
                         catch (ArgumentException) { }
                     }
-                    cart.UpdateCartItemQuantity(itemGuid, quantity);
+                    ShoppingCart.UpdateCartItemQuantity(itemGuid, quantity);
 
                     break;
 
                 case "delete":
 
-                    cart.DeleteItem(itemGuid);
-                    cart.ResetCartOffers();
-                    cart.RefreshTotals();
-                    cart.Save();
+                    ShoppingCart.DeleteItem(itemGuid);
+                    ShoppingCart.ResetCartOffers();
+                    ShoppingCart.RefreshTotals();
+                    ShoppingCart.Save();
 
                     break;
 
             }
 
-            StoreHelper.EnsureValidDiscounts(store, cart);
+            StoreHelper.EnsureValidDiscounts(Store, ShoppingCart);
 
             WebUtils.SetupRedirect(this, Request.RawUrl);
 

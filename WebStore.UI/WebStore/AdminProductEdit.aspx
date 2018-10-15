@@ -352,8 +352,8 @@
                         <asp:ValidationSummary ID="vSummary" runat="server" ValidationGroup="Product" />
                         <asp:RequiredFieldValidator ID="reqName" runat="server" ControlToValidate="txtName"
                             Display="None" ValidationGroup="Product" />
-                        <portal:mojoButton ID="btnSave" runat="server" ValidationGroup="Product" />
-                        <portal:mojoButton ID="btnDelete" runat="server" CausesValidation="false" />
+                        <portal:mojoButton ID="btnSave" runat="server" ValidationGroup="Product" SkinID="SaveButton" />
+                        <portal:mojoButton ID="btnDelete" runat="server" CausesValidation="false" SkinID="DeleteButtonSmall" />
                     </div>
                  </asp:Panel>
                 </portal:InnerBodyPanel>

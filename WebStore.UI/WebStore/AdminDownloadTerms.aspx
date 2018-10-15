@@ -17,7 +17,7 @@
             <Columns>
                 <asp:TemplateField>
                     <ItemTemplate>
-                        <asp:Button ID="btnEdit" runat="server" CommandName="Edit" CssClass="buttonlink" Text='<%# Resources.WebStoreResources.DownloadTermsGridEditButton %>' />
+                        <asp:Button ID="btnEdit" runat="server" CommandName="Edit" SkinID="ButtonLink" Text='<%# Resources.WebStoreResources.DownloadTermsGridEditButton %>' />
                     </ItemTemplate>
                     <EditItemTemplate>
                     </EditItemTemplate>
@@ -59,18 +59,18 @@
                         </div>
                         <div class="forminput">
                             <asp:Button ID="btnGridUpdate" runat="server" Text='<%# Resources.WebStoreResources.DownloadTermsGridUpdateButton %>'
-                                CommandName="Update" />
+                                CommandName="Update" SkinID="SaveButton" />
                             <asp:Button ID="btnGridDelete" runat="server" Text='<%# Resources.WebStoreResources.DownloadTermsGridDeleteButton %>'
-                                CommandName="Delete" />
+                                CommandName="Delete" SkinID="DeleteButtonSmall"/>
                             <asp:Button ID="btnGridCancel" runat="server" Text='<%# Resources.WebStoreResources.DownloadTermsGridCancelButton %>'
-                                CommandName="Cancel" />
+                                CommandName="Cancel" SkinId="LinkButton"/>
                         </div>
                     </EditItemTemplate>
                 </asp:TemplateField>
             </Columns>
         </mp:mojoGridView>
         <div class="settingrow">
-            <portal:mojoButton ID="btnAddNew" runat="server" />
+            <portal:mojoButton ID="btnAddNew" runat="server" SkinID="AddButton" />
         </div>
         <portal:mojoCutePager ID="pgrDownloadTerms" runat="server" />
         <portal:EmptyPanel id="EmptyPanel1" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
