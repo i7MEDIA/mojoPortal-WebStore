@@ -150,6 +150,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\mojoPortal-RepoTest\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
@@ -173,6 +176,7 @@
     <Compile Include="OrderOffer.cs" />
     <Compile Include="OrderOfferProduct.cs" />
     <Compile Include="Product.cs" />
+    <Compile Include="StoreImage.cs" />
     <Compile Include="ProductFile.cs" />
     <Compile Include="ProductStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -191,6 +195,9 @@
       <Project>{e0d12031-bfdd-4069-9024-8b00a2aa6dbc}</Project>
       <Name>mojoPortal.Web.Framework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(Configuration)'=='Debug'">

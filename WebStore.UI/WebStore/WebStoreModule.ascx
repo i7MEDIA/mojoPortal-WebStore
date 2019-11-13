@@ -2,25 +2,22 @@
 <%@ Register Src="~/WebStore/Controls/CartLink.ascx" TagPrefix="ws" TagName="CartLink" %>
 <%@ Register Src="~/WebStore/Controls/ProductListControl.ascx" TagPrefix="ws" TagName="ProductList" %>
 <%@ Register Src="~/WebStore/Controls/OfferListControl.ascx" TagPrefix="ws" TagName="OfferList" %>
+<%@ Register Namespace="WebStore.UI" Assembly="WebStore.UI" TagPrefix="webstore" %>
+
+<webstore:WebStoreDisplaySettings id="displaySettings" runat="server" />
 <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
 <mp:CornerRounderTop ID="ctop1" runat="server" EnableViewState="false" />
 <portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper webstore" EnableViewState="false">
     <portal:ModuleTitleControl runat="server" ID="TitleControl" EnableViewState="false" />
     <portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
     <portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
-        <asp:Panel ID="pnlStore" runat="server" CssClass="store ">
-            <div class="settingrow wrapstorelink">
-                <ws:CartLink ID="lnkCart" runat="server" EnableViewState="false" />
-            </div>
-            <div class="settingrow storedescription">
-                <asp:Literal ID="litStoreDescription" runat="server" EnableViewState="false" />
-            </div>
+        <asp:Panel ID="pnlStore" runat="server" CssClass="store ">    
+            <ws:CartLink ID="lnkCart" runat="server" EnableViewState="false" />
+            <asp:Literal ID="litStoreDescription" runat="server" EnableViewState="false" />
             <asp:Panel ID="pnlOfferList" runat="server" CssClass="floatpanel productlist">
-                <h3>
-                    <asp:Literal ID="litOfferListHeading" runat="server" EnableViewState="false"></asp:Literal></h3>
-                    <ws:ProductList id="productList1" runat="server" Visible="true" />
-                    <ws:OfferList id="offerList1" runat="server" Visible="false" />
-                
+                <h3><asp:Literal ID="litOfferListHeading" runat="server" EnableViewState="false"></asp:Literal></h3>
+                <ws:ProductList id="productList1" runat="server" Visible="true" />
+                <ws:OfferList id="offerList1" runat="server" Visible="false" />
             </asp:Panel>
             <asp:Panel ID="pnlSpecials" runat="server" CssClass="floatpanel specials">
                 <h3 class="heading specialsheading">

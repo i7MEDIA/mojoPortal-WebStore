@@ -166,6 +166,12 @@
       <HintPath>..\..\mojoPortal-RepoTest\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\mojoPortal-RepoTest\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\mojoPortal-RepoTest\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
@@ -181,11 +187,8 @@
     <Reference Include="System.Net.Http">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
-    <Reference Include="System.Net.Http.Formatting, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.1.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>False</Private>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\mojoPortal-RepoTest\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Web">
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -205,17 +208,29 @@
     <Reference Include="System.Web.Extensions.Design">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
-    <Reference Include="System.Web.Http, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.1.2\lib\net45\System.Web.Http.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>False</Private>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\mojoPortal-RepoTest\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.1.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>False</Private>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\mojoPortal-RepoTest\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\mojoPortal-RepoTest\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\mojoPortal-RepoTest\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\mojoPortal-RepoTest\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\mojoPortal-RepoTest\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\mojoPortal-RepoTest\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\mojoPortal-RepoTest\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml">
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -238,6 +253,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
+    <Content Include="WebStore\Controls\AdminImageGridView.ascx" />
     <Content Include="WebStore\Controls\CartList.ascx" />
     <Content Include="WebStore\Controls\CartListAlt.ascx" />
     <Content Include="WebStore\WebStoreModule.ascx" />
@@ -273,6 +289,7 @@
     <Compile Include="Helpers\WebStorePayPalPDTHandlerProvider.cs" />
     <Compile Include="Helpers\WebStorePayPalReturnHandler.cs" />
     <Compile Include="Helpers\WebStoreWorldPayResponseHandler.cs" />
+    <Compile Include="Models\ProductListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebStore\AdminCartBrowser.aspx.cs">
       <DependentUpon>AdminCartBrowser.aspx</DependentUpon>
@@ -414,6 +431,13 @@
     <Compile Include="WebStore\AdminDashboard.aspx.designer.cs">
       <DependentUpon>AdminDashboard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebStore\Controls\AdminImageGridView.ascx.cs">
+      <DependentUpon>AdminImageGridView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebStore\Controls\AdminImageGridView.ascx.designer.cs">
+      <DependentUpon>AdminImageGridView.ascx</DependentUpon>
+    </Compile>
     <Compile Include="WebStore\Controls\CartLink.ascx.cs">
       <DependentUpon>CartLink.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -552,6 +576,10 @@
       <Project>{8582d51e-126b-4d64-b080-07ad8245b38f}</Project>
       <Name>mojoPortal.Business</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mojoPortal-RepoTest\mojoPortal.Core\mojoPortal.Core.csproj">
+      <Project>{fea72210-0415-4133-bdf9-8877683ba832}</Project>
+      <Name>mojoPortal.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\mojoPortal-RepoTest\mojoPortal.Net\mojoPortal.Net.csproj">
       <Project>{30916752-1a97-49ca-95d6-81a5f784eeb5}</Project>
@@ -841,6 +869,8 @@
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\webstore-mssql.pubxml" />
     <None Include="Properties\PublishProfiles\webstore-mysql.pubxml" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\7.5.0.2.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\7.5.0.3.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

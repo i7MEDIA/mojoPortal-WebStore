@@ -1,15 +1,3 @@
-/// Author:					
-/// Created:				2007-02-24
-/// Last Modified:			20181012 (Joe Davis)
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.Commerce;
@@ -32,8 +20,7 @@ using WebStore.Helpers;
 
 namespace WebStore.UI
 {
-
-    public partial class AdminProductEditPage : NonCmsBasePage
+	public partial class AdminProductEditPage : NonCmsBasePage
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(AdminProductEditPage));
 
@@ -49,7 +36,9 @@ namespace WebStore.UI
         private int intSortRank2;
         private CultureInfo currencyCulture = CultureInfo.CurrentCulture;
         ContentMetaRespository metaRepository = new ContentMetaRespository();
-        private IFileSystem fileSystem = null;
+		protected WebStoreConfiguration config = new WebStoreConfiguration();
+
+		private IFileSystem fileSystem = null;
         
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -82,8 +71,13 @@ namespace WebStore.UI
             if (productGuid == Guid.Empty)
             {
                 //new product
-                
-                btnDelete.Visible = false;
+				lblFulfillmentAfterSave.Visible = true;
+				lblImagesAfterSave.Visible = true;
+
+				pnlUpload.Visible = false;
+				//pnlFileUpload.Enabled = false;
+				grdImages.Enabled = false;
+				btnDelete.Visible = false;
             }
 
 
@@ -133,10 +127,10 @@ namespace WebStore.UI
                     listItem.Selected = true;
                 }
 
-                if (product.FulfillmentType == FulfillmentType.Download)
+				if (product.FulfillmentType == FulfillmentType.Download)
                 {
-                    pnlUpload.Visible = true;
-
+                    pnlUpload.Enabled = true;
+					pnlFileUpload.Enabled = true;
                     ProductFile productFile = new ProductFile(productGuid);
                     if (productFile.ProductGuid != Guid.Empty)
                     {
@@ -146,8 +140,6 @@ namespace WebStore.UI
                             + "&mid=" + moduleId.ToInvariantString()
                             + "&prod=" + productFile.ProductGuid.ToString();
                     }
-
-                    
                 }
 
                 if (product.TeaserFile.Length > 0)
@@ -171,12 +163,9 @@ namespace WebStore.UI
                 txtQuantityOnHand.Text = product.QuantityOnHand.ToInvariantString();
                 txtSortRank1.Text = product.SortRank1.ToInvariantString();
                 txtSortRank2.Text = product.SortRank2.ToInvariantString();
-
-                
             }
 
         }
-
 
         private void PopulateTaxClassList()
         {
@@ -228,7 +217,7 @@ namespace WebStore.UI
            
         }
 
-        private void Save()
+        private void Save(bool stay = true)
         {
             if (store == null) { return; }
 
@@ -356,7 +345,7 @@ namespace WebStore.UI
 
             }
             SiteUtils.QueueIndexing();
-            WebUtils.SetupRedirect(this, GetRefreshUrl());
+            WebUtils.SetupRedirect(this, stay ? GetRefreshUrl(): GetReturnUrl());
 
         }
 
@@ -364,11 +353,19 @@ namespace WebStore.UI
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Page.Validate("Product");
+			Button btn = (Button)sender;
+			Page.Validate("Product");
             if (Page.IsValid)
             {
-                Save();
-            }
+				if (btn.CommandName == "SaveContinue")
+				{
+					Save(stay: true);
+				}
+				else
+				{
+					Save(stay: false);
+				}
+			}
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -920,12 +917,9 @@ namespace WebStore.UI
         }
 
 
-        #endregion
+		#endregion
 
-
-
-
-        private void PopulateLabels()
+		private void PopulateLabels()
         {
             Control c = Master.FindControl("Breadcrumbs");
             if (c != null)
@@ -961,20 +955,18 @@ namespace WebStore.UI
             btnDeleteTeaser.Attributes.Add("OnClick", "return confirm('" + WebStoreResources.ProductDeleteTeaserWarning + "');");
 
             edAbstract.WebEditor.ToolBar = ToolBar.FullWithTemplates;
-            edAbstract.WebEditor.Height = Unit.Parse("350px");
+            //edAbstract.WebEditor.Height = Unit.Parse("350px");
            
             edDescription.WebEditor.ToolBar = ToolBar.FullWithTemplates;
-            edDescription.WebEditor.Height = Unit.Parse("350px");
+            //edDescription.WebEditor.Height = Unit.Parse("350px");
 
             litSettingsTab.Text = WebStoreResources.ProductSettingsTab;
-            litAbstactTab.Text = WebStoreResources.ProductAbstractTab;
+			litImagesTab.Text = WebStoreResources.ImagesTab;
+            //litAbstactTab.Text = WebStoreResources.ProductAbstractTab;
             litDescriptionTab.Text = WebStoreResources.ProductDescriptionTab;
             litFullfillmentTab.Text = WebStoreResources.ProductFullfillmentTypeLabel;
             litMetaTab.Text = WebStoreResources.MetaDataTab;
             
-
-            lnkFullfillment.HRef = "#" + tabFullfillment.ClientID;
-
             btnAddMeta.Text = WebStoreResources.AddMetaButton;
             grdContentMeta.Columns[0].HeaderText = string.Empty;
             grdContentMeta.Columns[1].HeaderText = WebStoreResources.ContentMetaNameLabel;
@@ -986,8 +978,7 @@ namespace WebStore.UI
             grdMetaLinks.Columns[1].HeaderText = WebStoreResources.ContentMetaRelLabel;
             grdMetaLinks.Columns[2].HeaderText = WebStoreResources.ContentMetaMetaHrefLabel;
 
-
-            productUploader.AddFileText = WebStoreResources.SelectFileButton;
+			productUploader.AddFileText = WebStoreResources.SelectFileButton;
             productUploader.DropFileText = WebStoreResources.DropProductFile;
             productUploader.UploadButtonText = WebStoreResources.FileUploadButton;
             productUploader.UploadCompleteText = WebStoreResources.UploadComplete;
@@ -1000,16 +991,18 @@ namespace WebStore.UI
             teaserUploader.UploadCompleteText = WebStoreResources.UploadComplete;
             teaserUploader.UploadingText = WebStoreResources.Uploading;
 
-            
+			litAbstractHeader.Text = string.Format(displaySettings.AdminPanelHeadingMarkup, WebStoreResources.AbstractLabel, WebStoreResources.AbstractLabelTipProduct);
+			litDescriptionHeader.Text = string.Format(displaySettings.AdminPanelHeadingMarkup, WebStoreResources.DescriptionLabel, WebStoreResources.DescriptionLabelTipProduct);
 
-        }
 
-        protected string GetRefreshUrl()
+		}
+
+		protected string GetRefreshUrl()
         {
             return $"{SiteRoot}/WebStore/AdminProductEdit.aspx?pageid={pageId.ToInvariantString()}&mid={moduleId.ToInvariantString()}&prod={productGuid.ToString()}";
         }
 
-        private string GetReturnUrl()
+        public string GetReturnUrl()
         {
             return $"{SiteRoot}/WebStore/AdminProduct.aspx?pageid={pageId.ToInvariantString()}&mid={moduleId.ToInvariantString()}";
         }
@@ -1023,35 +1016,36 @@ namespace WebStore.UI
 
             store = StoreHelper.GetStore();
             if (store == null) { return; }
-            
+			config = new WebStoreConfiguration(ModuleSettings.GetModuleSettings(store.ModuleId));
 
-            siteUser = SiteUtils.GetCurrentSiteUser();
+			siteUser = SiteUtils.GetCurrentSiteUser();
 
             productGuid = WebUtils.ParseGuidFromQueryString("prod", productGuid);
 
-            virtualRoot = WebUtils.GetApplicationRoot();
+			if (productGuid == Guid.Empty) { return; }
 
-            upLoadPath = "~/Data/Sites/" + siteSettings.SiteId.ToInvariantString()
-                + "/webstoreproductfiles/";
+			grdImages.Config = config;
+			grdImages.ReferenceGuid = productGuid;
 
-            teaserFileBasePath = "~/Data/Sites/" + siteSettings.SiteId.ToInvariantString()
-                + "/webstoreproductpreviewfiles/";
+			virtualRoot = WebUtils.GetApplicationRoot();
 
-            
+            upLoadPath = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/webstoreproductfiles/";
+
+            teaserFileBasePath = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/webstoreproductpreviewfiles/";
 
             AddClassToBody("webstore webstoreproductedit");
 
             FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
             if (p == null)
             {
-                log.Error("Could not load file system provider " + WebConfigSettings.FileSystemProvider);
+                log.Error($"Could not load file system provider {WebConfigSettings.FileSystemProvider}");
                 return;
             }
 
             fileSystem = p.GetFileSystem();
             if (fileSystem == null)
             {
-                log.Error("Could not load file system from provider " + WebConfigSettings.FileSystemProvider);
+                log.Error($"Could not load file system from provider {WebConfigSettings.FileSystemProvider}");
                 return;
             }
 
@@ -1065,7 +1059,6 @@ namespace WebStore.UI
                 fileSystem.CreateFolder(teaserFileBasePath);
             }
 
-            if (productGuid == Guid.Empty) { return; }
 
             productUploader.ServiceUrl = SiteRoot + "/WebStore/upload.ashx?pageid=" + pageId.ToInvariantString()
                 + "&mid=" + moduleId.ToInvariantString()
@@ -1094,18 +1087,19 @@ namespace WebStore.UI
             teaserUploader.FormFieldClientId = hdnState.ClientID; // not really used but prevents submitting all the form 
             teaserUploader.UploadCompleteCallback = "refresh" + moduleId.ToInvariantString();
 
-            
-
-        }
-
-        
+			ScriptConfig.IncludeColorBox = true;
 
 
-        #region OnInit
+		}
 
-        
 
-        protected override void OnPreInit(EventArgs e)
+
+
+		#region OnInit
+
+
+
+		protected override void OnPreInit(EventArgs e)
         {
             AllowSkinOverride = true;
             base.OnPreInit(e);
@@ -1116,10 +1110,11 @@ namespace WebStore.UI
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
-            this.Load += new EventHandler(this.Page_Load);
-            this.btnSave.Click += new EventHandler(btnSave_Click);
-            this.btnUpload.Click += new EventHandler(btnUpload_Click);
-            this.btnDelete.Click += new EventHandler(btnDelete_Click);
+            Load += new EventHandler(this.Page_Load);
+            btnSave.Click += new EventHandler(btnSave_Click);
+            btnSaveContinue.Click += new EventHandler(btnSave_Click);
+			btnUpload.Click += new EventHandler(btnUpload_Click);
+            btnDelete.Click += new EventHandler(btnDelete_Click);
             btnUploadTeaser.Click += new EventHandler(btnUploadTeaser_Click);
             btnDeleteTeaser.Click += new EventHandler(btnDeleteTeaser_Click);
             
@@ -1142,14 +1137,11 @@ namespace WebStore.UI
             grdMetaLinks.RowDataBound += new GridViewRowEventHandler(grdMetaLinks_RowDataBound);
             btnAddMetaLink.Click += new EventHandler(btnAddMetaLink_Click);
 
-            ScriptConfig.IncludeJQTable = true;
+			ScriptConfig.IncludeJQTable = true;
         }
 
-        
 
-        
+		#endregion
 
-        #endregion
-
-    }
+	}
 }

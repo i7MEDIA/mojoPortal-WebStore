@@ -1,16 +1,4 @@
-﻿/// Author:					
-/// Created:				2008-10-19
-/// Last Modified:			2011-11-26
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Data;
 using System.Globalization;
@@ -21,7 +9,7 @@ using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web;
 using mojoPortal.Web.Framework;
 using WebStore.Business;
-
+using Resources;
 namespace WebStore.UI
 {
     //http://schema.org/Product
@@ -30,80 +18,25 @@ namespace WebStore.UI
     
     public partial class ProductListControl : UserControl
     {
-        #region Private Properties
 
-        private int pageId = -1;
-        private int moduleId = -1;
-        private int pageNumber = 1;
+		#region Properties
+		private int pageNumber = 1;
         private int totalPages = 1;
         private int pageSize = 10;
-        private Store store = null;
-        private string siteRoot = string.Empty;
-        protected string teaserFileBaseUrl = string.Empty;
-        private CultureInfo currencyCulture = CultureInfo.CurrentCulture;
-        private DataSet dsProducts = null;
-        private bool enableRatings = false;
-        private bool enableRatingComments = false;
-        private Hashtable settings = null;
+		protected string teaserFileBaseUrl = string.Empty;
+		private DataSet dsProducts = null;
+		protected bool canEdit = false;
+		public int PageId { get; set; } = -1;
+		public int ModuleId { get; set; } = -1;
+		public Store Store { get; set; } = null;
+		public string SiteRoot { get; set; } = string.Empty;
+		public CultureInfo CurrencyCulture { get; set; } = CultureInfo.CurrentCulture;
+		public bool EnableRatings { get; set; } = false;
+		public bool EnableRatingComments { get; set; } = false;
+		public Hashtable Settings { get; set; } = null;
+		#endregion
 
-        
-        
-
-        #endregion
-
-        #region Public Properties
-
-        public int PageId
-        {
-            get { return pageId; }
-            set { pageId = value; }
-        }
-
-        public int ModuleId
-        {
-            get { return moduleId; }
-            set { moduleId = value; }
-        }
-
-        public Store Store
-        {
-            get { return store; }
-            set { store = value; }
-        }
-
-        public string SiteRoot
-        {
-            get { return siteRoot; }
-            set { siteRoot = value; }
-        }
-
-        public CultureInfo CurrencyCulture
-        {
-            get { return currencyCulture; }
-            set { currencyCulture = value; }
-        }
-
-        public bool EnableRatings
-        {
-            get { return enableRatings; }
-            set { enableRatings = value; }
-        }
-
-        public bool EnableRatingComments
-        {
-            get { return enableRatingComments; }
-            set { enableRatingComments = value; }
-        }
-
-        public Hashtable Settings
-        {
-            get { return settings; }
-            set { settings = value; }
-        }
-
-        #endregion
-
-        protected void Page_Load(object sender, EventArgs e)
+		protected void Page_Load(object sender, EventArgs e)
         {
             if (!this.Visible) { return; }
 
@@ -118,15 +51,15 @@ namespace WebStore.UI
         private void BindProducts()
         {
             
-            dsProducts = store.GetProductPageWithOffers(
+            dsProducts = Store.GetProductPageWithOffers(
                 pageNumber,
                 pageSize,
                 out totalPages);
 
 
             string pageUrl = SiteUtils.GetNavigationSiteRoot() + "/WebStore/ProductList.aspx"
-                    + "?pageid=" + pageId.ToInvariantString()
-                    + "&amp;mid=" + moduleId.ToInvariantString()
+                    + "?pageid=" + PageId.ToInvariantString()
+                    + "&amp;mid=" + ModuleId.ToInvariantString()
                     + "&amp;pagenumber={0}";
 
             pgr.PageURLFormat = pageUrl;
@@ -155,12 +88,21 @@ namespace WebStore.UI
 
                 string whereClause = string.Format("ProductGuid = '{0}'", productGuid);
                 DataView dv = new DataView(dsProducts.Tables["ProductOffers"], whereClause, "", DataViewRowState.CurrentRows);
-
                 rptOffers.DataSource = dv;
                 rptOffers.DataBind();
 
-               
-            }
+				Repeater rptImages = (Repeater)e.Item.FindControl("rptImages");
+				if (rptImages == null) { return; }
+				string imagesWhereClause = string.Format("ReferenceGuid = '{0}'", productGuid);
+				DataView dvImages = new DataView(dsProducts.Tables["ProductImages"], imagesWhereClause, "", DataViewRowState.CurrentRows)
+				{
+					Sort = "DisplayOrder ASC"
+				};
+				rptImages.DataSource = dvImages;
+				rptImages.DataBind();
+
+
+			}
         }
 
         private void LoadSettings()
@@ -192,39 +134,78 @@ namespace WebStore.UI
                 pageSize = WebUtils.ParseInt32FromHashtable(Settings, "ProductListPageSize", pageSize);
             }
 
+			canEdit = WebUser.HasEditPermissions(siteSettings.SiteId, ModuleId, PageId);
         }
 
-        protected string FormatProductUrl(string productGuid, string url)
+        protected string GetProductLink(string productGuid, string url, string name, bool heading)
         {
-            if (WebConfigSettings.UseUrlReWriting)
+			string editLinks = string.Empty;
+			if (canEdit)
+			{
+				string editUrl = $"{SiteRoot}/WebStore/AdminProductEdit.aspx?pageid={PageId}&mid={ModuleId}&prod={productGuid}";
+				editLinks = string.Format(displaySettings.ProductEditLinkFormat, editUrl, WebStoreResources.ProductEditHeadingTooltip, WebStoreResources.ProductEditHeading);
+			}
+
+			if (WebConfigSettings.UseUrlReWriting)
             {
-                return siteRoot + url;
-            }
+				if (heading)
+				{
+					return string.Format(displaySettings.ProductListProductHeadingLinkFormat, SiteRoot + url, name, editLinks);
+				}
+				else
+				{
+					return string.Format(displaySettings.ProductListProductLinkFormat, SiteRoot + url, name);
+				}
+			}
 
-            return siteRoot + "/WebStore/ProductDetail.aspx?pageid=" 
-                + pageId.ToInvariantString() 
-                + "&amp;mid=" + moduleId.ToInvariantString() 
-                + "&amp;product=" + productGuid;
-        }
+			string fullUrl = SiteRoot + "/WebStore/ProductDetail.aspx?pageid="
+				+ PageId.ToInvariantString()
+				+ "&amp;mid=" + ModuleId.ToInvariantString()
+				+ "&amp;product=" + productGuid;
 
-        protected string FormatOfferUrl(string offerGuid, string url)
+			if (heading)
+			{
+				return string.Format(displaySettings.ProductListProductHeadingLinkFormat, fullUrl, name, editLinks);
+			}
+
+			return string.Format(displaySettings.ProductListProductLinkFormat, fullUrl, name);
+		}
+
+		protected string GetOfferLink(string offerGuid, string url, string name, bool showOfferLink)
         {
-            if (WebConfigSettings.UseUrlReWriting)
-            {
-                return siteRoot + url;
-            }
+			string editLinks = string.Empty;
+			if (canEdit)
+			{
+				string editUrl = $"{SiteRoot}/WebStore/AdminOfferEdit.aspx?pageid={PageId}&mid={ModuleId}&offer={offerGuid}";
+				editLinks = string.Format(displaySettings.ProductOfferEditLinkFormat, editUrl, WebStoreResources.OfferEditHeadingTooltip, WebStoreResources.OfferEditHeading);
+			}
 
-            return siteRoot + "/WebStore/OfferDetail.aspx?pageid="
-                + pageId.ToInvariantString()
-                + "&mid=" + moduleId.ToInvariantString()
-                + "&offer=" + offerGuid;
-        }
+			if (showOfferLink)
+			{
+				string fullUrl = string.Empty;
 
-        private bool ParamsAreValid()
+				if (WebConfigSettings.UseUrlReWriting)
+				{
+					fullUrl = SiteRoot + url;
+				}
+				else
+				{
+					fullUrl = SiteRoot + "/WebStore/OfferDetail.aspx?pageid="
+						+ PageId.ToInvariantString()
+						+ "&mid=" + ModuleId.ToInvariantString()
+						+ "&offer=" + offerGuid;
+				}
+				return string.Format(displaySettings.ProductListOfferLinkFormat, fullUrl, name, editLinks);
+			}
+			//only showing offer title/name and editlink (if can edit)
+			return string.Format(displaySettings.ProductListOfferTitleFormat, name, editLinks);
+		}
+
+		private bool ParamsAreValid()
         {
-            if (store == null) { return false; }
-            if (pageId == -1) { return false; }
-            if (moduleId == -1) { return false; }
+            if (Store == null) { return false; }
+            if (PageId == -1) { return false; }
+            if (ModuleId == -1) { return false; }
 
 
             return true;

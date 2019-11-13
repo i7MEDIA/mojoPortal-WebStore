@@ -1,15 +1,4 @@
-﻿// Author:				    
-// Created:			        2010-05-31
-// Last Modified:		    2014-06-12
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
+﻿
 using System;
 using System.Collections;
 using System.Globalization;
@@ -33,61 +22,43 @@ namespace WebStore.UI
         {
             if (settings == null) { throw new ArgumentException("must pass in a hashtable of settings"); }
 
-            enableRatingsInProductList = WebUtils.ParseBoolFromHashtable(settings, "EnableContentRatingInProductListSetting", enableRatingsInProductList);
+            EnableRatingsInProductList = WebUtils.ParseBoolFromHashtable(settings, "EnableContentRatingInProductListSetting", EnableRatingsInProductList);
 
-            enableRatingComments = WebUtils.ParseBoolFromHashtable(settings, "EnableRatingCommentsSetting", enableRatingComments);
+            EnableRatingComments = WebUtils.ParseBoolFromHashtable(settings, "EnableRatingCommentsSetting", EnableRatingComments);
 
-            indexOffersInSearch = WebUtils.ParseBoolFromHashtable(settings, "IndexOffersSetting", indexOffersInSearch);
+            IndexOffersInSearch = WebUtils.ParseBoolFromHashtable(settings, "IndexOffersSetting", IndexOffersInSearch);
 
 
             if (settings.Contains("ProductListGroupingSetting"))
             {
-                groupingMode = settings["ProductListGroupingSetting"].ToString();
+                GroupingMode = settings["ProductListGroupingSetting"].ToString();
             }
 
             if (settings.Contains("CartPageFooter"))
             {
-                cartPageFooter = settings["CartPageFooter"].ToString();
+                CartPageFooter = settings["CartPageFooter"].ToString();
             }
 
-        }
+			if (settings.Contains("ImageStartPath"))
+			{
+				ImageStartPath = settings["ImageStartPath"].ToString();
+			}
 
-        private string cartPageFooter = string.Empty;
+		}
 
-        public string CartPageFooter
-        {
-            get { return cartPageFooter; }
-        }
+		public string CartPageFooter { get; private set; } = string.Empty;
 
-        private bool enableRatingsInProductList = false;
+		public bool EnableRatingsInProductList { get; private set; } = false;
 
-        public bool EnableRatingsInProductList
-        {
-            get { return enableRatingsInProductList; }
-        }
+		public bool EnableRatingComments { get; private set; } = false;
 
-        private bool enableRatingComments = false;
+		public bool IndexOffersInSearch { get; private set; } = false;
 
-        public bool EnableRatingComments
-        {
-            get { return enableRatingComments; }
-        }
+		public string GroupingMode { get; private set; } = "GroupByProduct";
 
-        private bool indexOffersInSearch = false;
+		public string ImageStartPath { get; set; } = "";
 
-        public bool IndexOffersInSearch
-        {
-            get { return indexOffersInSearch; }
-        }
-
-        private string groupingMode = "GroupByProduct";
-
-        public string GroupingMode
-        {
-            get { return groupingMode; }
-        }
-
-        public static bool IsDemo
+		public static bool IsDemo
         {
             get { return ConfigHelper.GetBoolProperty("WebStore:IsDemo", false); }
         }

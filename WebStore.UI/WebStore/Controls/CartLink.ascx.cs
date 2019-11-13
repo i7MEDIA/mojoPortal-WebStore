@@ -17,13 +17,9 @@ namespace WebStore.UI.Controls
             
             writer.Write(
                 string.Format(
-                        " <a href='{0}' class='storelink'><span class='cartlink'>{1}</span></a>",
-                        SiteUtils.GetNavigationSiteRoot() + "/WebStore/Cart.aspx?pageid="
-                        + PageID.ToString(CultureInfo.InvariantCulture)
-                        + "&amp;mid=" + ModuleID.ToString(CultureInfo.InvariantCulture)
-                        ,
+                        displaySettings.CartLinkFormat,
+                        $"{SiteUtils.GetNavigationSiteRoot()}/WebStore/Cart.aspx?pageid={PageID.ToString(CultureInfo.InvariantCulture)}&amp;mid={ModuleID.ToString(CultureInfo.InvariantCulture)}",
                         WebStoreResources.CartLink));
-            
         }
 
     }

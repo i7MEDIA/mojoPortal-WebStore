@@ -95,14 +95,30 @@ namespace WebStore.UI.Controls
             WebUtils.SetupRedirect(this, Request.RawUrl);
 
         }
+		private void rptCartItems_ItemDataBound(object sender, RepeaterItemEventArgs e)
+		{
+			if (e.Item.ItemType == ListItemType.Item)
+			{
+				RangeValidator rangeValidator = e.Item.FindControl("rvQuantity") as RangeValidator;
+				TextBox txtQty = e.Item.FindControl("txtQuantity") as TextBox;
+				//Button btnAddToCart = e.Item.FindControl("btnAddToCart") as Button;
+				if (Convert.ToInt32(rangeValidator.MaximumValue) != 0)
+				{
+					rangeValidator.Enabled = true;
+					rangeValidator.ControlToValidate = txtQty.ID;
+					rangeValidator.CssClass = "help-block";
+					rangeValidator.ErrorMessage = string.Format(Resources.WebStoreResources.OfferMaxPerOrderExceeded, rangeValidator.MaximumValue.ToString());
+				}
+			}
+		}
 
-
-        protected override void OnInit(EventArgs e)
+		protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
             Load += new EventHandler(Page_Load);
 
             rptCartItems.ItemCommand += new RepeaterCommandEventHandler(rptCartItems_ItemCommand);
-        }
-    }
+			rptCartItems.ItemDataBound += new RepeaterItemEventHandler(rptCartItems_ItemDataBound);
+		}
+	}
 }

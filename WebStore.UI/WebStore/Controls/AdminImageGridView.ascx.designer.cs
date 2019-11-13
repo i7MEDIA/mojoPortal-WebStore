@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebStore.UI.Controls {
+namespace WebStore.UI {
     
     
-    public partial class CartListAlt {
+    public partial class AdminImageGridView {
         
         /// <summary>
         /// displaySettings control.
@@ -22,12 +22,30 @@ namespace WebStore.UI.Controls {
         protected global::WebStore.UI.WebStoreDisplaySettings displaySettings;
         
         /// <summary>
-        /// rptCartItems control.
+        /// upImages control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptCartItems;
+        protected global::System.Web.UI.UpdatePanel upImages;
+        
+        /// <summary>
+        /// grdImages control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.mojoGridView grdImages;
+        
+        /// <summary>
+        /// btnAddImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAddImage;
     }
 }

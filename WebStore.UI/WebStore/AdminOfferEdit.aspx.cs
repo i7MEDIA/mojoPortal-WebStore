@@ -1,15 +1,3 @@
-/// Author:					
-/// Created:				2007-02-24
-/// Last Modified:			2013-01-15
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.Commerce;
@@ -100,11 +88,12 @@ namespace WebStore.UI
             if (offerGuid == Guid.Empty)
             {
                 btnDelete.Visible = false;
-                liProducts.Visible = false;
-                
-                tabAvailability.Visible = false;
-                
-                tabProducts.Visible = false;
+				lblAvailabilityAfterSave.Visible = true;
+				upAvailability.Visible = false;
+				lblProductsAfterSave.Visible = true;
+				upProducts.Visible = false;
+				lblImagesAfterSave.Visible = true;
+				grdImages.Visible = false;
             }
 
 
@@ -121,6 +110,7 @@ namespace WebStore.UI
                 txtName.Text = offer.Name;
                 txtProductListName.Text = offer.ProductListName;
                 txtPrice.Text = offer.Price.ToString("c", currencyCulture);
+				txtMaxPerOrder.Text = offer.MaxPerOrder.ToString();
                 edAbstract.Text = offer.Teaser;
                 edDescription.Text = offer.Description;
                 txtSortRank1.Text = offer.SortRank1.ToInvariantString();
@@ -139,11 +129,8 @@ namespace WebStore.UI
                 chkIsSpecial.Checked = offer.IsSpecial;
                 chkIsDonation.Checked = offer.IsDonation;
                 chkShowDetailLink.Checked = offer.ShowDetailLink;
-
             }
-            
         }
-
 
         private void PopulateTaxClassList()
         {
@@ -152,10 +139,9 @@ namespace WebStore.UI
                 ddTaxClassGuid.DataSource = reader;
                 ddTaxClassGuid.DataBind();
             }
-
         }
 
-        private void Save()
+        private void Save(bool stay = true)
         {
             if (store == null) { return; }
 
@@ -202,7 +188,7 @@ namespace WebStore.UI
             }
 
             offer.Price = decimal.Parse(txtPrice.Text, NumberStyles.Currency, currencyCulture);
-
+			offer.MaxPerOrder = Convert.ToInt32(txtMaxPerOrder.Text);
             if (!String.IsNullOrEmpty(ddTaxClassGuid.SelectedValue))
             {
                 Guid taxClassGuid = new Guid(ddTaxClassGuid.SelectedValue);
@@ -223,15 +209,11 @@ namespace WebStore.UI
                     siteSettings);
 
                 needToCreateFriendlyUrl = true;
-
             }
             else
             {
-
                 //TODO: change url if title changed?
-
             }
-
 
             if (offer.Save())
             {
@@ -257,7 +239,7 @@ namespace WebStore.UI
 
             }
             SiteUtils.QueueIndexing();
-            WebUtils.SetupRedirect(this, GetRefreshUrl());
+            WebUtils.SetupRedirect(this, stay? GetRefreshUrl() : GetReturnUrl());
 
         }
 
@@ -303,10 +285,18 @@ namespace WebStore.UI
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+			Button btn = (Button)sender;
             Page.Validate("Product");
             if ((Page.IsValid)&&(IsValidForSave()))
             {
-                Save();
+				if (btn.CommandName == "SaveContinue")
+				{
+					Save(stay: true);
+				}
+				else
+				{
+					Save(stay: false);
+				}
             }
 
         }
@@ -421,18 +411,18 @@ namespace WebStore.UI
         {
             if (store == null) { return; }
 
-            grdOfferProduct.Columns[3].Visible = false;
-            grdOfferProduct.Columns[2].Visible = false;
+            //grdOfferProduct.Columns[3].Visible = false;
+            //grdOfferProduct.Columns[2].Visible = false;
 
             GridView grid = (GridView)sender;
             grid.EditIndex = e.NewEditIndex;
             BindProductGrid();
 
             Guid guid = (Guid)grid.DataKeys[e.NewEditIndex].Value;
-            HiddenField hdnFType = (HiddenField)grid.Rows[e.NewEditIndex].Cells[0].FindControl("hdnFType");
-            HiddenField hdnFTerms = (HiddenField)grid.Rows[e.NewEditIndex].Cells[0].FindControl("hdnFTerms");
-            DropDownList ddFullfillTerms = (DropDownList)grid.Rows[e.NewEditIndex].Cells[1].FindControl("ddFullFillTerms");
-            Panel divFulfillment = (Panel)grid.Rows[e.NewEditIndex].Cells[1].FindControl("divFulfillment");
+            HiddenField hdnFType = (HiddenField)grid.Rows[e.NewEditIndex].Cells[2].FindControl("hdnFType");
+            HiddenField hdnFTerms = (HiddenField)grid.Rows[e.NewEditIndex].Cells[2].FindControl("hdnFTerms");
+            DropDownList ddFullfillTerms = (DropDownList)grid.Rows[e.NewEditIndex].Cells[2].FindControl("ddFullFillTerms");
+            //Panel divFulfillment = (Panel)grid.Rows[e.NewEditIndex].Cells[2].FindControl("divFulfillment");
             FulfillmentType fulfillmentType = Product.FulfillmentTypeFromString(hdnFType.Value);
           
             if (fulfillmentType == FulfillmentType.Download)
@@ -446,7 +436,7 @@ namespace WebStore.UI
             }
             else
             {
-                divFulfillment.Visible = false;
+				ddFullfillTerms.Visible = false;
             }
 
             if ((guid != Guid.Empty)&&(fulfillmentType == FulfillmentType.Download))
@@ -462,7 +452,7 @@ namespace WebStore.UI
                 }
             }
 
-            Button btnDelete = (Button)grid.Rows[e.NewEditIndex].Cells[1].FindControl("btnGridDelete");
+			Button btnDelete = (Button)grid.Rows[e.NewEditIndex].Cells[0].FindControl("btnGridDelete");
             if (btnDelete != null)
             {
                 if (guid == Guid.Empty)
@@ -471,8 +461,7 @@ namespace WebStore.UI
                 }
                 else
                 {
-                    btnDelete.Attributes.Add("OnClick", "return confirm('"
-                        + WebStoreResources.OfferProductGridDeleteWarning + "');");
+                    btnDelete.Attributes.Add("OnClick", $"return confirm('{WebStoreResources.OfferProductGridDeleteWarning}');");
                 }
             }
 
@@ -620,11 +609,13 @@ namespace WebStore.UI
             }
             else
             {
-                offerAvailability = new OfferAvailability();
-                offerAvailability.OfferGuid = offerGuid;
-                offerAvailability.CreatedBy = siteUser.UserGuid;
-                offerAvailability.CreatedFromIP = SiteUtils.GetIP4Address();
-            }
+				offerAvailability = new OfferAvailability
+				{
+					OfferGuid = offerGuid,
+					CreatedBy = siteUser.UserGuid,
+					CreatedFromIP = SiteUtils.GetIP4Address()
+				};
+			}
 
             if (timeZone != null)
             {
@@ -642,9 +633,9 @@ namespace WebStore.UI
                     offerAvailability.EndUtc = DateTime.Parse(dpEndUTC.Text).AddHours(-timeOffset);
                 }
             }
-            offerAvailability.RequiresOfferCode = chkRequiresOfferCode.Checked;
-            offerAvailability.OfferCode = txtOfferCode.Text;
-            offerAvailability.MaxAllowedPerCustomer = int.Parse(txtMaxAllowedPerCustomer.Text);
+            //offerAvailability.RequiresOfferCode = chkRequiresOfferCode.Checked;
+            //offerAvailability.OfferCode = txtOfferCode.Text;
+            //offerAvailability.MaxAllowedPerCustomer = int.Parse(txtMaxAllowedPerCustomer.Text);
             
             offerAvailability.LastModifedBy = siteUser.UserGuid;
             offerAvailability.LastModifedFromIP = SiteUtils.GetIP4Address();
@@ -1213,25 +1204,26 @@ namespace WebStore.UI
             Title = SiteUtils.FormatPageTitle(siteSettings, WebStoreResources.OfferEditHeading);
             heading.Text = WebStoreResources.OfferEditHeading;
             btnSave.Text = WebStoreResources.OfferUpdateButton;
-            UIHelper.AddClearPageExitCode(btnSave);
+            btnSaveContinue.Text = WebStoreResources.SaveContinueEditButton;
+			UIHelper.AddClearPageExitCode(btnSave);
             ScriptConfig.EnableExitPromptForUnsavedContent = true;
 
             btnDelete.Text = WebStoreResources.OfferDeleteButton;
             UIHelper.AddConfirmationDialogWithClearExitCode(btnDelete, WebStoreResources.OfferDeleteWarning);
 
             edAbstract.WebEditor.ToolBar = ToolBar.FullWithTemplates;
-            edAbstract.WebEditor.Height = Unit.Parse("350px");
+            //edAbstract.WebEditor.Height = Unit.Parse("350px");
 
             edDescription.WebEditor.ToolBar = ToolBar.FullWithTemplates;
-            edDescription.WebEditor.Height = Unit.Parse("350px");
+            //edDescription.WebEditor.Height = Unit.Parse("350px");
 
             btnAddNewAvailability.Text = WebStoreResources.OfferAvailabilityGridAddNewButton;
 
             grdOfferAvailability.Columns[1].HeaderText = WebStoreResources.OfferAvailabilityBeginDateHeader;
             grdOfferAvailability.Columns[2].HeaderText = WebStoreResources.OfferAvailabilityEndDateHeader;
-            grdOfferAvailability.Columns[3].HeaderText = WebStoreResources.OfferAvailabilityRequiresOfferCodeHeader;
-            grdOfferAvailability.Columns[4].HeaderText = WebStoreResources.OfferAvailabilityOfferCodeHeader;
-            grdOfferAvailability.Columns[5].HeaderText = WebStoreResources.OfferAvailabilityMaxAllowedPerCustomerHeader;
+            //grdOfferAvailability.Columns[3].HeaderText = WebStoreResources.OfferAvailabilityRequiresOfferCodeHeader;
+            //grdOfferAvailability.Columns[4].HeaderText = WebStoreResources.OfferAvailabilityOfferCodeHeader;
+            //grdOfferAvailability.Columns[5].HeaderText = WebStoreResources.OfferAvailabilityMaxAllowedPerCustomerHeader;
 
 
             //btnAddProductToOffer.Text = WebStoreResources.OfferProductGridAddNewButton;
@@ -1239,16 +1231,16 @@ namespace WebStore.UI
             grdOfferProduct.Columns[1].HeaderText = WebStoreResources.OfferProductGridNameHeader;
             grdOfferProduct.Columns[2].HeaderText = WebStoreResources.OfferProductGridFullfillTypeHeader;
             grdOfferProduct.Columns[3].HeaderText = WebStoreResources.OfferProductGridQuantityHeader;
+			grdOfferProduct.Columns[4].HeaderText = WebStoreResources.OfferProductGridSortHeader;
 
-            
 
-            litSettingsTab.Text = WebStoreResources.OfferEditGeneralSettingsLabel;
-            litAbstactTab.Text = WebStoreResources.ProductAbstractTab;
-            litDescriptionTab.Text = WebStoreResources.OfferDescriptionTab;
+			litSettingsTab.Text = WebStoreResources.OfferEditGeneralSettingsLabel;
+            litImagesTab.Text = WebStoreResources.ImagesTab;
+            //litAbstactTab.Text = WebStoreResources.ProductAbstractTab;
+			litDescriptionTab.Text = WebStoreResources.OfferDescriptionTab;
             litProductsTab.Text = WebStoreResources.OfferProductsLabel;
             litMetaTab.Text = WebStoreResources.MetaDataTab;
-            
-            lnkProducts.HRef = "#" + tabProducts.ClientID;
+            litAvailabilityTab.Text = WebStoreResources.OfferAvailibilityLabel;
 
             if (!Page.IsPostBack)
             {
@@ -1264,22 +1256,12 @@ namespace WebStore.UI
             btnAddFromGreyBox.AlternateText = " ";
             UIHelper.AddClearPageExitCode(btnAddFromGreyBox);
 
-            //lnkAddProducts.Text = WebStoreResources.OfferProductGridAddNewButton;
-            //lnkAddProducts.ToolTip = WebStoreResources.OfferProductGridAddNewButton;
-            //lnkAddProducts.DialogCloseText = WebStoreResources.CloseDialogButton;
-            //lnkAddProducts.NavigateUrl = SiteRoot + "/WebStore/OfferProductSelectorDialog.aspx?pageid="
-            //    + pageId.ToInvariantString()
-            //    + "&mid=" + moduleId.ToInvariantString()
-            //    + "&offer=" + offerGuid.ToString();
-
             lnkProductsAdd.Text = WebStoreResources.OfferProductGridAddNewButton;
             lnkProductsAdd.ToolTip = WebStoreResources.OfferProductGridAddNewButton;
             lnkProductsAdd.NavigateUrl = SiteRoot + "/WebStore/OfferProductSelectorDialog.aspx?pageid="
                 + pageId.ToInvariantString()
                 + "&mid=" + moduleId.ToInvariantString()
                 + "&offer=" + offerGuid.ToString();
-
-            
 
             btnAddMeta.Text = WebStoreResources.AddMetaButton;
             grdContentMeta.Columns[0].HeaderText = string.Empty;
@@ -1291,29 +1273,22 @@ namespace WebStore.UI
             grdMetaLinks.Columns[0].HeaderText = string.Empty;
             grdMetaLinks.Columns[1].HeaderText = WebStoreResources.ContentMetaRelLabel;
             grdMetaLinks.Columns[2].HeaderText = WebStoreResources.ContentMetaMetaHrefLabel;
-            
-          
-        }
+
+			litAbstractHeader.Text = string.Format(displaySettings.AdminPanelHeadingMarkup, WebStoreResources.AbstractLabel, WebStoreResources.AbstractLabelTipOffer);
+			litDescriptionHeader.Text = string.Format(displaySettings.AdminPanelHeadingMarkup, WebStoreResources.DescriptionLabel, WebStoreResources.DescriptionLabelTipOffer);
+		}
 
         
 
         protected string GetRefreshUrl()
         {
 
-            string result = SiteRoot + "/WebStore/AdminOfferEdit.aspx?pageid="
-                + pageId.ToInvariantString()
-                + "&mid=" + moduleId.ToInvariantString()
-                + "&offer=" + offerGuid.ToString();
-
-            return result;
-
+            return $"{SiteRoot}/WebStore/AdminOfferEdit.aspx?pageid={pageId.ToInvariantString()}&mid={moduleId.ToInvariantString()}&offer={offerGuid.ToString()}";
         }
 
-        private string GetReturnUrl()
+        protected string GetReturnUrl()
         {
-            return SiteRoot + "/WebStore/AdminOffer.aspx?pageid="
-                + pageId.ToInvariantString()
-                + "&mid=" + moduleId.ToInvariantString();
+            return $"{SiteRoot}/WebStore/AdminOffer.aspx?pageid={pageId.ToInvariantString()}&mid={moduleId.ToInvariantString()}";
         }
 
 
@@ -1358,10 +1333,8 @@ namespace WebStore.UI
             if (store == null) { return; }
             Hashtable moduleSettings = ModuleSettings.GetModuleSettings(moduleId);
             config = new WebStoreConfiguration(moduleSettings);
-                
-           
 
-            try
+			try
             {
                 // this keeps the action from changing during ajax postback in folder based sites
                 SiteUtils.SetFormAction(Page, Request.RawUrl);
@@ -1383,7 +1356,10 @@ namespace WebStore.UI
                 SetupProductAddScript();
             }
 
-            virtualRoot = WebUtils.GetApplicationRoot();
+			grdImages.Config = new WebStoreConfiguration(moduleSettings);
+			grdImages.ReferenceGuid = offerGuid;
+
+			virtualRoot = WebUtils.GetApplicationRoot();
             timeOffset = SiteUtils.GetUserTimeOffset();
             timeZone = SiteUtils.GetUserTimeZone();
 
@@ -1446,21 +1422,22 @@ namespace WebStore.UI
         {
             base.OnInit(e);
 
-            this.Load += new EventHandler(this.Page_Load);
-            this.btnSave.Click += new EventHandler(btnSave_Click);
-            this.btnDelete.Click += new EventHandler(btnDelete_Click);
-            this.btnAddNewAvailability.Click += new EventHandler(btnAddNewAvailability_Click);
+            Load += new EventHandler(this.Page_Load);
+            btnSave.Click += new EventHandler(btnSave_Click);
+            btnSaveContinue.Click += new EventHandler(btnSave_Click);
+			btnDelete.Click += new EventHandler(btnDelete_Click);
+            btnAddNewAvailability.Click += new EventHandler(btnAddNewAvailability_Click);
             
           
-            this.grdOfferAvailability.RowEditing += new GridViewEditEventHandler(grdOfferAvailability_RowEditing);
-            this.grdOfferAvailability.RowCancelingEdit += new GridViewCancelEditEventHandler(grdOfferAvailability_RowCancelingEdit);
-            this.grdOfferAvailability.RowUpdating += new GridViewUpdateEventHandler(grdOfferAvailability_RowUpdating);
-            this.grdOfferAvailability.RowDeleting += new GridViewDeleteEventHandler(grdOfferAvailability_RowDeleting);
+            grdOfferAvailability.RowEditing += new GridViewEditEventHandler(grdOfferAvailability_RowEditing);
+            grdOfferAvailability.RowCancelingEdit += new GridViewCancelEditEventHandler(grdOfferAvailability_RowCancelingEdit);
+            grdOfferAvailability.RowUpdating += new GridViewUpdateEventHandler(grdOfferAvailability_RowUpdating);
+            grdOfferAvailability.RowDeleting += new GridViewDeleteEventHandler(grdOfferAvailability_RowDeleting);
 
-            this.grdOfferProduct.RowEditing += new GridViewEditEventHandler(grdOfferProduct_RowEditing);
-            this.grdOfferProduct.RowCancelingEdit += new GridViewCancelEditEventHandler(grdOfferProduct_RowCancelingEdit);
-            this.grdOfferProduct.RowUpdating += new GridViewUpdateEventHandler(grdOfferProduct_RowUpdating);
-            this.grdOfferProduct.RowDeleting += new GridViewDeleteEventHandler(grdOfferProduct_RowDeleting);
+            grdOfferProduct.RowEditing += new GridViewEditEventHandler(grdOfferProduct_RowEditing);
+            grdOfferProduct.RowCancelingEdit += new GridViewCancelEditEventHandler(grdOfferProduct_RowCancelingEdit);
+            grdOfferProduct.RowUpdating += new GridViewUpdateEventHandler(grdOfferProduct_RowUpdating);
+            grdOfferProduct.RowDeleting += new GridViewDeleteEventHandler(grdOfferProduct_RowDeleting);
             //this.btnAddProductToOffer.Click += new EventHandler(btnAddProductToOffer_Click);
             btnAddFromGreyBox.Click += new ImageClickEventHandler(btnAddFromGreyBox_Click);
 

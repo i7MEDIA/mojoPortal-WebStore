@@ -122,7 +122,7 @@ namespace WebStore.UI
                 return;
             }
 
-            litStoreDescription.Text = store.Description;
+            litStoreDescription.Text = displaySettings.StoreDescriptionMarkupTop + store.Description + displaySettings.StoreDescriptionMarkupBottom;
 
             //PopulateOfferList();
             PopulateSpecials(); 

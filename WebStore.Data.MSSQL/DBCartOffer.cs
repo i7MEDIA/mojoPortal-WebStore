@@ -35,10 +35,11 @@ namespace WebStore.Data
             DateTime addedToCart,
             int quantity,
             decimal tax,
-            bool isDonation)
+            bool isDonation,
+			int maxPerOrder)
         {
 
-            SqlParameterHelper sph = new SqlParameterHelper(WebStoreConnectionString.GetWriteConnectionString(), "ws_CartOffers_Insert", 9);
+            SqlParameterHelper sph = new SqlParameterHelper(WebStoreConnectionString.GetWriteConnectionString(), "ws_CartOffers_Insert", 10);
             sph.DefineSqlParameter("@ItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, itemGuid);
             sph.DefineSqlParameter("@CartGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, cartGuid);
             sph.DefineSqlParameter("@OfferGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, offerGuid);
@@ -48,8 +49,9 @@ namespace WebStore.Data
             sph.DefineSqlParameter("@TaxClassGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, taxClassGuid);
             sph.DefineSqlParameter("@Tax", SqlDbType.Decimal, ParameterDirection.Input, tax);
             sph.DefineSqlParameter("@IsDonation", SqlDbType.Bit, ParameterDirection.Input, isDonation);
+            sph.DefineSqlParameter("@MaxPerOrder", SqlDbType.Int, ParameterDirection.Input, maxPerOrder);
             int rowsAffected = sph.ExecuteNonQuery();
-            return rowsAffected;
+			return rowsAffected;
 
         }
 
@@ -62,9 +64,10 @@ namespace WebStore.Data
             DateTime addedToCart,
             int quantity,
             decimal tax,
-            bool isDonation)
+            bool isDonation,
+			int maxPerOrder)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(WebStoreConnectionString.GetWriteConnectionString(), "ws_CartOffers_Update", 8);
+            SqlParameterHelper sph = new SqlParameterHelper(WebStoreConnectionString.GetWriteConnectionString(), "ws_CartOffers_Update", 9);
             sph.DefineSqlParameter("@ItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, itemGuid);
             sph.DefineSqlParameter("@OfferGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, offerGuid);
             sph.DefineSqlParameter("@OfferPrice", SqlDbType.Decimal, ParameterDirection.Input, offerPrice);
@@ -73,8 +76,9 @@ namespace WebStore.Data
             sph.DefineSqlParameter("@TaxClassGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, taxClassGuid);
             sph.DefineSqlParameter("@Tax", SqlDbType.Decimal, ParameterDirection.Input, tax);
             sph.DefineSqlParameter("@IsDonation", SqlDbType.Bit, ParameterDirection.Input, isDonation);
+            sph.DefineSqlParameter("@MaxPerOrder", SqlDbType.Int, ParameterDirection.Input, maxPerOrder);
             int rowsAffected = sph.ExecuteNonQuery();
-            return (rowsAffected > 0);
+			return (rowsAffected > 0);
 
         }
 

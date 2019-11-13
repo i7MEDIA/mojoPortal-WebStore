@@ -13,6 +13,15 @@ namespace WebStore.UI {
     public partial class WebStoreModule {
         
         /// <summary>
+        /// displaySettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::WebStore.UI.WebStoreDisplaySettings displaySettings;
+        
+        /// <summary>
         /// pnlOuterWrap control.
         /// </summary>
         /// <remarks>

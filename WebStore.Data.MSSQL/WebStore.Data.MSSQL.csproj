@@ -158,11 +158,13 @@
     <Compile Include="DBDownloadTicket.cs" />
     <Compile Include="DBOffer.cs" />
     <Compile Include="DBOfferAvailability.cs" />
+    <Compile Include="DBOfferPricing.cs" />
     <Compile Include="DBOfferProduct.cs" />
     <Compile Include="DBOrder.cs" />
     <Compile Include="DBOrderOffer.cs" />
     <Compile Include="DBOrderOfferProduct.cs" />
     <Compile Include="DBProduct.cs" />
+    <Compile Include="DBStoreImage.cs" />
     <Compile Include="DBProductFile.cs" />
     <Compile Include="DBStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

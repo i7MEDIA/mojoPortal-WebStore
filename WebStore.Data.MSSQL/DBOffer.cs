@@ -364,8 +364,8 @@ namespace WebStore.Data
                     row["Abstract"] = reader["Abstract"];
                     row["Description"] = reader["Description"];
                     row["ShowDetailLink"] = Convert.ToBoolean(reader["ShowDetailLink"]);
-
-                    dataTable.Rows.Add(row);
+					row["MaxPerOrder"] = reader["MaxPerOrder"];
+					dataTable.Rows.Add(row);
 
                 }
             }
@@ -427,11 +427,12 @@ namespace WebStore.Data
             dataTable.Columns.Add("Abstract", typeof(string));
             dataTable.Columns.Add("Description", typeof(string));
             dataTable.Columns.Add("ShowDetailLink", typeof(bool));
-            //dataTable.Columns.Add("SortRank1", typeof(int));
-            //dataTable.Columns.Add("SortRank2", typeof(int));
+			dataTable.Columns.Add("MaxPerOrder", typeof(int));
+			//dataTable.Columns.Add("SortRank1", typeof(int));
+			//dataTable.Columns.Add("SortRank2", typeof(int));
 
 
-            return dataTable;
+			return dataTable;
 
         }
 

@@ -610,13 +610,19 @@ namespace WebStore.Business
             productOffersTable.TableName = "ProductOffers";
             dataSet.Tables.Add(productOffersTable);
 
-            // create a releationship
+			DataTable productImagesTable = StoreImage.GetTableByStore(this.guid);
+			productImagesTable.TableName = "ProductImages";
+			dataSet.Tables.Add(productImagesTable);
+
+            // create releationships
             dataSet.Relations.Add("prodoffers", 
                 dataSet.Tables["Products"].Columns["Guid"],
                 dataSet.Tables["ProductOffers"].Columns["ProductGuid"]);
+			dataSet.Relations.Add("prodimages",
+				dataSet.Tables["Products"].Columns["Guid"],
+				dataSet.Tables["ProductImages"].Columns["ReferenceGuid"], false);
 
-
-            return dataSet;
+			return dataSet;
         }
 
         /// <summary>

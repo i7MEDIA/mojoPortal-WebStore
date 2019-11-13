@@ -13,6 +13,15 @@ namespace WebStore.UI {
     public partial class AdminOfferEditPage {
         
         /// <summary>
+        /// displaySettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::WebStore.UI.WebStoreDisplaySettings displaySettings;
+        
+        /// <summary>
         /// pnlOuterWrap control.
         /// </summary>
         /// <remarks>
@@ -67,69 +76,6 @@ namespace WebStore.UI {
         protected global::System.Web.UI.WebControls.Panel divtabs;
         
         /// <summary>
-        /// litSettingsTab control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litSettingsTab;
-        
-        /// <summary>
-        /// litAbstactTab control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litAbstactTab;
-        
-        /// <summary>
-        /// litDescriptionTab control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litDescriptionTab;
-        
-        /// <summary>
-        /// liProducts control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liProducts;
-        
-        /// <summary>
-        /// lnkProducts control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkProducts;
-        
-        /// <summary>
-        /// litProductsTab control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litProductsTab;
-        
-        /// <summary>
-        /// litMetaTab control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litMetaTab;
-        
-        /// <summary>
         /// SiteLabel1 control.
         /// </summary>
         /// <remarks>
@@ -146,6 +92,60 @@ namespace WebStore.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtName;
+        
+        /// <summary>
+        /// litSettingsTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litSettingsTab;
+        
+        /// <summary>
+        /// litImagesTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litImagesTab;
+        
+        /// <summary>
+        /// litDescriptionTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litDescriptionTab;
+        
+        /// <summary>
+        /// litProductsTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litProductsTab;
+        
+        /// <summary>
+        /// litAvailabilityTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litAvailabilityTab;
+        
+        /// <summary>
+        /// litMetaTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litMetaTab;
         
         /// <summary>
         /// SiteLabel6 control.
@@ -220,6 +220,24 @@ namespace WebStore.UI {
         protected global::System.Web.UI.WebControls.TextBox txtPrice;
         
         /// <summary>
+        /// SiteLabel11 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel11;
+        
+        /// <summary>
+        /// txtMaxPerOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMaxPerOrder;
+        
+        /// <summary>
         /// lblTaxClassGuid control.
         /// </summary>
         /// <remarks>
@@ -236,24 +254,6 @@ namespace WebStore.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddTaxClassGuid;
-        
-        /// <summary>
-        /// lblIsVisible control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel lblIsVisible;
-        
-        /// <summary>
-        /// chkIsVisible control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkIsVisible;
         
         /// <summary>
         /// lblIsSpecial control.
@@ -310,6 +310,33 @@ namespace WebStore.UI {
         protected global::System.Web.UI.WebControls.CheckBox chkShowDetailLink;
         
         /// <summary>
+        /// lblImagesAfterSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.SiteLabel lblImagesAfterSave;
+        
+        /// <summary>
+        /// grdImages control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::WebStore.UI.AdminImageGridView grdImages;
+        
+        /// <summary>
+        /// litAbstractHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litAbstractHeader;
+        
+        /// <summary>
         /// edAbstract control.
         /// </summary>
         /// <remarks>
@@ -317,6 +344,15 @@ namespace WebStore.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.Editor.EditorControl edAbstract;
+        
+        /// <summary>
+        /// litDescriptionHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litDescriptionHeader;
         
         /// <summary>
         /// edDescription control.
@@ -328,13 +364,13 @@ namespace WebStore.UI {
         protected global::mojoPortal.Web.Editor.EditorControl edDescription;
         
         /// <summary>
-        /// tabProducts control.
+        /// lblProductsAfterSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tabProducts;
+        protected global::mojoPortal.Web.Controls.SiteLabel lblProductsAfterSave;
         
         /// <summary>
         /// upProducts control.
@@ -400,13 +436,31 @@ namespace WebStore.UI {
         protected global::System.Web.UI.WebControls.ImageButton btnAddFromGreyBox;
         
         /// <summary>
-        /// tabAvailability control.
+        /// lblIsVisible control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tabAvailability;
+        protected global::mojoPortal.Web.Controls.SiteLabel lblIsVisible;
+        
+        /// <summary>
+        /// chkIsVisible control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkIsVisible;
+        
+        /// <summary>
+        /// lblAvailabilityAfterSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.SiteLabel lblAvailabilityAfterSave;
         
         /// <summary>
         /// upAvailability control.
@@ -569,6 +623,15 @@ namespace WebStore.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.mojoButton btnSave;
+        
+        /// <summary>
+        /// btnSaveContinue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.mojoButton btnSaveContinue;
         
         /// <summary>
         /// btnDelete control.

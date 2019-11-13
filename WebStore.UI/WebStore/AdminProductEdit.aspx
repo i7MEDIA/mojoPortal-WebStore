@@ -1,26 +1,27 @@
-<%@ Page Language="C#" AutoEventWireup="false" MasterPageFile="~/App_MasterPages/layout.Master"
-    CodeBehind="AdminProductEdit.aspx.cs" Inherits="WebStore.UI.AdminProductEditPage" %>
+<%@ Page Language="C#" AutoEventWireup="false" MasterPageFile="~/App_MasterPages/layout.Master" CodeBehind="AdminProductEdit.aspx.cs" Inherits="WebStore.UI.AdminProductEditPage" %>
+<%@ Register TagPrefix="webstore" TagName="AdminImageGridView" Src="~/WebStore/Controls/AdminImageGridView.ascx" %>
+<%@ Register Namespace="WebStore.UI" Assembly="WebStore.UI" TagPrefix="webstore" %>
 
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
-    <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
-        <mp:CornerRounderTop ID="ctop1" runat="server" />
-        <portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper webstore webstoreproductedit" >
+	<webstore:WebStoreDisplaySettings id="displaySettings" runat="server" />
+	<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
+        <portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper webstore webstoreproductedit store-admin" >
             <portal:HeadingControl ID="heading" runat="server" />
-            <portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
+			<a href='<%= GetReturnUrl() %>' class="btn btn-link"><%= Resources.WebStoreResources.BackToProductsListLabel %></a>
+			<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
                 <portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
                 <asp:Panel ID="pnlWrap" runat="server" DefaultButton="btnSave">
                     <div id="divtabs" class="mojo-tabs">
                         <ul>
                             <li class="selected"><a href="#tabSettings">
                                 <asp:Literal ID="litSettingsTab" runat="server" /></a></li>
-                            <li><a href="#tabAbstract">
-                                <asp:Literal ID="litAbstactTab" runat="server" /></a></li>
+							<li><a href="#tabImages">
+								<asp:Literal ID="litImagesTab" runat="server" /></a></li>
                             <li><a href="#tabDescription">
                                 <asp:Literal ID="litDescriptionTab" runat="server" /></a></li>
-                            <li id="liFullfillment" runat="server"><a href="#tabFullfillment" id="lnkFullfillment"
-                                runat="server">
-                                    <asp:Literal ID="litFullfillmentTab" runat="server" /></a></li>
+                            <li><a href="#tabFullfillment">
+                                <asp:Literal ID="litFullfillmentTab" runat="server" /></a></li>
                             <li><a href="#tabMeta">
                                 <asp:Literal ID="litMetaTab" runat="server" /></a></li>
                         </ul>
@@ -87,66 +88,62 @@
                                     &nbsp;</div>
                             
                         </div>
-                        <div id="tabAbstract">
-                            <div class="settingrow">
-                                <mpe:EditorControl ID="edAbstract" runat="server">
-                                </mpe:EditorControl>
-                            </div>
-                        </div>
+						<div id="tabImages">
+							<mp:SiteLabel ID="lblImagesAfterSave" runat="server" ResourceFile="WebStoreResources" ConfigKey="AddImagesAfterSaveProduct" Visible="false" />
+							<webstore:AdminImageGridView ID="grdImages" runat="server" />
+						</div>
+
                         <div id="tabDescription">
-                            <div class="settingrow">
-                                <mpe:EditorControl ID="edDescription" runat="server">
-                                </mpe:EditorControl>
+							<div class="settingrow store-item-abstract">
+								<asp:Literal ID="litAbstractHeader" runat="server" EnableViewState="false" />
+								<mpe:EditorControl ID="edAbstract" runat="server" />
+							</div>
+                            <div class="settingrow store-item-description">
+								<asp:Literal ID="litDescriptionHeader" runat="server" EnableViewState="false" />
+								<mpe:EditorControl ID="edDescription" runat="server" />
                             </div>
                         </div>
-                        <div id="tabFullfillment" runat="server">
-                            
-                                <div class="settingrow">
-                                    <mp:SiteLabel ID="lblFullfillmentType" runat="server" CssClass="settinglabel" ConfigKey="ProductFullfillmentTypeLabel"
-                                        ResourceFile="WebStoreResources" />
-                                    <asp:DropDownList ID="ddFullfillmentType" EnableTheming="false" runat="server" CssClass="forminput" />
-                                    <asp:HyperLink ID="lnkDownload" runat="server" />
-                                </div>
-                                <asp:Panel ID="pnlUpload" runat="server" Visible="false">
-                                    <asp:Panel ID="pnlFileUpload" runat="server"  DefaultButton="btnUpload">
-                                        <div class="settingrow">
-                                        <mp:SiteLabel ID="Sitelabel3" runat="server" CssClass="settinglabel" ConfigKey="FileUploadLabel"
-                                            ResourceFile="WebStoreResources"></mp:SiteLabel>
-                                        </div>
-                                        <div class="settingrow">
-                                       <portal:jQueryFileUpload ID="productUploader" runat="server" />
-                                        <portal:mojoButton ID="btnUpload" runat="server" Text="Upload" ValidationGroup="Upload" />
-                                        <asp:HiddenField ID="hdnState" Value="images" runat="server" />
-                                        </div>
-                                    </asp:Panel>
+
+                        <div id="tabFullfillment"> 
+							<div class="settingrow">
+                                <mp:SiteLabel ID="lblFullfillmentType" runat="server" CssClass="settinglabel" ConfigKey="ProductFullfillmentTypeLabel" ResourceFile="WebStoreResources" />
+                                <asp:DropDownList ID="ddFullfillmentType" EnableTheming="false" runat="server" CssClass="forminput" />
+                                <asp:HyperLink ID="lnkDownload" runat="server" />
+								<mp:SiteLabel ID="lblFulfillmentAfterSave" runat="server" ResourceFile="WebStoreResources" ConfigKey="AddFulfillmentAfterSave" Visible="false" />
+                            </div>
+                            <asp:Panel ID="pnlUpload" runat="server" >
+                                <asp:Panel ID="pnlFileUpload" runat="server"  DefaultButton="btnUpload" Enabled="false">
                                     <div class="settingrow">
-                                        <mp:SiteLabel ID="SiteLabel10" runat="server" CssClass="settinglabel" ForControl="txtTeaserFileLinkText"
-                                            ConfigKey="TeaserFileLinkTextLabel" ResourceFile="WebStoreResources" />
-                                        <asp:TextBox ID="txtTeaserFileLinkText" runat="server" CssClass="mediumtextbox forminput" />
-                                        <portal:mojoButton ID="btnDeleteTeaser" runat="server" Visible="false" CausesValidation="false" />
+										<mp:SiteLabel ID="Sitelabel3" runat="server" CssClass="settinglabel" ConfigKey="FileUploadLabel" ResourceFile="WebStoreResources" />
                                     </div>
-                                    <asp:Panel ID="pnlTeaserUpload" runat="server" DefaultButton="btnUploadTeaser">
-                                        <div class="settingrow">
-                                        <mp:SiteLabel ID="Sitelabel5" runat="server" CssClass="settinglabel" ConfigKey="TeaserFileUploadLabel"
-                                            ResourceFile="WebStoreResources"></mp:SiteLabel>
-                                            <asp:HyperLink ID="lnkTeaserDownload" runat="server" Visible="false" />
-                                         </div>
-                                        <div class="settingrow">
-                                        <portal:jQueryFileUpload ID="teaserUploader" runat="server" />
-                                        <portal:mojoButton ID="btnUploadTeaser" runat="server" ValidationGroup="Upload" />
-                                        </div>
-                                        <div>
-                                            <mp:SiteLabel ID="Sitelabel11" runat="server" UseLabelTag="false" ConfigKey="TeaserFileInfo"
-                                                ResourceFile="WebStoreResources"></mp:SiteLabel>
-                                        </div>                                        
-                                    </asp:Panel>
+                                    <div class="settingrow">
+										<portal:jQueryFileUpload ID="productUploader" runat="server" />
+										<portal:mojoButton ID="btnUpload" runat="server" Text="Upload" ValidationGroup="Upload" />
+										<asp:HiddenField ID="hdnState" Value="images" runat="server" />
+                                    </div>
                                 </asp:Panel>
                                 <div class="settingrow">
-                                    &nbsp;</div>
-                           
+                                    <mp:SiteLabel runat="server" CssClass="settinglabel" ForControl="txtTeaserFileLinkText"
+                                        ConfigKey="TeaserFileLinkTextLabel" ResourceFile="WebStoreResources" />
+                                    <asp:TextBox ID="txtTeaserFileLinkText" runat="server" CssClass="mediumtextbox forminput" />
+                                    <portal:mojoButton ID="btnDeleteTeaser" runat="server" Visible="false" CausesValidation="false" />
+                                </div>
+                                <asp:Panel ID="pnlTeaserUpload" runat="server" DefaultButton="btnUploadTeaser">
+                                    <div class="settingrow">
+										<mp:SiteLabel runat="server" CssClass="settinglabel" ConfigKey="TeaserFileUploadLabel" ResourceFile="WebStoreResources" />
+                                        <asp:HyperLink ID="lnkTeaserDownload" runat="server" Visible="false" />
+                                    </div>
+                                    <div class="settingrow">
+										<portal:jQueryFileUpload ID="teaserUploader" runat="server" />
+										<portal:mojoButton ID="btnUploadTeaser" runat="server" ValidationGroup="Upload" />
+                                    </div>
+                                    <div class="settingrow">
+                                        <mp:SiteLabel runat="server" UseLabelTag="false" ConfigKey="TeaserFileInfo" ResourceFile="WebStoreResources" />
+                                    </div>                                        
+                                </asp:Panel>
+                            </asp:Panel>                           
                         </div>
                         <div id="tabMeta">
-                            
                                 <div class="settingrow">
                                     <mp:SiteLabel ID="SiteLabel6" runat="server" ForControl="txtMetaDescription" CssClass="settinglabel"
                                         ConfigKey="MetaDescriptionLabel" ResourceFile="WebStoreResources"></mp:SiteLabel>
@@ -350,17 +347,22 @@
                     </div>
                     <div>
                         <asp:ValidationSummary ID="vSummary" runat="server" ValidationGroup="Product" />
-                        <asp:RequiredFieldValidator ID="reqName" runat="server" ControlToValidate="txtName"
-                            Display="None" ValidationGroup="Product" />
-                        <portal:mojoButton ID="btnSave" runat="server" ValidationGroup="Product" SkinID="SaveButton" />
-                        <portal:mojoButton ID="btnDelete" runat="server" CausesValidation="false" SkinID="DeleteButtonSmall" />
-                    </div>
+                        <asp:RequiredFieldValidator ID="reqName" runat="server" ControlToValidate="txtName" Display="None" ValidationGroup="Product" />
+                        </div>
+					<div class="btn-toolbar">
+						<div class="btn-group">
+							<portal:mojoButton ID="btnSave" runat="server" ValidationGroup="Product" SkinID="SaveButton" CommandName="Save"/>
+							<portal:mojoButton ID="btnSaveContinue" runat="server" ValidationGroup="Product" SkinID="InfoButton" CommandName="SaveContinue" />
+						</div>
+						<div class="btn-group">
+							<portal:mojoButton ID="btnDelete" runat="server" CausesValidation="false" SkinID="DeleteButtonSmall" />
+						</div>
+					</div>
                  </asp:Panel>
                 </portal:InnerBodyPanel>
             </portal:OuterBodyPanel>
             <portal:EmptyPanel id="divCleared" runat="server" CssClass="cleared" SkinID="cleared"></portal:EmptyPanel>
         </portal:InnerWrapperPanel>
-        <mp:CornerRounderBottom ID="cbottom1" runat="server" />
     </portal:OuterWrapperPanel>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />

@@ -13,15 +13,6 @@ namespace WebStore.UI {
     public partial class ProductDetailPage {
         
         /// <summary>
-        /// lnkCart control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::WebStore.UI.Controls.CartLink lnkCart;
-        
-        /// <summary>
         /// pnlOuterWrap control.
         /// </summary>
         /// <remarks>
@@ -29,6 +20,15 @@ namespace WebStore.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.OuterWrapperPanel pnlOuterWrap;
+        
+        /// <summary>
+        /// lnkCart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::WebStore.UI.Controls.CartLink lnkCart;
         
         /// <summary>
         /// pnlInnerWrap control.
@@ -85,13 +85,22 @@ namespace WebStore.UI {
         protected global::System.Web.UI.UserControl Rating;
         
         /// <summary>
-        /// pnlOffers control.
+        /// litDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.UI.BasePanel pnlOffers;
+        protected global::System.Web.UI.WebControls.Literal litDescription;
+        
+        /// <summary>
+        /// rptImages control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptImages;
         
         /// <summary>
         /// rptOffers control.
@@ -101,24 +110,6 @@ namespace WebStore.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptOffers;
-        
-        /// <summary>
-        /// divOfferDescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divOfferDescription;
-        
-        /// <summary>
-        /// litDescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litDescription;
         
         /// <summary>
         /// jPlayerPanel control.

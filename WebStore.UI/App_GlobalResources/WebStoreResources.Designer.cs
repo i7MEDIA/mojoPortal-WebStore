@@ -61,6 +61,78 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Short Description.
+        /// </summary>
+        internal static string AbstractLabel {
+            get {
+                return ResourceManager.GetString("AbstractLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to shows in the offer listing.
+        /// </summary>
+        internal static string AbstractLabelTipOffer {
+            get {
+                return ResourceManager.GetString("AbstractLabelTipOffer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to shows in the product listing.
+        /// </summary>
+        internal static string AbstractLabelTipProduct {
+            get {
+                return ResourceManager.GetString("AbstractLabelTipProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can add availability terms to this offer after it is saved..
+        /// </summary>
+        internal static string AddAvailabilityAfterSave {
+            get {
+                return ResourceManager.GetString("AddAvailabilityAfterSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can set additional fulfillment options on this product after it is saved..
+        /// </summary>
+        internal static string AddFulfillmentAfterSave {
+            get {
+                return ResourceManager.GetString("AddFulfillmentAfterSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Image.
+        /// </summary>
+        internal static string AddImageLabel {
+            get {
+                return ResourceManager.GetString("AddImageLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can add images to this offer after it is saved..
+        /// </summary>
+        internal static string AddImagesAfterSaveOffer {
+            get {
+                return ResourceManager.GetString("AddImagesAfterSaveOffer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can add images to this product after it is saved..
+        /// </summary>
+        internal static string AddImagesAfterSaveProduct {
+            get {
+                return ResourceManager.GetString("AddImagesAfterSaveProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Meta Element.
         /// </summary>
         internal static string AddMetaButton {
@@ -75,6 +147,15 @@ namespace Resources {
         internal static string AddMetaLinkButton {
             get {
                 return ResourceManager.GetString("AddMetaLinkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can add products to this offer after it is saved..
+        /// </summary>
+        internal static string AddProductsAfterSave {
+            get {
+                return ResourceManager.GetString("AddProductsAfterSave", resourceCulture);
             }
         }
         
@@ -133,6 +214,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alt.
+        /// </summary>
+        internal static string AltLabel {
+            get {
+                return ResourceManager.GetString("AltLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apply Discount.
         /// </summary>
         internal static string ApplyDiscountButton {
@@ -147,6 +237,24 @@ namespace Resources {
         internal static string AuthCodeLabel {
             get {
                 return ResourceManager.GetString("AuthCodeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to back to offers list.
+        /// </summary>
+        internal static string BackToOffersListLabel {
+            get {
+                return ResourceManager.GetString("BackToOffersListLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to back to products list.
+        /// </summary>
+        internal static string BackToProductsListLabel {
+            get {
+                return ResourceManager.GetString("BackToProductsListLabel", resourceCulture);
             }
         }
         
@@ -201,6 +309,15 @@ namespace Resources {
         internal static string BrowseCartsLink {
             get {
                 return ResourceManager.GetString("BrowseCartsLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string CancelLabel {
+            get {
+                return ResourceManager.GetString("CancelLabel", resourceCulture);
             }
         }
         
@@ -1591,6 +1708,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this image reference?.
+        /// </summary>
+        internal static string DeleteImageWarning {
+            get {
+                return ResourceManager.GetString("DeleteImageWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string DeleteLabel {
+            get {
+                return ResourceManager.GetString("DeleteLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         internal static string DeleteOrderButton {
@@ -1650,6 +1785,33 @@ namespace Resources {
         internal static string DeliveryPostalCodeRequiredMessage {
             get {
                 return ResourceManager.GetString("DeliveryPostalCodeRequiredMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full Description.
+        /// </summary>
+        internal static string DescriptionLabel {
+            get {
+                return ResourceManager.GetString("DescriptionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to shows on the offer detail page.
+        /// </summary>
+        internal static string DescriptionLabelTipOffer {
+            get {
+                return ResourceManager.GetString("DescriptionLabelTipOffer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to shows on the product detail page.
+        /// </summary>
+        internal static string DescriptionLabelTipProduct {
+            get {
+                return ResourceManager.GetString("DescriptionLabelTipProduct", resourceCulture);
             }
         }
         
@@ -1951,6 +2113,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Display Order.
+        /// </summary>
+        internal static string DisplayOrderLabel {
+            get {
+                return ResourceManager.GetString("DisplayOrderLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Download History.
         /// </summary>
         internal static string DownloadHistoryHeading {
@@ -2163,6 +2334,15 @@ namespace Resources {
         internal static string DuplicateCodeException {
             get {
                 return ResourceManager.GetString("DuplicateCodeException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        internal static string EditLabel {
+            get {
+                return ResourceManager.GetString("EditLabel", resourceCulture);
             }
         }
         
@@ -2397,6 +2577,33 @@ namespace Resources {
         internal static string GroupByProduct {
             get {
                 return ResourceManager.GetString("GroupByProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image.
+        /// </summary>
+        internal static string ImageLabel {
+            get {
+                return ResourceManager.GetString("ImageLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick an Image.
+        /// </summary>
+        internal static string ImagePickerHeading {
+            get {
+                return ResourceManager.GetString("ImagePickerHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Images.
+        /// </summary>
+        internal static string ImagesTab {
+            get {
+                return ResourceManager.GetString("ImagesTab", resourceCulture);
             }
         }
         
@@ -2698,6 +2905,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add terms to limit the availability of this offer.&lt;br&gt;&lt;br&gt;If no availability terms are present and the &quot;Is Available&quot; option is selected, the offer is always available..
+        /// </summary>
+        internal static string OfferAvailabilityInstructions {
+            get {
+                return ResourceManager.GetString("OfferAvailabilityInstructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Max Per Customer.
         /// </summary>
         internal static string OfferAvailabilityMaxAllowedPerCustomerHeader {
@@ -2806,6 +3022,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Offer Settings.
+        /// </summary>
+        internal static string OfferEditHeadingTooltip {
+            get {
+                return ResourceManager.GetString("OfferEditHeadingTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Roles that can edit offers.
         /// </summary>
         internal static string OfferEditRolesLabel {
@@ -2847,6 +3072,24 @@ namespace Resources {
         internal static string OfferListHeading {
             get {
                 return ResourceManager.GetString("OfferListHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum Quantity Per Order.
+        /// </summary>
+        internal static string OfferMaxPerOrder {
+            get {
+                return ResourceManager.GetString("OfferMaxPerOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You may only order {0} of this item..
+        /// </summary>
+        internal static string OfferMaxPerOrderExceeded {
+            get {
+                return ResourceManager.GetString("OfferMaxPerOrderExceeded", resourceCulture);
             }
         }
         
@@ -3670,7 +3913,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Product details....
+        ///   Looks up a localized string similar to More Info....
         /// </summary>
         internal static string ProductDetailsLink {
             get {
@@ -3684,6 +3927,15 @@ namespace Resources {
         internal static string ProductEditHeading {
             get {
                 return ResourceManager.GetString("ProductEditHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Product Settings.
+        /// </summary>
+        internal static string ProductEditHeadingTooltip {
+            get {
+                return ResourceManager.GetString("ProductEditHeadingTooltip", resourceCulture);
             }
         }
         
@@ -4188,6 +4440,24 @@ namespace Resources {
         internal static string SalesOverviewReportHeading {
             get {
                 return ResourceManager.GetString("SalesOverviewReportHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save and Continue Edit.
+        /// </summary>
+        internal static string SaveContinueEditButton {
+            get {
+                return ResourceManager.GetString("SaveContinueEditButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string SaveLabel {
+            get {
+                return ResourceManager.GetString("SaveLabel", resourceCulture);
             }
         }
         
@@ -4867,6 +5137,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        internal static string TitleLabel {
+            get {
+                return ResourceManager.GetString("TitleLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sorry order declined. Please make sure you entered your payment information correctly..
         /// </summary>
         internal static string TransactionDeclinedMessage {
@@ -4912,7 +5191,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update Quantity.
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        internal static string UpdateLabel {
+            get {
+                return ResourceManager.GetString("UpdateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
         /// </summary>
         internal static string UpdateQuantityButton {
             get {

@@ -13,6 +13,15 @@ namespace WebStore.UI {
     public partial class AdminProductEditPage {
         
         /// <summary>
+        /// displaySettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::WebStore.UI.WebStoreDisplaySettings displaySettings;
+        
+        /// <summary>
         /// pnlOuterWrap control.
         /// </summary>
         /// <remarks>
@@ -20,15 +29,6 @@ namespace WebStore.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.OuterWrapperPanel pnlOuterWrap;
-        
-        /// <summary>
-        /// ctop1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderTop ctop1;
         
         /// <summary>
         /// pnlInnerWrap control.
@@ -85,13 +85,13 @@ namespace WebStore.UI {
         protected global::System.Web.UI.WebControls.Literal litSettingsTab;
         
         /// <summary>
-        /// litAbstactTab control.
+        /// litImagesTab control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litAbstactTab;
+        protected global::System.Web.UI.WebControls.Literal litImagesTab;
         
         /// <summary>
         /// litDescriptionTab control.
@@ -101,24 +101,6 @@ namespace WebStore.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal litDescriptionTab;
-        
-        /// <summary>
-        /// liFullfillment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liFullfillment;
-        
-        /// <summary>
-        /// lnkFullfillment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkFullfillment;
         
         /// <summary>
         /// litFullfillmentTab control.
@@ -346,6 +328,33 @@ namespace WebStore.UI {
         protected global::System.Web.UI.WebControls.CheckBox chkEnableRating;
         
         /// <summary>
+        /// lblImagesAfterSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.SiteLabel lblImagesAfterSave;
+        
+        /// <summary>
+        /// grdImages control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::WebStore.UI.AdminImageGridView grdImages;
+        
+        /// <summary>
+        /// litAbstractHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litAbstractHeader;
+        
+        /// <summary>
         /// edAbstract control.
         /// </summary>
         /// <remarks>
@@ -355,6 +364,15 @@ namespace WebStore.UI {
         protected global::mojoPortal.Web.Editor.EditorControl edAbstract;
         
         /// <summary>
+        /// litDescriptionHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litDescriptionHeader;
+        
+        /// <summary>
         /// edDescription control.
         /// </summary>
         /// <remarks>
@@ -362,15 +380,6 @@ namespace WebStore.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.Editor.EditorControl edDescription;
-        
-        /// <summary>
-        /// tabFullfillment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tabFullfillment;
         
         /// <summary>
         /// lblFullfillmentType control.
@@ -398,6 +407,15 @@ namespace WebStore.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink lnkDownload;
+        
+        /// <summary>
+        /// lblFulfillmentAfterSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.SiteLabel lblFulfillmentAfterSave;
         
         /// <summary>
         /// pnlUpload control.
@@ -454,15 +472,6 @@ namespace WebStore.UI {
         protected global::System.Web.UI.WebControls.HiddenField hdnState;
         
         /// <summary>
-        /// SiteLabel10 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel10;
-        
-        /// <summary>
         /// txtTeaserFileLinkText control.
         /// </summary>
         /// <remarks>
@@ -490,15 +499,6 @@ namespace WebStore.UI {
         protected global::System.Web.UI.WebControls.Panel pnlTeaserUpload;
         
         /// <summary>
-        /// Sitelabel5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel Sitelabel5;
-        
-        /// <summary>
         /// lnkTeaserDownload control.
         /// </summary>
         /// <remarks>
@@ -524,15 +524,6 @@ namespace WebStore.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.mojoButton btnUploadTeaser;
-        
-        /// <summary>
-        /// Sitelabel11 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.SiteLabel Sitelabel11;
         
         /// <summary>
         /// SiteLabel6 control.
@@ -688,6 +679,15 @@ namespace WebStore.UI {
         protected global::mojoPortal.Web.UI.mojoButton btnSave;
         
         /// <summary>
+        /// btnSaveContinue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.mojoButton btnSaveContinue;
+        
+        /// <summary>
         /// btnDelete control.
         /// </summary>
         /// <remarks>
@@ -704,14 +704,5 @@ namespace WebStore.UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.EmptyPanel divCleared;
-        
-        /// <summary>
-        /// cbottom1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.CornerRounderBottom cbottom1;
     }
 }

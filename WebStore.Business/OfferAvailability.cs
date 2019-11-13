@@ -13,7 +13,7 @@
 using System;
 using System.Data;
 using WebStore.Data;
-
+using log4net;
 namespace WebStore.Business
 {
     /// <summary>
@@ -21,10 +21,11 @@ namespace WebStore.Business
     /// </summary>
     public class OfferAvailability
     {
-        
-        #region Constructors
+        private static readonly ILog log = LogManager.GetLogger(typeof(OfferAvailability));
 
-        public OfferAvailability()
+		#region Constructors
+
+		public OfferAvailability()
         { }
 
 
@@ -218,23 +219,25 @@ namespace WebStore.Business
 
         private bool Update()
         {
-            OfferAvailability availability = new OfferAvailability(this.guid);
-            DBOfferAvailability.AddHistory(
-                Guid.NewGuid(),
-                availability.Guid,
-                availability.OfferGuid,
-                availability.BeginUtc,
-                availability.EndUtc,
-                availability.RequiresOfferCode,
-                availability.OfferCode,
-                availability.MaxAllowedPerCustomer,
-                availability.Created,
-                availability.CreatedBy,
-                availability.CreatedFromIP,
-                availability.IsDeleted,
-                availability.DeletedBy,
-                availability.DeletedTime,
-                availability.DeletedFromIP,
+			OfferAvailability availability = new OfferAvailability(this.guid);
+			//log.Info($"offer availability update: BeginUtc ({availability.BeginUtc}), EndUtc ({availability.EndUtc}), Created ({availability.Created}), DeletedTime ({availability.DeletedTime}), LastModified ({availability.LastModified})");
+
+			DBOfferAvailability.AddHistory(
+				Guid.NewGuid(),
+				availability.Guid,
+				availability.OfferGuid,
+				availability.BeginUtc,
+				availability.EndUtc,
+				availability.RequiresOfferCode,
+				availability.OfferCode,
+				availability.MaxAllowedPerCustomer,
+				availability.Created,
+				availability.CreatedBy,
+				availability.CreatedFromIP,
+				availability.IsDeleted,
+				Guid.Empty,
+                Convert.ToDateTime("1/1/1753 12:00:00 AM"),
+				string.Empty,
                 availability.LastModified,
                 availability.LastModifedBy,
                 availability.LastModifedFromIP,
@@ -298,9 +301,9 @@ namespace WebStore.Business
                 availability.CreatedBy,
                 availability.CreatedFromIP,
                 availability.IsDeleted,
-                availability.DeletedBy,
-                availability.DeletedTime,
-                availability.DeletedFromIP,
+                Guid.Empty,
+				Convert.ToDateTime("1/1/1753 12:00:00 AM"),
+				string.Empty,
                 availability.LastModified,
                 availability.LastModifedBy,
                 availability.LastModifedFromIP,

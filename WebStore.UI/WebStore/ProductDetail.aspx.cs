@@ -1,6 +1,6 @@
 ﻿/// Author:					
 /// Created:				2008-10-19
-/// Last Modified:			2018-10-11
+/// Last Modified:			2019-10-25
 /// 
 /// The use and distribution terms for this software are covered by the 
 /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
@@ -23,7 +23,6 @@ using mojoPortal.Business;
 using WebStore.Business;
 using Resources;
 using WebStore.Helpers;
-
 namespace WebStore.UI
 {
     public partial class ProductDetailPage : mojoBasePage
@@ -71,11 +70,17 @@ namespace WebStore.UI
             if (product == null) { return; }
 
             heading.Text = Server.HtmlEncode(product.Name);
-            litDescription.Text = product.Description;
+			if (UserCanEditModule(moduleId))
+			{
+				string editUrl = $"{SiteRoot}/WebStore/AdminProductEdit.aspx?pageid={pageId}&mid={moduleId}&prod={productGuid}";
+				string editLink = string.Format(displaySettings.ProductEditLinkFormat, editUrl, WebStoreResources.ProductEditHeadingTooltip, WebStoreResources.ProductEditHeading);
+				heading.LiteralExtraMarkup += editLink;
+			}
+            litDescription.Text = displaySettings.ProductDetailDescriptionMarkupTop + product.Description + displaySettings.ProductDetailDescriptionMarkupBottom;
             MetaDescription = product.MetaDescription;
             MetaKeywordCsv = product.MetaKeywords;
             AdditionalMetaMarkup = product.CompiledMeta;
-			pnlOffers.CssClass = displaySettings.ProductDetailsOffersDivCssClass;
+			//pnlOffers.CssClass = displaySettings.ProductDetailsOffersDivCssClass;
             if (product.TeaserFile.Length > 0)
             {
                 lnkPreview.Text = product.Name;
@@ -102,10 +107,12 @@ namespace WebStore.UI
 				((mojoRating)Rating).Visible = true;
 			}
 
-			DataTable dataTable = Offer.GetByProduct(product.Guid);
-            rptOffers.DataSource = dataTable;
+			DataTable dtOffers = Offer.GetByProduct(product.Guid);
+            rptOffers.DataSource = dtOffers;
             rptOffers.DataBind();
 
+			rptImages.DataSource = StoreImage.GetByReference(product.Guid);
+			rptImages.DataBind();
         }
 
         void rptOffers_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -115,7 +122,10 @@ namespace WebStore.UI
                 case "addToCart":
                 default:
 
-                    Cart cart = StoreHelper.GetCart();
+					//Page.Validate("Product");
+
+
+					Cart cart = StoreHelper.GetCart();
                     if (cart == null) { return; }
 
                     string strGuid = e.CommandArgument.ToString();
@@ -126,7 +136,9 @@ namespace WebStore.UI
 
                     int quantity = 1;
                     TextBox txtQty = e.Item.FindControl("txtQuantity") as TextBox;
-                    if (txtQty != null)
+					//RangeValidator rangeValidator = e.Item.FindControl("rvQuantity") as RangeValidator;
+
+					if (txtQty != null)
                     {
                         try
                         {
@@ -135,6 +147,12 @@ namespace WebStore.UI
                         catch (ArgumentException) { }
                     }
                     if (quantity < 0) { quantity = 1; }
+
+					//if (Convert.ToInt32(rangeValidator.MaximumValue) < quantity)
+					//{
+					//	rangeValidator.Visible = true;
+					//	return;
+					//}
 
                     if (cart.AddOfferToCart(offer, quantity))
                     {
@@ -158,8 +176,23 @@ namespace WebStore.UI
 
         }
 
-
-        private void PopulateLabels()
+		private void rptOffers_ItemDataBound(object sender, RepeaterItemEventArgs e)
+		{
+			if (e.Item.ItemType == ListItemType.Item)
+			{
+				RangeValidator rangeValidator = e.Item.FindControl("rvQuantity") as RangeValidator;
+				TextBox txtQty = e.Item.FindControl("txtQuantity") as TextBox;
+				//Button btnAddToCart = e.Item.FindControl("btnAddToCart") as Button;
+				if (Convert.ToInt32(rangeValidator.MaximumValue) != 0)
+				{
+					rangeValidator.Enabled = true;
+					rangeValidator.ControlToValidate = txtQty.ID;
+					rangeValidator.CssClass = "help-block";
+					rangeValidator.ErrorMessage = string.Format(WebStoreResources.OfferMaxPerOrderExceeded, rangeValidator.MaximumValue.ToString());
+				}
+			}
+		}
+		private void PopulateLabels()
         {
             Control c = Master.FindControl("Breadcrumbs");
             if (c != null)
@@ -186,6 +219,20 @@ namespace WebStore.UI
             lnkCart.ModuleID = moduleId;
 
         }
+
+		protected string GetOfferTitle(bool showlink, string name, string url)
+		{
+			string title = string.Empty;
+			if (showlink)
+			{
+				title = string.Format(displaySettings.ProductDetailOfferNameLinkFormat, SiteRoot + url, Resources.WebStoreResources.OfferDetailLink, name);
+			}
+			else
+			{
+				title =string.Format(displaySettings.ProductDetailOfferNameFormat, name);
+			}
+			return title;
+		}
 
         private void LoadSettings()
         {
@@ -245,7 +292,7 @@ namespace WebStore.UI
 
         
 
-        #region OnInit
+			#region OnInit
 
         protected override void OnPreInit(EventArgs e)
         {
@@ -258,16 +305,13 @@ namespace WebStore.UI
             base.OnInit(e);
             this.Load += new EventHandler(this.Page_Load);
             rptOffers.ItemCommand += new RepeaterCommandEventHandler(rptOffers_ItemCommand);
-
+			rptOffers.ItemDataBound += new RepeaterItemEventHandler(rptOffers_ItemDataBound);
             AppendQueryStringToAction = false;
             SuppressPageMenu();
             SuppressGoogleAds();
 
 
         }
-
-        
-
-        #endregion
-    }
+			#endregion
+	}
 }

@@ -97,7 +97,7 @@ namespace WebStore.Data
             DateTime deletedTime,
             string deletedFromIP)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(WebStoreConnectionString.GetWriteConnectionString(), "ws_OfferAvailability_Update", 5);
+            SqlParameterHelper sph = new SqlParameterHelper(WebStoreConnectionString.GetWriteConnectionString(), "ws_OfferAvailability_Delete", 5);
             sph.DefineSqlParameter("@Guid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, guid);
             sph.DefineSqlParameter("@IsDeleted", SqlDbType.Bit, ParameterDirection.Input, true);
             sph.DefineSqlParameter("@DeletedBy", SqlDbType.UniqueIdentifier, ParameterDirection.Input, deletedBy);

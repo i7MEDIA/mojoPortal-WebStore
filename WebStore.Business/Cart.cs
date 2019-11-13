@@ -585,7 +585,16 @@ namespace WebStore.Business
                 if (cOffer.OfferGuid == offer.Guid)
                 {
                     foundOfferInCart = true;
-                    cOffer.Quantity += quantity;
+					int newQty = cOffer.Quantity + quantity;
+					if (offer.MaxPerOrder < newQty)
+					{
+						cOffer.Quantity = offer.MaxPerOrder;
+					}
+					else
+					{
+						cOffer.Quantity = newQty;
+					}
+
                     if (cOffer.Quantity <= 0)
                     {
                         DBCartOffer.Delete(cOffer.ItemGuid);
@@ -607,7 +616,7 @@ namespace WebStore.Business
             }
 
             if (quantity <= 0) { return false; }
-
+			if (offer.MaxPerOrder < quantity) { quantity = offer.MaxPerOrder; }
             CartOffer cartOffer = new CartOffer();
             cartOffer.CartGuid = this.cartGuid;
             //cartOffer.CurrencyGuid = currencyGuid;
@@ -618,6 +627,7 @@ namespace WebStore.Business
             // this will be updated later, just initialize to 0
             cartOffer.Tax = 0;
             cartOffer.IsDonation = offer.IsDonation;
+			cartOffer.MaxPerOrder = offer.MaxPerOrder;
             cartOffer.Save();
 
             // clear offers collection so it will be refreshed
@@ -640,14 +650,20 @@ namespace WebStore.Business
             {
                 if (cartOffer.ItemGuid == itemGuid)
                 {
-                    if (quantity <= 0)
+					int newQty = cartOffer.Quantity + quantity;
+					if (cartOffer.MaxPerOrder < newQty)
+					{
+						newQty = cartOffer.MaxPerOrder;
+					}
+
+					if (quantity <= 0)
                     {
                         DBCartOffer.Delete(itemGuid);
                         ResetCartOffers();
                     }
                     else
                     {
-                        cartOffer.Quantity = quantity;
+                        cartOffer.Quantity = newQty;
                         cartOffer.Save();
                     }
 
