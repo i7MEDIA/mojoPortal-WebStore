@@ -1,16 +1,4 @@
-﻿/// Author:                     
-/// Created:                    2008-06-28
-///	Last Modified:              2008-07-09
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Web;
@@ -19,7 +7,7 @@ using mojoPortal.Web;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers.PaymentGateway;
 using WebStore.Business;
-
+using mojoPortal.Business.WebHelpers;
 
 namespace WebStore.Helpers
 {
@@ -78,13 +66,18 @@ namespace WebStore.Helpers
                     commerceConfig.PayPalAPISignature,
                     commerceConfig.PayPalStandardEmailAddress);
 
-            gateway.UseTestMode = commerceConfig.PaymentGatewayUseTestMode;
+			if (WebConfigSettings.DebugPayPal && gateway == null) log.Error("gateway is null");
+
+			gateway.UseTestMode = commerceConfig.PaymentGatewayUseTestMode;
             gateway.PayPalToken = payPalToken;
             gateway.PayPalPayerId = payPalPayerId;
 
 
             Cart savedCart = (Cart)SerializationHelper.DeserializeFromString(typeof(Cart), setExpressCheckoutLog.SerializedObject);
-            savedCart.DeSerializeCartOffers();
+
+			if (WebConfigSettings.DebugPayPal && savedCart == null) log.Error("cart is null");
+
+			savedCart.DeSerializeCartOffers();
 
             string siteRoot = SiteUtils.GetNavigationSiteRoot();
             
@@ -95,29 +88,31 @@ namespace WebStore.Helpers
             //gateway.PayPalPayerId = payPalPayerId;
 
             gateway.CallGetExpressCheckoutDetails();
-            
 
-            PayPalLog payPalLog = new PayPalLog();
-            payPalLog.ProviderName = WebStorePayPalReturnHandler.ProviderName;
-            payPalLog.SerializedObject = setExpressCheckoutLog.SerializedObject;
-            payPalLog.ReturnUrl = setExpressCheckoutLog.ReturnUrl;
-            payPalLog.RawResponse = gateway.RawResponse;
-            payPalLog.TransactionId = gateway.TransactionId;
-            payPalLog.CurrencyCode = gateway.CurrencyCode;
-            // TODO: add versions to gateways
-            //log.ApiVersion = gateway.
-            payPalLog.CartGuid = savedCart.CartGuid;
+			Store store = new Store(savedCart.StoreGuid);
 
-            Store store = new Store(savedCart.StoreGuid);
-            payPalLog.Token = payPalToken;
-            payPalLog.PayerId = payPalPayerId;
-            payPalLog.RequestType = "GetExpressCheckoutDetails";
-            payPalLog.SiteGuid = store.SiteGuid;
-            payPalLog.StoreGuid = store.Guid;
-            payPalLog.UserGuid = savedCart.UserGuid;
+			PayPalLog payPalLog = new PayPalLog
+			{
+				ProviderName = WebStorePayPalReturnHandler.ProviderName,
+				SerializedObject = setExpressCheckoutLog.SerializedObject,
+				ReturnUrl = setExpressCheckoutLog.ReturnUrl,
+				RawResponse = gateway.RawResponse,
+				TransactionId = gateway.TransactionId,
+				CurrencyCode = gateway.CurrencyCode,
+				CartGuid = savedCart.CartGuid,
+				Token = payPalToken,
+				PayerId = payPalPayerId,
+				RequestType = "GetExpressCheckoutDetails",
+				SiteGuid = store.SiteGuid,
+				StoreGuid = store.Guid,
+				UserGuid = savedCart.UserGuid
+			};
 
-            // update the order with customer shipping info
-            savedCart.OrderInfo.DeliveryCompany = gateway.ShipToCompanyName;
+			if (WebConfigSettings.DebugPayPal && payPalLog == null) log.Error("payPalLog is null");
+
+
+			// update the order with customer shipping info
+			savedCart.OrderInfo.DeliveryCompany = gateway.ShipToCompanyName;
             savedCart.OrderInfo.DeliveryAddress1 = gateway.ShipToAddress;
             savedCart.OrderInfo.DeliveryAddress2 = gateway.ShipToAddress2;
             savedCart.OrderInfo.DeliveryCity = gateway.ShipToCity;
@@ -150,8 +145,27 @@ namespace WebStore.Helpers
             //}
 
             GeoCountry country = new GeoCountry(savedCart.OrderInfo.DeliveryCountry);
-            GeoZone taxZone = GeoZone.GetByCode(country.Guid, savedCart.OrderInfo.DeliveryState);
-            savedCart.OrderInfo.TaxZoneGuid = taxZone.Guid;
+			if (WebConfigSettings.DebugPayPal && country == null)
+			{
+				if (WebConfigSettings.DebugPayPal) log.Error("country is null");
+				country = new GeoCountry(SiteUtils.GetDefaultCountry());
+			}
+			
+			GeoZone taxZone = GeoZone.GetByCode(country.Guid, savedCart.OrderInfo.DeliveryState);
+
+			if (taxZone == null)
+			{
+				if (WebConfigSettings.DebugPayPal) log.Error("taxZone is null");
+
+				country = new GeoCountry(SiteUtils.GetDefaultCountry());
+				var siteSettings = CacheHelper.GetCurrentSiteSettings();
+				if (siteSettings != null)
+				{
+					taxZone = new GeoZone(siteSettings.DefaultStateGuid);
+				}
+			}
+
+			savedCart.OrderInfo.TaxZoneGuid = taxZone == null ? Guid.Empty : taxZone.Guid;
 
             savedCart.OrderInfo.Save();
 
@@ -180,7 +194,8 @@ namespace WebStore.Helpers
             int pageId = -1;
 
             List<PageModule> pageModules = PageModule.GetPageModulesByModule(store.ModuleId);
-            foreach (PageModule pm in pageModules)
+			if (WebConfigSettings.DebugPayPal && pageModules == null) log.Error("pageModules is null");
+			foreach (PageModule pm in pageModules)
             {
                 // use first pageid found, really a store should only
                 // be on one page
