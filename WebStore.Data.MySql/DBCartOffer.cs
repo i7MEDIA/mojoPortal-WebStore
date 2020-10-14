@@ -33,7 +33,8 @@ namespace WebStore.Data
             DateTime addedToCart,
             int quantity,
             decimal tax,
-            bool isDonation)
+            bool isDonation,
+			int maxPerOrder)
         {
             int intIsDonation;
             if (isDonation)
@@ -55,9 +56,10 @@ namespace WebStore.Data
             sqlCommand.Append("AddedToCart, ");
             sqlCommand.Append("Quantity, ");
             sqlCommand.Append("IsDonation, ");
-            sqlCommand.Append("Tax )");
+            sqlCommand.Append("Tax, ");
+            sqlCommand.Append("MaxPerOrder)");
 
-            sqlCommand.Append(" VALUES (");
+			sqlCommand.Append(" VALUES (");
             sqlCommand.Append("?ItemGuid, ");
             sqlCommand.Append("?CartGuid, ");
             sqlCommand.Append("?OfferGuid, ");
@@ -66,10 +68,11 @@ namespace WebStore.Data
             sqlCommand.Append("?AddedToCart, ");
             sqlCommand.Append("?Quantity, ");
             sqlCommand.Append("?IsDonation, ");
-            sqlCommand.Append("?Tax )");
-            sqlCommand.Append(";");
+            sqlCommand.Append("?Tax,");
+            sqlCommand.Append("?MaxPerOrder )");
+			sqlCommand.Append(";");
 
-            MySqlParameter[] arParams = new MySqlParameter[9];
+            MySqlParameter[] arParams = new MySqlParameter[10];
 
             arParams[0] = new MySqlParameter("?ItemGuid", MySqlDbType.VarChar, 36);
             arParams[0].Direction = ParameterDirection.Input;
@@ -107,7 +110,11 @@ namespace WebStore.Data
             arParams[8].Direction = ParameterDirection.Input;
             arParams[8].Value = intIsDonation;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			arParams[9] = new MySqlParameter("?MaxPerOrder", MySqlDbType.Int32);
+			arParams[9].Direction = ParameterDirection.Input;
+			arParams[9].Value = maxPerOrder;
+
+			int rowsAffected = MySqlHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -125,7 +132,8 @@ namespace WebStore.Data
             DateTime addedToCart,
             int quantity,
             decimal tax,
-            bool isDonation)
+            bool isDonation,
+			int maxPerOrder)
         {
             int intIsDonation;
             if (isDonation)
@@ -146,13 +154,14 @@ namespace WebStore.Data
             sqlCommand.Append("AddedToCart = ?AddedToCart, ");
             sqlCommand.Append("Quantity = ?Quantity, ");
             sqlCommand.Append("IsDonation = ?IsDonation, ");
-            sqlCommand.Append("Tax = ?Tax ");
+            sqlCommand.Append("Tax = ?Tax, ");
+            sqlCommand.Append("MaxPerOrder = ?MaxPerOrder ");
 
             sqlCommand.Append("WHERE  ");
             sqlCommand.Append("ItemGuid = ?ItemGuid ");
             sqlCommand.Append(";");
 
-            MySqlParameter[] arParams = new MySqlParameter[8];
+            MySqlParameter[] arParams = new MySqlParameter[9];
 
             arParams[0] = new MySqlParameter("?ItemGuid", MySqlDbType.VarChar, 36);
             arParams[0].Direction = ParameterDirection.Input;
@@ -186,7 +195,11 @@ namespace WebStore.Data
             arParams[7].Direction = ParameterDirection.Input;
             arParams[7].Value = intIsDonation;
 
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			arParams[8] = new MySqlParameter("?MaxPerOrder", MySqlDbType.Int32);
+			arParams[8].Direction = ParameterDirection.Input;
+			arParams[8].Value = maxPerOrder;
+
+			int rowsAffected = MySqlHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
@@ -339,7 +352,8 @@ namespace WebStore.Data
             sqlCommand.Append("co.*, ");
             sqlCommand.Append("o.Name, ");
             sqlCommand.Append("o.Description, ");
-            sqlCommand.Append("o.Price ");
+            sqlCommand.Append("o.Price,");
+            sqlCommand.Append("o.MaxPerOrder");
             
             sqlCommand.Append(" ");
 

@@ -626,6 +626,9 @@ namespace WebStore.Data
             sqlCommand.Append("AND o.IsVisible = 1 ");
             sqlCommand.Append("AND o.IsDeleted = 0 ");
             sqlCommand.Append("AND op.IsDeleted = 0 ");
+			sqlCommand.Append(@"AND ( o.Guid IN 
+							(SELECT OfferGuid FROM ws_OfferAvailability WHERE BeginUTC < UTC_TIMESTAMP() AND EndUTC > UTC_TIMESTAMP() AND IsDeleted = 0)
+							OR o.Guid NOT IN (SELECT OfferGuid FROM ws_OfferAvailability WHERE IsDeleted = 0))");
             sqlCommand.Append("ORDER BY o.SortRank1, o.SortRank2, o.Price ");
             sqlCommand.Append(";");
 
@@ -655,7 +658,7 @@ namespace WebStore.Data
                     row["Abstract"] = reader["Abstract"];
                     row["Description"] = reader["Description"];
                     row["ShowDetailLink"] = Convert.ToBoolean(reader["ShowDetailLink"]);
-
+					row["MaxPerOrder"] = Convert.ToInt32(reader["MaxPerOrder"]);
                     dataTable.Rows.Add(row);
 
                 }
@@ -771,6 +774,7 @@ namespace WebStore.Data
             dataTable.Columns.Add("Abstract", typeof(string));
             dataTable.Columns.Add("Description", typeof(string));
             dataTable.Columns.Add("ShowDetailLink", typeof(bool));
+			dataTable.Columns.Add("MaxPerOrder", typeof(Int32));
 
 
             return dataTable;

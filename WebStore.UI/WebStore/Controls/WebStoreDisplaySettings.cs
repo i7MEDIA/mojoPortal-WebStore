@@ -80,18 +80,18 @@ namespace WebStore.UI
 		public string ProductListOfferTitleFormat { get; set; } = "<span class='productname'>{0}</span> {1}";
 		public string ProductDetailDescriptionMarkupTop { get; set; } = "<div class='description settingrow'>";
 		public string ProductDetailDescriptionMarkupBottom { get; set; } = "</div>";
-		public string ProductDetailOfferListMarkupTop { get; set; } = "<div class='offerspanel settingrow'>";
+		public string ProductDetailOfferListMarkupTop { get; set; } = "<div class='offerspanel'>";
 		public string ProductDetailOfferListMarkupBottom { get; set; } = "</div>";
 		public string ProductDetailOfferMarkupTop { get; set; } = "<div class='offercontainer form-group store-product-offer col-md-4'>";
 		public string ProductDetailOfferMarkupBottom { get; set; } = "</div>";
 		public string ProductDetailImageListMarkupTop { get; set; } = "<div class='productimages settingrow'>";
 		public string ProductDetailImageListMarkupBottom { get; set; } = "</div>";
-		public string ProductDetailImageFormat { get; set; } = "<img src='{0}' alt='{1}' title='{2}' />";
+		public string ProductDetailImageFormat { get; set; } = "<figure><img src='{0}' alt='{1}' /><figcaption>{2}</figcaption><figure>";
 		public string ProductDetailOfferNameFormat { get; set; } = "<h4 class='store-product-offer-name'>{0}</h4>";
 		public string ProductDetailOfferNameLinkFormat { get; set; } = "<h4 class='store-product-offer-name'><a href='{0}' title='{1}'>{2}</a></h4>";
 
 		public string ProductDetailOfferPriceFormat { get; set; } = "<div class='price store-product-offer-price'>{0}</div>";
-		public string ProductDetailOfferAddToCartBoxMarkupTop { get; set; } = "<div class='input-group store-product-offer-qty'>";
+		public string ProductDetailOfferAddToCartBoxMarkupTop { get; set; } = "<div class='input-group input-group-lg store-product-offer-qty'>";
 		public string ProductDetailOfferAddToCartBoxMarkupBottom { get; set; } = "</div>";
 		public string ProductDetailOfferQtyLabelFormat { get; set; } = "<div class='input-group-addon store-product-offer-qty'>{0}</div>";
 		public string ProductDetailOfferAddToCartBoxButtonWrapTop { get; set; } = "<span class='input-group-btn'>";

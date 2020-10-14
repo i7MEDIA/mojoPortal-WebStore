@@ -58,8 +58,7 @@ namespace WebStore.UI.Helpers
             //don't index pending/unpublished pages
             if (pageSettings.IsPending) { return; }
 
-            log.Info("ProductSearchIndexBuilder indexing page - "
-                + pageSettings.PageName);
+            log.Info(Resources.WebStoreResources.WebStoreName + " indexing page - " + pageSettings.PageName);
 
 
             Guid webStoreFeatureGuid = new Guid("0cefbf18-56de-11dc-8f36-bac755d89593");

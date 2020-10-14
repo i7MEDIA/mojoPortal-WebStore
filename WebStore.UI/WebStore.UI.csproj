@@ -871,6 +871,8 @@
     <None Include="Properties\PublishProfiles\webstore-mysql.pubxml" />
     <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\7.5.0.2.config" />
     <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mssql\7.5.0.3.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\7.5.0.2.config" />
+    <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\7.5.0.3.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

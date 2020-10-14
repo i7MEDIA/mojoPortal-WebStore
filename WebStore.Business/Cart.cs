@@ -616,19 +616,19 @@ namespace WebStore.Business
             }
 
             if (quantity <= 0) { return false; }
-			if (offer.MaxPerOrder < quantity) { quantity = offer.MaxPerOrder; }
-            CartOffer cartOffer = new CartOffer();
-            cartOffer.CartGuid = this.cartGuid;
-            //cartOffer.CurrencyGuid = currencyGuid;
-            cartOffer.TaxClassGuid = offer.TaxClassGuid;
-            cartOffer.OfferGuid = offer.Guid;
-            cartOffer.OfferPrice = offer.Price;
-            cartOffer.Quantity = quantity;
-            // this will be updated later, just initialize to 0
-            cartOffer.Tax = 0;
-            cartOffer.IsDonation = offer.IsDonation;
-			cartOffer.MaxPerOrder = offer.MaxPerOrder;
-            cartOffer.Save();
+			if (offer.MaxPerOrder > 0 && offer.MaxPerOrder < quantity) { quantity = offer.MaxPerOrder; }
+			CartOffer cartOffer = new CartOffer
+			{
+				CartGuid = this.cartGuid,
+				TaxClassGuid = offer.TaxClassGuid,
+				OfferGuid = offer.Guid,
+				OfferPrice = offer.Price,
+				Quantity = quantity,
+				Tax = 0, // this will be updated later, just initialize to 0
+				IsDonation = offer.IsDonation,
+				MaxPerOrder = offer.MaxPerOrder
+			};
+			cartOffer.Save();
 
             // clear offers collection so it will be refreshed
             cartOffers = GetCartOffers();
@@ -650,10 +650,10 @@ namespace WebStore.Business
             {
                 if (cartOffer.ItemGuid == itemGuid)
                 {
-					int newQty = cartOffer.Quantity + quantity;
-					if (cartOffer.MaxPerOrder < newQty)
+					//int newQty = cartOffer.Quantity + quantity;
+					if (cartOffer.MaxPerOrder > 0 && cartOffer.MaxPerOrder < quantity)
 					{
-						newQty = cartOffer.MaxPerOrder;
+						quantity = cartOffer.MaxPerOrder;
 					}
 
 					if (quantity <= 0)
@@ -663,7 +663,7 @@ namespace WebStore.Business
                     }
                     else
                     {
-                        cartOffer.Quantity = newQty;
+                        cartOffer.Quantity = quantity;
                         cartOffer.Save();
                     }
 

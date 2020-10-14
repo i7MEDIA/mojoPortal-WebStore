@@ -945,6 +945,9 @@ namespace WebStore.UI
             UIHelper.AddClearPageExitCode(btnSave);
             ScriptConfig.EnableExitPromptForUnsavedContent = true;
 
+			btnSaveContinue.Text = WebStoreResources.SaveContinueEditButton;
+			UIHelper.AddClearPageExitCode(btnSaveContinue);
+
             btnDelete.Text = WebStoreResources.ProductDeleteButton;
             btnDelete.ToolTip = WebStoreResources.ProductDeleteButton;
             UIHelper.AddConfirmationDialogWithClearExitCode(btnDelete, WebStoreResources.ProductDeleteWarning);

@@ -2608,6 +2608,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Caption.
+        /// </summary>
+        internal static string ImageTitleLabel {
+            get {
+                return ResourceManager.GetString("ImageTitleLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Index offers in search index?.
         /// </summary>
         internal static string IndexOffersSetting {

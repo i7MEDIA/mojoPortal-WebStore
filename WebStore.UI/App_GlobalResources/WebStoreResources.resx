@@ -1863,4 +1863,7 @@
   <data name="SaveContinueEditButton" xml:space="preserve">
     <value>Save and Continue Edit</value>
   </data>
+  <data name="ImageTitleLabel" xml:space="preserve">
+    <value>Caption</value>
+  </data>
 </root>

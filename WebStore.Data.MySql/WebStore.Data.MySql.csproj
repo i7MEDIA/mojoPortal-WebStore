@@ -186,6 +186,7 @@
     <Compile Include="DBProduct.cs" />
     <Compile Include="DBProductFile.cs" />
     <Compile Include="DBStore.cs" />
+    <Compile Include="DBStoreImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

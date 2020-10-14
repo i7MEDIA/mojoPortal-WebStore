@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using log4net;
+using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web;
 using Resources;
 using WebStore.Business;
@@ -62,6 +63,7 @@ namespace WebStore.UI
 		{
 			DataTable dataTable = new DataTable();
 			dataTable.Columns.Add("Guid", typeof(Guid));
+			dataTable.Columns.Add("StoreGuid", typeof(Guid));
 			dataTable.Columns.Add("ReferenceGuid", typeof(Guid));
 			dataTable.Columns.Add("ImageUrl", typeof(string));
 			dataTable.Columns.Add("DisplayOrder", typeof(int));
@@ -70,6 +72,7 @@ namespace WebStore.UI
 
 			DataRow row = dataTable.NewRow();
 			row["Guid"] = Guid.Empty;
+			row["StoreGuid"] = CacheHelper.GetCurrentSiteSettings().SiteGuid;
 			row["ReferenceGuid"] = ReferenceGuid;
 			row["ImageUrl"] = string.Empty;
 			row["DisplayOrder"] = 0;
@@ -91,9 +94,9 @@ namespace WebStore.UI
 			GridView grid = (GridView)sender;
 			Guid guid = (Guid)grid.DataKeys[e.RowIndex].Value;
 			TextBox txtImageUrl = (TextBox)grid.Rows[e.RowIndex].Cells[0].FindControl("txtImageUrl");
-			TextBox txtDisplayOrder = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtDisplayOrder");
-			TextBox txtAlt = (TextBox)grid.Rows[e.RowIndex].Cells[2].FindControl("txtAlt");
-			TextBox txtTitle = (TextBox)grid.Rows[e.RowIndex].Cells[3].FindControl("txtTitle");
+			TextBox txtDisplayOrder = (TextBox)grid.Rows[e.RowIndex].Cells[0].FindControl("txtDisplayOrder");
+			TextBox txtAlt = (TextBox)grid.Rows[e.RowIndex].Cells[0].FindControl("txtAlt");
+			TextBox txtTitle = (TextBox)grid.Rows[e.RowIndex].Cells[0].FindControl("txtTitle");
 
 			StoreImage image;
 
@@ -106,12 +109,13 @@ namespace WebStore.UI
 
 				image = new StoreImage
 				{
-					Guid = Guid.NewGuid()
+					Guid = Guid.NewGuid(),
+					StoreGuid = CacheHelper.GetCurrentSiteSettings().SiteGuid,
+					ReferenceGuid = ReferenceGuid
 				};
 
 			}
 
-			image.ReferenceGuid = ReferenceGuid;
 			image.ImageUrl = txtImageUrl.Text;
 			image.DisplayOrder = Convert.ToInt32(txtDisplayOrder.Text);
 			image.Alt = txtAlt.Text;
@@ -160,7 +164,7 @@ namespace WebStore.UI
 				//ScriptManager.RegisterClientScriptBlock(e.Row, e.Row.GetType(), "testscript5", "alert('ScriptManager.RegisterClientScriptBlock(Row)');", true);
 				//ScriptManager.RegisterStartupScript(e.Row, e.Row.GetType(), "testscript6", "alert('ScriptManager.RegisterStartupScript(Row)');", true);
 			
-				Button btnDelete = (Button)e.Row.Cells[0].FindControl("btnDelete");
+				Button btnDelete = (Button)e.Row.Cells[4].FindControl("btnDelete");
 				if (btnDelete != null)
 				{
 					btnDelete.Attributes.Add("OnClick", $"return confirm('{WebStoreResources.DeleteImageWarning}');");
@@ -185,21 +189,7 @@ namespace WebStore.UI
 					&inputId=txtImageUrl
 					{startFolder}
 					&returnFullPath=true";
-
-				//literal.Text = $@"<a href='#filePickerModal' data-target='#filePickerModal' data-toggle='modal' class='input-group-addon'>&hellip;</a>
-				//	<div class='modal fade' id='filePickerModal' tabindex='-1' role='dialog'>
-				//		<div class='modal-dialog' role='document'>
-				//		<div class='modal-content'>
-				//			<div class='modal-header'>
-				//			<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
-				//			<h4 class='modal-title'>Pick an Image</h4>
-				//			</div>
-				//			<div class='modal-body'>
-				//				<iframe src='{fileManagerUrl.Replace("\r\n", string.Empty).Replace("\t", string.Empty)}' width='100%' height='100%' border='0'></iframe>
-				//			</div>
-				//		</div><!-- /.modal-content -->
-				//		</div><!-- /.modal-dialog -->
-				//	</div><!-- /.modal -->";
+				
 				literal.Text = string.Format(displaySettings.ModalLinkMarkup, "#filePickerModal", displaySettings.ImagePickerModalLinkCssClass, displaySettings.ImagePickerModalLinkText);
 				literal.Text += string.Format(displaySettings.ModalMarkup, "filePickerModal", WebStoreResources.ImagePickerHeading, fileManagerUrl.Replace("\r\n", string.Empty).Replace("\t", string.Empty));
 				if (divInputGroup != null)

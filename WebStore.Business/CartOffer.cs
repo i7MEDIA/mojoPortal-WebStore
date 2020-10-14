@@ -33,7 +33,7 @@ namespace WebStore.Business
 
 		#region Properties
 
-		public string Name { get; private set; } = string.Empty;
+		public string Name { get; set; } = string.Empty;
 		public Guid ItemGuid { get; set; } = Guid.Empty;
 		public Guid CartGuid { get; set; } = Guid.Empty;
 		public Guid OfferGuid { get; set; } = Guid.Empty;

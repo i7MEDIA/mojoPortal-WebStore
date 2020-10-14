@@ -37,7 +37,7 @@
 					<%# displaySettings.ProductDetailOfferMarkupTop %>
 						<%# GetOfferTitle(Convert.ToBoolean(Eval("ShowDetailLink")), Eval("ProductListName").ToString(), Eval("Url").ToString()) %>
 						
-					<%# displaySettings.ProductDetailOfferAbstractMarkupTop + Eval("Abstract").ToString() + displaySettings.ProductDetailOfferAbstractMarkupBottom%>
+					<%# String.IsNullOrWhiteSpace(Eval("Abstract").ToString()) ? "" : displaySettings.ProductDetailOfferAbstractMarkupTop + Eval("Abstract").ToString() + displaySettings.ProductDetailOfferAbstractMarkupBottom%>
 
 
 						<%# string.Format(displaySettings.ProductDetailOfferPriceFormat,
@@ -45,7 +45,7 @@
 						<asp:RangeValidator ID="rvQuantity" runat="server" ControlToValidate="txtQuantity" MaximumValue='<%# Eval("MaxPerOrder").ToString() %>' Enabled="false" CssClass="help-block" ValidationGroup='<%# Eval("Guid").ToString()%>'/>
 						<%# displaySettings.ProductDetailOfferAddToCartBoxMarkupTop %>
 							<%# string.Format(displaySettings.ProductDetailOfferQtyLabelFormat, Resources.WebStoreResources.CartQuantityHeading) %>
-							<asp:TextBox ID="txtQuantity" runat="server" Text="1" CssClass="form-control" TextMode="Number" Max='<%# Eval("MaxPerOrder").ToString() %>' Min="1" CausesValidation="true"/>
+							<asp:TextBox ID="txtQuantity" runat="server" Text="1" CssClass="form-control" TextMode="Number" Max='<%# Eval("MaxPerOrder").ToString() == "0" ? "" : Eval("MaxPerOrder").ToString() %>' Min="1" CausesValidation="true"/>
 							<%# displaySettings.ProductDetailOfferAddToCartBoxButtonWrapTop %><asp:Button ID="btnAddToCart" runat="server" Text='<%# Resources.WebStoreResources.AddToCartLink%>' CommandName="addToCart" CommandArgument='<%# Eval("Guid") %>' CausesValidation="true" ValidationGroup='<%# Eval("Guid").ToString()%>' CssClass="<%# displaySettings.AddToCartButtonCssClass %>" /><%# displaySettings.ProductDetailOfferAddToCartBoxButtonWrapBottom %>
 						<%# displaySettings.ProductDetailOfferAddToCartBoxMarkupBottom %>						
 					<%# displaySettings.ProductDetailOfferMarkupBottom %>
