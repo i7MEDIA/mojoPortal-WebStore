@@ -20,6 +20,8 @@ using System.Configuration;
 using System.Globalization;
 using MySql.Data.MySqlClient;
 using mojoPortal.Data;
+using System.Collections.Generic;
+using MySql.Data.Types;
 
 namespace WebStore.Data
 {
@@ -1127,7 +1129,7 @@ namespace WebStore.Data
         //        arParams);
         //    return rowsAffected;
 
-           
+
         //}
 
 
@@ -1247,161 +1249,76 @@ namespace WebStore.Data
             Guid taxClassGuid,
             string url)
         {
-            #region Bit Conversion
+            int intIsVisible = isVisible ? 1 : 0;
+            int intIsSpecial = isSpecial ? 1 : 0;
+            int intIsDeleted = isDeleted ? 1 : 0;
 
-            int intIsVisible;
-            if (isVisible)
-            {
-                intIsVisible = 1;
-            }
-            else
-            {
-                intIsVisible = 0;
-            }
+            var sqlCommand = @"
+INSERT INTO ws_OfferHistory (
+    Guid, 
+    OfferGuid, 
+    StoreGuid, 
+    TaxClassGuid, 
+    IsVisible, 
+    IsSpecial, 
+    Created, 
+    CreatedBy, 
+    CreatedFromIP, 
+    IsDeleted, 
+    DeletedTime, 
+    DeletedBy, 
+    DeletedFromIP, 
+    LastModified, 
+    LastModifiedBy, 
+    LastModifiedFromIP, 
+    LogTime, 
+    Url )
+VALUES (
+    ?Guid, 
+    ?OfferGuid, 
+    ?StoreGuid, 
+    ?TaxClassGuid, 
+    ?IsVisible, 
+    ?IsSpecial, 
+    ?Created, 
+    ?CreatedBy, 
+    ?CreatedFromIP, 
+    ?IsDeleted, 
+    ?DeletedTime, 
+    ?DeletedBy, 
+    ?DeletedFromIP, 
+    ?LastModified, 
+    ?LastModifiedBy, 
+    ?LastModifiedFromIP, 
+    ?LogTime, 
+    ?Url )
+;";
 
-            int intIsSpecial;
-            if (isSpecial)
-            {
-                intIsSpecial = 1;
-            }
-            else
-            {
-                intIsSpecial = 0;
-            }
-
-            int intIsDeleted;
-            if (isDeleted)
-            {
-                intIsDeleted = 1;
-            }
-            else
-            {
-                intIsDeleted = 0;
-            }
-
-
-            #endregion
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO ws_OfferHistory (");
-            sqlCommand.Append("Guid, ");
-            sqlCommand.Append("OfferGuid, ");
-            sqlCommand.Append("StoreGuid, ");
-            sqlCommand.Append("TaxClassGuid, ");
-            sqlCommand.Append("IsVisible, ");
-            sqlCommand.Append("IsSpecial, ");
-            sqlCommand.Append("Created, ");
-            sqlCommand.Append("CreatedBy, ");
-            sqlCommand.Append("CreatedFromIP, ");
-            sqlCommand.Append("IsDeleted, ");
-            sqlCommand.Append("DeletedTime, ");
-            sqlCommand.Append("DeletedBy, ");
-            sqlCommand.Append("DeletedFromIP, ");
-            sqlCommand.Append("LastModified, ");
-            sqlCommand.Append("LastModifiedBy, ");
-            sqlCommand.Append("LastModifiedFromIP, ");
-            sqlCommand.Append("LogTime, ");
-            sqlCommand.Append("Url )");
-
-            sqlCommand.Append(" VALUES (");
-            sqlCommand.Append("?Guid, ");
-            sqlCommand.Append("?OfferGuid, ");
-            sqlCommand.Append("?StoreGuid, ");
-            sqlCommand.Append("?TaxClassGuid, ");
-            sqlCommand.Append("?IsVisible, ");
-            sqlCommand.Append("?IsSpecial, ");
-            sqlCommand.Append("?Created, ");
-            sqlCommand.Append("?CreatedBy, ");
-            sqlCommand.Append("?CreatedFromIP, ");
-            sqlCommand.Append("?IsDeleted, ");
-            sqlCommand.Append("?DeletedTime, ");
-            sqlCommand.Append("?DeletedBy, ");
-            sqlCommand.Append("?DeletedFromIP, ");
-            sqlCommand.Append("?LastModified, ");
-            sqlCommand.Append("?LastModifiedBy, ");
-            sqlCommand.Append("?LastModifiedFromIP, ");
-            sqlCommand.Append("?LogTime, ");
-            sqlCommand.Append("?Url )");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[18];
-
-            arParams[0] = new MySqlParameter("?Guid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
-
-            arParams[1] = new MySqlParameter("?OfferGuid", MySqlDbType.VarChar, 36);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = offerGuid.ToString();
-
-            arParams[2] = new MySqlParameter("?StoreGuid", MySqlDbType.VarChar, 36);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = storeGuid.ToString();
-
-            arParams[3] = new MySqlParameter("?TaxClassGuid", MySqlDbType.VarChar, 36);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = taxClassGuid.ToString();
-
-            arParams[4] = new MySqlParameter("?IsVisible", MySqlDbType.Int32);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = intIsVisible;
-
-            arParams[5] = new MySqlParameter("?IsSpecial", MySqlDbType.Int32);
-            arParams[5].Direction = ParameterDirection.Input;
-            arParams[5].Value = intIsSpecial;
-
-            arParams[6] = new MySqlParameter("?Created", MySqlDbType.DateTime);
-            arParams[6].Direction = ParameterDirection.Input;
-            arParams[6].Value = created;
-
-            arParams[7] = new MySqlParameter("?CreatedBy", MySqlDbType.VarChar, 36);
-            arParams[7].Direction = ParameterDirection.Input;
-            arParams[7].Value = createdBy.ToString();
-
-            arParams[8] = new MySqlParameter("?CreatedFromIP", MySqlDbType.VarChar, 255);
-            arParams[8].Direction = ParameterDirection.Input;
-            arParams[8].Value = createdFromIP;
-
-            arParams[9] = new MySqlParameter("?IsDeleted", MySqlDbType.Int32);
-            arParams[9].Direction = ParameterDirection.Input;
-            arParams[9].Value = intIsDeleted;
-
-            arParams[10] = new MySqlParameter("?DeletedTime", MySqlDbType.DateTime);
-            arParams[10].Direction = ParameterDirection.Input;
-            arParams[10].Value = deletedTime;
-
-            arParams[11] = new MySqlParameter("?DeletedBy", MySqlDbType.VarChar, 36);
-            arParams[11].Direction = ParameterDirection.Input;
-            arParams[11].Value = deletedBy.ToString();
-
-            arParams[12] = new MySqlParameter("?DeletedFromIP", MySqlDbType.VarChar, 255);
-            arParams[12].Direction = ParameterDirection.Input;
-            arParams[12].Value = deletedFromIP;
-
-            arParams[13] = new MySqlParameter("?LastModified", MySqlDbType.DateTime);
-            arParams[13].Direction = ParameterDirection.Input;
-            arParams[13].Value = lastModified;
-
-            arParams[14] = new MySqlParameter("?LastModifiedBy", MySqlDbType.VarChar, 36);
-            arParams[14].Direction = ParameterDirection.Input;
-            arParams[14].Value = lastModifiedBy.ToString();
-
-            arParams[15] = new MySqlParameter("?LastModifiedFromIP", MySqlDbType.VarChar, 255);
-            arParams[15].Direction = ParameterDirection.Input;
-            arParams[15].Value = lastModifiedFromIP;
-
-            arParams[16] = new MySqlParameter("?LogTime", MySqlDbType.DateTime);
-            arParams[16].Direction = ParameterDirection.Input;
-            arParams[16].Value = logTime;
-
-            arParams[17] = new MySqlParameter("?Url", MySqlDbType.VarChar, 255);
-            arParams[17].Direction = ParameterDirection.Input;
-            arParams[17].Value = url;
-
+            var sqlParams = new List<MySqlParameter>() {
+			    new MySqlParameter("?Guid", MySqlDbType.VarChar, 36) { Direction = ParameterDirection.Input, Value = guid.ToString() },
+			    new MySqlParameter("?OfferGuid", MySqlDbType.VarChar, 36) { Direction = ParameterDirection.Input, Value = offerGuid.ToString() },
+			    new MySqlParameter("?StoreGuid", MySqlDbType.VarChar, 36) { Direction = ParameterDirection.Input, Value = storeGuid.ToString() },
+			    new MySqlParameter("?TaxClassGuid", MySqlDbType.VarChar, 36) { Direction = ParameterDirection.Input, Value = taxClassGuid.ToString() },
+			    new MySqlParameter("?IsVisible", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = intIsVisible },
+			    new MySqlParameter("?IsSpecial", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = intIsSpecial },
+			    new MySqlParameter("?Created", MySqlDbType.DateTime) { Direction = ParameterDirection.Input, Value = created },
+			    new MySqlParameter("?CreatedBy", MySqlDbType.VarChar, 36) { Direction = ParameterDirection.Input, Value = createdBy.ToString() },
+			    new MySqlParameter("?CreatedFromIP", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = createdFromIP },
+			    new MySqlParameter("?IsDeleted", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = intIsDeleted },
+                new MySqlParameter("?DeletedTime", MySqlDbType.DateTime) { Direction = ParameterDirection.Input, Value = deletedTime },
+                new MySqlParameter("?DeletedBy", MySqlDbType.VarChar, 36) { Direction = ParameterDirection.Input, Value = deletedBy.ToString() },
+                new MySqlParameter("?DeletedFromIP", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = deletedFromIP },
+                new MySqlParameter("?LastModified", MySqlDbType.DateTime) { Direction = ParameterDirection.Input, Value = lastModified },
+                new MySqlParameter("?LastModifiedBy", MySqlDbType.VarChar, 36) { Direction = ParameterDirection.Input, Value = lastModifiedBy.ToString() },
+                new MySqlParameter("?LastModifiedFromIP", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = lastModifiedFromIP },
+                new MySqlParameter("?LogTime", MySqlDbType.DateTime) { Direction = ParameterDirection.Input, Value = logTime },
+			    new MySqlParameter("?Url", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = url }
+			};
+            
             int rowsAffected = MySqlHelper.ExecuteNonQuery(
                 ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+                sqlCommand,
+                sqlParams.ToArray());
 
             return rowsAffected;
 

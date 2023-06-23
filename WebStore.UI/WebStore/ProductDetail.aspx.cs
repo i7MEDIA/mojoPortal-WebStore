@@ -96,16 +96,16 @@ namespace WebStore.UI
                 }
             }
 
-            if (product.EnableRating)
-            {
-				//mojoRating rating = new mojoRating();
-				((mojoRating)Rating).ContainerCssClass = displaySettings.ProductDetailsRatingPanelDivCssClass;
-				((mojoRating)Rating).ShowPrompt = true;
-                ((mojoRating)Rating).ContentGuid = product.Guid;
-				((mojoRating)Rating).AllowFeedback = enableRatingComments;
-				((mojoRating)Rating).PromptText = WebStoreResources.RatingPrompt;
-				((mojoRating)Rating).Visible = true;
-			}
+   //         if (product.EnableRating)
+   //         {
+			//	//mojoRating rating = new mojoRating();
+			//	((mojoRating)Rating).ContainerCssClass = displaySettings.ProductDetailsRatingPanelDivCssClass;
+			//	((mojoRating)Rating).ShowPrompt = true;
+   //             ((mojoRating)Rating).ContentGuid = product.Guid;
+			//	((mojoRating)Rating).AllowFeedback = enableRatingComments;
+			//	((mojoRating)Rating).PromptText = WebStoreResources.RatingPrompt;
+			//	((mojoRating)Rating).Visible = true;
+			//}
 
 			DataTable dtOffers = Offer.GetByProduct(product.Guid);
             rptOffers.DataSource = dtOffers;
@@ -266,8 +266,10 @@ namespace WebStore.UI
             }
             else
             {
-                ScriptConfig.IncludeYahooMediaPlayer = true;
-            }
+				//wire up generic html for teasers?
+				//YahooMediaPlayer was removed from mojo at version 2.8.0.7
+				//ScriptConfig.IncludeYahooMediaPlayer = true;
+			}
 
 			if (pageId > -1)
 			{

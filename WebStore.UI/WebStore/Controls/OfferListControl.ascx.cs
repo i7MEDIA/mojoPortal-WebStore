@@ -220,9 +220,11 @@ namespace WebStore.UI
                 }
                 else
                 {
-                    basePage.ScriptConfig.IncludeYahooMediaPlayer = true;
-                }
-            }
+					//wire up generic html for teasers?
+					//YahooMediaPlayer was removed from mojo at version 2.8.0.7
+					//basePage.ScriptConfig.IncludeYahooMediaPlayer = true;
+				}
+			}
 
             SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
             if (siteSettings == null) { return; }

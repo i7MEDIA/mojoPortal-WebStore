@@ -10,7 +10,7 @@
         <portal:OuterBodyPanel ID="pnlOuterBody" runat="server">  
         <portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent productdetail">
             <webstore:WebStoreDisplaySettings id="displaySettings" runat="server" />
-			<portal:mojoRating ID="Rating" runat="server" Visible="false"/>
+			<%--<portal:mojoRating ID="Rating" runat="server" Visible="false"/>--%>
 			
 			<asp:Literal ID="litDescription" runat="server" EnableViewState="false" />
 

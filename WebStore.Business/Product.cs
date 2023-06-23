@@ -36,139 +36,38 @@ namespace WebStore.Business
             GetProduct(guid);
         }
 
-        #endregion
+		#endregion
+		#region Public Properties
 
-        #region Private Properties
+		public Guid Guid { get; set; } = Guid.Empty;
+		public Guid StoreGuid { get; set; } = Guid.Empty;
 
-        private Guid guid = Guid.Empty;
-        private Guid storeGuid = Guid.Empty;
+		public Guid LanguageGuid { get; } = Guid.Empty;
 
-        private Guid taxClassGuid = Guid.Empty;
-        private TaxClass taxClass = null;
+		public string Name { get; set; } = string.Empty;
 
-        private Guid languageGuid = Guid.Empty;
-        private string name = string.Empty;
-        private string description = string.Empty;
-        private string url = string.Empty;
-        private string teaser = string.Empty;
+		public string Description { get; set; } = string.Empty;
 
-        private string sku = string.Empty;
-        private string modelNumber = string.Empty;
-        private byte status;
-        private byte fulfillmentType = 3; //none
-        private decimal weight = 0;
-        private int quantityOnHand = 1;
-        private string imageFileName;
-        private byte[] imageFileBytes = null;
-        private DateTime created = DateTime.UtcNow;
-        private Guid createdBy = Guid.Empty;
-        private DateTime lastModified = DateTime.UtcNow;
-        private Guid lastModifedBy = Guid.Empty;
-        private bool showInProductList = true;
-        private bool enableRating = true;
+		public string Url { get; set; } = string.Empty;
 
-        private string metaKeywords = string.Empty;
-        private string metaDescription = string.Empty;
-        private string compiledMeta = string.Empty;
+		public string MetaKeywords { get; set; } = string.Empty;
 
-        // not persisted to the db set externally just before indexing to the search index
-        private int siteId = -1;
-        private string searchIndexPath = string.Empty;
-        private int sortRank1 = 5000;
-        private int sortRank2 = 5000;
-        private string teaserFile = string.Empty;
-        private string teaserFileLink = string.Empty;
-        private decimal shippingAmount = 0;
-        
-        
+		public string MetaDescription { get; set; } = string.Empty;
 
-        #endregion
+		public string CompiledMeta { get; set; } = string.Empty;
 
-        #region Public Properties
+		public int SortRank1 { get; set; } = 5000;
 
-        public Guid Guid
-        {
-            get { return guid; }
-            set { guid = value; }
-        }
-        public Guid StoreGuid
-        {
-            get { return storeGuid; }
-            set { storeGuid = value; }
-        }
+		public int SortRank2 { get; set; } = 5000;
 
-        public Guid LanguageGuid
-        {
-            get { return languageGuid; }
-        }
+		public bool ShowInProductList { get; set; } = true;
 
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
+		public bool EnableRating { get; set; } = true;
 
-        public string Description
-        {
-            get { return description; }
-            set { description = value; }
-        }
+		public string Teaser { get; set; } = string.Empty;
 
-        public string Url
-        {
-            get { return url; }
-            set { url = value; }
-        }
-
-        public string MetaKeywords
-        {
-            get { return metaKeywords; }
-            set { metaKeywords = value; }
-        }
-
-        public string MetaDescription
-        {
-            get { return metaDescription; }
-            set { metaDescription = value; }
-        }
-
-        public string CompiledMeta
-        {
-            get { return compiledMeta; }
-            set { compiledMeta = value; }
-        }
-
-        public int SortRank1
-        {
-            get { return sortRank1; }
-            set { sortRank1 = value; }
-        }
-
-        public int SortRank2
-        {
-            get { return sortRank2; }
-            set { sortRank2 = value; }
-        }
-
-        public bool ShowInProductList
-        {
-            get { return showInProductList; }
-            set { showInProductList = value; }
-        }
-
-        public bool EnableRating
-        {
-            get { return enableRating; }
-            set { enableRating = value; }
-        }
-
-        public string Teaser
-        {
-            get { return teaser; }
-            set { teaser = value; }
-        }
-
-        public Guid TaxClassGuid
+		private Guid taxClassGuid = Guid.Empty;
+		public Guid TaxClassGuid
         {
             get { return taxClassGuid; }
             set
@@ -182,7 +81,8 @@ namespace WebStore.Business
             }
         }
 
-        public TaxClass TaxClass
+		private TaxClass taxClass = null;
+		public TaxClass TaxClass
         {
             get
             {
@@ -190,151 +90,98 @@ namespace WebStore.Business
                 return taxClass;
             }
         }
-        public string Sku
-        {
-            get { return sku; }
-            set { sku = value; }
-        }
-        public string ModelNumber
-        {
-            get { return modelNumber; }
-            set { modelNumber = value; }
-        }
-        public ProductStatus Status
+		public string Sku { get; set; } = string.Empty;
+		public string ModelNumber { get; set; } = string.Empty;
+
+		private byte status;
+		public ProductStatus Status
         {
             get { return ProductStatusFromInt32(status); }
             set { status = (byte)value; }
         }
-        public FulfillmentType FulfillmentType
+
+		private byte fulfillmentType = 3; //none
+		public FulfillmentType FulfillmentType
         {
             get { return FulfillmentTypeFromInt32(fulfillmentType); }
             set { fulfillmentType = (byte)value; }
         }
-        public decimal Weight
-        {
-            get { return weight; }
-            set { weight = value; }
-        }
-        public int QuantityOnHand
-        {
-            get { return quantityOnHand; }
-            set { quantityOnHand = value; }
-        }
-        public string ImageFileName
-        {
-            get { return imageFileName; }
-            set { imageFileName = value; }
-        }
-        public byte[] ImageFileBytes
-        {
-            get { return imageFileBytes; }
-            set { imageFileBytes = value; }
-        }
-        public DateTime Created
-        {
-            get { return created; }
-            set { created = value; }
-        }
-        public Guid CreatedBy
-        {
-            get { return createdBy; }
-            set { createdBy = value; }
-        }
-        public DateTime LastModified
-        {
-            get { return lastModified; }
-            set { lastModified = value; }
-        }
-        public Guid LastModifedBy
-        {
-            get { return lastModifedBy; }
-            set { lastModifedBy = value; }
-        }
+		public decimal Weight { get; set; } = 0;
+		//public int QuantityOnHand { get; set; } = 1;
+		public decimal QuantityOnHand { get; set; } = 1M;
+		public string SoldByQtys { get; set; } = "1";
+		public string ImageFileName { get; set; }
+		public byte[] ImageFileBytes { get; set; } = null;
+		public DateTime Created { get; set; } = DateTime.UtcNow;
+		public Guid CreatedBy { get; set; } = Guid.Empty;
+		public DateTime LastModified { get; set; } = DateTime.UtcNow;
+		public Guid LastModifedBy { get; set; } = Guid.Empty;
 
-        /// <summary>
-        /// This is not persisted to the db. It is only set and used when indexing forum threads in the search index.
-        /// Its a convenience because when we queue the task to index on a new thread we can only pass one object.
-        /// So we store extra properties here so we don't need any other objects.
-        /// </summary>
-        public int SiteId
-        {
-            get { return siteId; }
-            set { siteId = value; }
-        }
+		/// <summary>
+		/// This is not persisted to the db. It is only set and used when indexing forum threads in the search index.
+		/// Its a convenience because when we queue the task to index on a new thread we can only pass one object.
+		/// So we store extra properties here so we don't need any other objects.
+		/// </summary>
+		public int SiteId { get; set; } = -1;
 
-        /// <summary>
-        /// This is not persisted to the db. It is only set and used when indexing forum threads in the search index.
-        /// Its a convenience because when we queue the task to index on a new thread we can only pass one object.
-        /// So we store extra properties here so we don't need any other objects.
-        /// </summary>
-        public string SearchIndexPath
-        {
-            get { return searchIndexPath; }
-            set { searchIndexPath = value; }
-        }
+		/// <summary>
+		/// This is not persisted to the db. It is only set and used when indexing forum threads in the search index.
+		/// Its a convenience because when we queue the task to index on a new thread we can only pass one object.
+		/// So we store extra properties here so we don't need any other objects.
+		/// </summary>
+		public string SearchIndexPath { get; set; } = string.Empty;
 
-        public string TeaserFile
-        {
-            get { return teaserFile; }
-            set { teaserFile = value; }
-        }
+		public string TeaserFile { get; set; } = string.Empty;
 
-        public string TeaserFileLink
-        {
-            get { return teaserFileLink; }
-            set { teaserFileLink = value; }
-        }
+		public string TeaserFileLink { get; set; } = string.Empty;
 
-        public decimal ShippingAmount
-        {
-            get { return shippingAmount; }
-            set { shippingAmount = value; }
-        }
+		public decimal ShippingAmount { get; set; } = 0;
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        private void GetProduct(Guid guid) 
+		private void GetProduct(Guid guid) 
 		{
             using (IDataReader reader = DBProduct.Get(guid))
             {
                 if (reader.Read())
                 {
-                    this.guid = new Guid(reader["Guid"].ToString());
-                    this.storeGuid = new Guid(reader["StoreGuid"].ToString());
+                    this.Guid = new Guid(reader["Guid"].ToString());
+                    this.StoreGuid = new Guid(reader["StoreGuid"].ToString());
                     this.taxClassGuid = new Guid(reader["TaxClassGuid"].ToString());
                     //this.sku = reader["Sku"].ToString();
-                    this.name = reader["Name"].ToString();
-                    this.description = reader["Description"].ToString();
-                    this.modelNumber = reader["ModelNumber"].ToString();
+                    this.Name = reader["Name"].ToString();
+                    this.Description = reader["Description"].ToString();
+                    this.ModelNumber = reader["ModelNumber"].ToString();
                     this.status = Convert.ToByte(reader["Status"]);
                     this.fulfillmentType = Convert.ToByte(reader["FullfillmentType"]);
-                    this.weight = Convert.ToDecimal(reader["Weight"]);
-                    this.quantityOnHand = Convert.ToInt32(reader["QuantityOnHand"]);
-                    this.imageFileName = reader["ImageFileName"].ToString();
-                    // TODO:
-                    //this.imageFileBytes = Byte[]
-                    this.created = Convert.ToDateTime(reader["Created"]);
-                    this.createdBy = new Guid(reader["CreatedBy"].ToString());
-                    this.lastModified = Convert.ToDateTime(reader["LastModified"]);
-                    this.lastModifedBy = new Guid(reader["LastModifedBy"].ToString());
+                    this.Weight = Convert.ToDecimal(reader["Weight"]);
+                    this.QuantityOnHand = Convert.ToInt32(reader["QuantityOnHand"]);
+                    this.SoldByQtys = reader["SoldByQtys"].ToString();
+                    this.ImageFileName = reader["ImageFileName"].ToString();
+					// TODO:
+					//this.imageFileBytes = Byte[]
+					this.Created = Convert.ToDateTime(reader["Created"]);
+                    this.CreatedBy = new Guid(reader["CreatedBy"].ToString());
+                    this.LastModified = Convert.ToDateTime(reader["LastModified"]);
+                    this.LastModifedBy = new Guid(reader["LastModifedBy"].ToString());
 
-                    this.url = reader["Url"].ToString();
-                    this.teaser = reader["Abstract"].ToString();
-                    this.showInProductList = Convert.ToBoolean(reader["ShowInProductList"]);
-                    this.enableRating = Convert.ToBoolean(reader["EnableRating"]);
+                    this.Url = reader["Url"].ToString();
+                    this.Teaser = reader["Abstract"].ToString();
+                    this.ShowInProductList = Convert.ToBoolean(reader["ShowInProductList"]);
+                    this.EnableRating = Convert.ToBoolean(reader["EnableRating"]);
 
-                    this.sortRank1 = Convert.ToInt32(reader["SortRank1"]);
-                    this.sortRank2 = Convert.ToInt32(reader["SortRank2"]);
-                    this.teaserFile = reader["TeaserFile"].ToString();
-                    this.teaserFileLink = reader["TeaserFileLink"].ToString();
-                    this.metaDescription = reader["MetaDescription"].ToString();
-                    this.metaKeywords = reader["MetaKeywords"].ToString();
-                    this.compiledMeta = reader["CompiledMeta"].ToString();
+                    this.SortRank1 = Convert.ToInt32(reader["SortRank1"]);
+                    this.SortRank2 = Convert.ToInt32(reader["SortRank2"]);
+                    this.TeaserFile = reader["TeaserFile"].ToString();
+                    this.TeaserFileLink = reader["TeaserFileLink"].ToString();
+                    this.MetaDescription = reader["MetaDescription"].ToString();
+                    this.MetaKeywords = reader["MetaKeywords"].ToString();
+                    this.CompiledMeta = reader["CompiledMeta"].ToString();
                     if (reader["ShippingAmount"] != DBNull.Value)
                     {
-                        this.shippingAmount = Convert.ToDecimal(reader["ShippingAmount"]);
+                        this.ShippingAmount = Convert.ToDecimal(reader["ShippingAmount"]);
                     }
                     
 
@@ -346,37 +193,38 @@ namespace WebStore.Business
 
         private bool Create()
         {
-            this.guid = Guid.NewGuid();
+            this.Guid = Guid.NewGuid();
 
             int rowsAffected = DBProduct.Add(
-                this.guid,
-                this.storeGuid,
+                this.Guid,
+                this.StoreGuid,
                 this.taxClassGuid,
-                this.modelNumber,
+                this.ModelNumber,
                 this.status,
                 this.fulfillmentType,
-                this.weight,
-                this.quantityOnHand,
-                this.imageFileName,
-                this.imageFileBytes,
-                this.created,
-                this.createdBy,
-                this.lastModified,
-                this.lastModifedBy,
-                this.url,
-                this.name,
-                this.description,
-                this.teaser,
-                this.showInProductList,
-                this.enableRating,
-                this.metaDescription,
-                this.metaKeywords,
-                this.sortRank1,
-                this.sortRank2,
-                this.teaserFile,
-                this.teaserFileLink,
-                this.compiledMeta,
-                this.shippingAmount);
+                this.Weight,
+                this.QuantityOnHand,
+                this.SoldByQtys,
+				this.ImageFileName,
+                this.ImageFileBytes,
+                this.Created,
+                this.CreatedBy,
+                this.LastModified,
+                this.LastModifedBy,
+                this.Url,
+                this.Name,
+                this.Description,
+                this.Teaser,
+                this.ShowInProductList,
+                this.EnableRating,
+                this.MetaDescription,
+                this.MetaKeywords,
+                this.SortRank1,
+                this.SortRank2,
+                this.TeaserFile,
+                this.TeaserFileLink,
+                this.CompiledMeta,
+                this.ShippingAmount);
 
             bool result = (rowsAffected > 0);
             if (result)
@@ -393,7 +241,7 @@ namespace WebStore.Business
 
         private bool Update()
         {
-            Product product = new Product(this.guid);
+            Product product = new Product(this.Guid);
             DBProduct.AddHistory(
                 Guid.NewGuid(),
                 product.Guid,
@@ -404,41 +252,43 @@ namespace WebStore.Business
                 ConvertFulfillmentTypeToByte(product.FulfillmentType),
                 product.Weight,
                 product.QuantityOnHand,
-                product.ImageFileName,
+                product.SoldByQtys,
+				product.ImageFileName,
                 product.ImageFileBytes,
                 product.Created,
                 product.CreatedBy,
                 product.LastModified,
                 product.LastModifedBy,
                 DateTime.UtcNow,
-                product.shippingAmount);
+                product.ShippingAmount);
 
             bool result = DBProduct.Update(
-                this.guid,
+                this.Guid,
                 this.taxClassGuid,
-                this.modelNumber,
+                this.ModelNumber,
                 this.status,
                 this.fulfillmentType,
-                this.weight,
-                this.quantityOnHand,
-                this.imageFileName,
-                this.imageFileBytes,
-                this.lastModified,
-                this.lastModifedBy,
-                this.url,
-                this.name,
-                this.description,
-                this.teaser,
-                this.showInProductList,
-                this.enableRating,
-                this.metaDescription,
-                this.metaKeywords,
-                this.sortRank1,
-                this.sortRank2,
-                this.teaserFile,
-                this.teaserFileLink,
-                this.compiledMeta,
-                this.shippingAmount);
+                this.Weight,
+                this.QuantityOnHand,
+                this.SoldByQtys,
+				this.ImageFileName,
+                this.ImageFileBytes,
+                this.LastModified,
+                this.LastModifedBy,
+                this.Url,
+                this.Name,
+                this.Description,
+                this.Teaser,
+                this.ShowInProductList,
+                this.EnableRating,
+                this.MetaDescription,
+                this.MetaKeywords,
+                this.SortRank1,
+                this.SortRank2,
+                this.TeaserFile,
+                this.TeaserFileLink,
+                this.CompiledMeta,
+                this.ShippingAmount);
 
             if (result)
             {
@@ -462,7 +312,7 @@ namespace WebStore.Business
             
             bool result = false;
 
-            if (this.guid != Guid.Empty)
+            if (this.Guid != Guid.Empty)
             {
                 result = Update();
             }
@@ -503,14 +353,15 @@ namespace WebStore.Business
                     ConvertFulfillmentTypeToByte(product.FulfillmentType),
                     product.Weight,
                     product.QuantityOnHand,
-                    product.ImageFileName,
+                    product.SoldByQtys,
+					product.ImageFileName,
                     product.ImageFileBytes,
                     product.Created,
                     product.CreatedBy,
                     product.LastModified,
                     product.LastModifedBy,
                     DateTime.UtcNow,
-                    product.shippingAmount);
+                    product.ShippingAmount);
 
                 OfferProduct.DeleteByProduct(
                     productGuid,
@@ -701,20 +552,12 @@ namespace WebStore.Business
 
 
         #region IIndexableContent
-
         public event ContentChangedEventHandler ContentChanged;
 
         protected void OnContentChanged(ContentChangedEventArgs e)
         {
-            if (ContentChanged != null)
-            {
-                ContentChanged(this, e);
-            }
-        }
-
-
-
-
+			ContentChanged?.Invoke(this, e);
+		}
         #endregion
 
     }

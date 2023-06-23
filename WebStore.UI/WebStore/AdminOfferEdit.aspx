@@ -63,8 +63,7 @@
 								<div class="settingrow">
 									<mp:SiteLabel ID="lblTaxClassGuid" runat="server" CssClass="settinglabel" ConfigKey="OfferTaxClassLabel"
 										ResourceFile="WebStoreResources" ForControl="ddTaxClassGuid" />
-									<asp:DropDownList ID="ddTaxClassGuid" runat="server" EnableTheming="false" DataValueField="Guid"
-										DataTextField="Title" CssClass="forminput" />
+									<asp:DropDownList ID="ddTaxClassGuid" runat="server" DataValueField="Guid" DataTextField="Title" />
 								</div>
 
 								<div class="settingrow">
@@ -153,7 +152,7 @@
 												</columns>
 											</mp:mojoGridView>
 											<div class="settingrow text-right">
-												<asp:HyperLink ID="lnkProductsAdd" runat="server" CssClass="cblink btn btn-success btn-xs" />
+												<asp:HyperLink ID="lnkProductsAdd" runat="server" CssClass="btn btn-success btn-xs" />
 												<asp:HiddenField ID="hdnProductGuid" runat="server" />
 												<asp:HiddenField ID="hdnFulfillmentType" runat="server" />
 												<asp:HiddenField ID="hdnFulfillmentTermsGuid" runat="server" />

@@ -56,7 +56,7 @@
                                 <div class="settingrow">
                                     <mp:SiteLabel ID="lblStatus" runat="server" CssClass="settinglabel" ConfigKey="ProductStatusLabel"
                                         ResourceFile="WebStoreResources" />
-                                    <asp:DropDownList ID="ddStatus" runat="server" EnableTheming="false" CssClass="forminput" />
+                                    <asp:DropDownList ID="ddStatus" runat="server" />
                                 </div>
                                 <div class="settingrow">
                                     <mp:SiteLabel ID="lblWeight" runat="server" CssClass="settinglabel" ConfigKey="ProductWeightLabel"
@@ -74,6 +74,11 @@
                                     <asp:TextBox ID="txtQuantityOnHand" Columns="10" runat="server" MaxLength="20" Text="0"
                                         CssClass="forminput" />
                                 </div>
+							<div class="settingrow">
+								<mp:SiteLabel ID="lblSoldByQty" runat="server" CssClass="settinglabel" ConfigKey="ProductSoldByQtysLabel"
+									ResourceFile="WebStoreResources" />
+								<asp:TextBox ID="txtSoldByQtys" Columns="10" runat="server" CssClass="forminput" />
+							</div>
                                 <div class="settingrow">
                                     <mp:SiteLabel ID="lblIsVisible" runat="server" CssClass="settinglabel" ConfigKey="ProductShowInListLabel"
                                         ResourceFile="WebStoreResources" ForControl="chkShowInProductList" />
@@ -107,7 +112,7 @@
                         <div id="tabFullfillment"> 
 							<div class="settingrow">
                                 <mp:SiteLabel ID="lblFullfillmentType" runat="server" CssClass="settinglabel" ConfigKey="ProductFullfillmentTypeLabel" ResourceFile="WebStoreResources" />
-                                <asp:DropDownList ID="ddFullfillmentType" EnableTheming="false" runat="server" CssClass="forminput" />
+                                <asp:DropDownList ID="ddFullfillmentType" runat="server" />
                                 <asp:HyperLink ID="lnkDownload" runat="server" />
 								<mp:SiteLabel ID="lblFulfillmentAfterSave" runat="server" ResourceFile="WebStoreResources" ConfigKey="AddFulfillmentAfterSave" Visible="false" />
                             </div>

@@ -86,7 +86,7 @@ namespace WebStore.UI
 		public string ProductDetailOfferMarkupBottom { get; set; } = "</div>";
 		public string ProductDetailImageListMarkupTop { get; set; } = "<div class='productimages settingrow'>";
 		public string ProductDetailImageListMarkupBottom { get; set; } = "</div>";
-		public string ProductDetailImageFormat { get; set; } = "<figure><img src='{0}' alt='{1}' /><figcaption>{2}</figcaption><figure>";
+		public string ProductDetailImageFormat { get; set; } = "<figure><img src='{0}' alt='{1}' /><figcaption>{2}</figcaption></figure>";
 		public string ProductDetailOfferNameFormat { get; set; } = "<h4 class='store-product-offer-name'>{0}</h4>";
 		public string ProductDetailOfferNameLinkFormat { get; set; } = "<h4 class='store-product-offer-name'><a href='{0}' title='{1}'>{2}</a></h4>";
 

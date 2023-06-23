@@ -1296,7 +1296,7 @@ namespace WebStore.UI
         {
             StringBuilder script = new StringBuilder();
 
-            script.Append("\n<script type='text/javascript'>");
+            script.Append("\n<script data-loader='webstore-adminofferedit'>");
             script.Append("function AddProduct(productGuid, fulfillType, fulfillGuid) {");
 
             //script.Append("GB_hide();");

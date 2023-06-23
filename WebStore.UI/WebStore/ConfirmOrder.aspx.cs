@@ -937,34 +937,32 @@ namespace WebStore.UI
 		private void ConfigureCheckoutButtons()
 		{
 			bool shouldShowPayPal = ShouldShowPayPal();
-			bool shouldShowGoogle = ShouldShowGoogle();
+			//bool shouldShowGoogle = ShouldShowGoogle();
 
 			btnPayPal.Visible = shouldShowPayPal;
 			//btnGoogleCheckout.Visible = shouldShowGoogle;
-			litOr.Visible = (shouldShowPayPal || shouldShowGoogle);
+			litOr.Visible = shouldShowPayPal;
 
-			if (shouldShowGoogle)
-			{
-				if ((!commerceConfig.Is503TaxExempt) && (cart.HasDonations()))
-				{
-					//lblGoogleMessage.Text = WebStoreResources.GoogleCheckoutDisabledForDonationsMessage;
-					//lblGoogleMessage.Visible = true;
-					//btnGoogleCheckout.Enabled = false;
-					if (!Request.IsAuthenticated)
-					{
-						PaymentAcceptanceMark mark = (PaymentAcceptanceMark)pam1;
-						mark.SuppressGoogleCheckout = true;
-					}
-				}
+			//if (shouldShowGoogle)
+			//{
+			//	if ((!commerceConfig.Is503TaxExempt) && (cart.HasDonations()))
+			//	{
+			//		//lblGoogleMessage.Text = WebStoreResources.GoogleCheckoutDisabledForDonationsMessage;
+			//		//lblGoogleMessage.Visible = true;
+			//		//btnGoogleCheckout.Enabled = false;
+			//		if (!Request.IsAuthenticated)
+			//		{
+			//			PaymentAcceptanceMark mark = (PaymentAcceptanceMark)pam1;
+			//			mark.SuppressGoogleCheckout = true;
+			//		}
+			//	}
 
-			}
+			//}
 
-			if ((shouldShowPayPal) && (commerceConfig.PayPalUsePayPalStandard))
+			if (shouldShowPayPal && commerceConfig.PayPalUsePayPalStandard)
 			{
 				SetupPayPalStandardForm();
 			}
-
-
 		}
 
 		private void LoadSettings()
@@ -1150,7 +1148,7 @@ namespace WebStore.UI
 			cart.OrderInfo.CustomerCity = "Anytown";
 			cart.OrderInfo.CustomerPostalCode = "12345";
 
-			cart.OrderInfo.CustomerState = "NC";
+			cart.OrderInfo.CustomerState = "MO";
 
 			cart.OrderInfo.CustomerCountry = "US";
 			cart.OrderInfo.CustomerTelephoneDay = "123-234-3456";
@@ -1196,18 +1194,18 @@ namespace WebStore.UI
 			return true;
 		}
 
-		private bool ShouldShowGoogle()
-		{
-			if (store == null) { return false; }
-			if (cart == null) { return false; }
-			if (cart.SubTotal == 0) { return false; }
-			if (cart.OrderTotal == 0) { return false; }
-			if (commerceConfig == null) { return false; }
-			if ((!Request.IsAuthenticated) && (!canCheckoutWithoutAuthentication)) { return false; }
-			if (!commerceConfig.GoogleCheckoutIsEnabled) { return false; }
+		//private bool ShouldShowGoogle()
+		//{
+		//	if (store == null) { return false; }
+		//	if (cart == null) { return false; }
+		//	if (cart.SubTotal == 0) { return false; }
+		//	if (cart.OrderTotal == 0) { return false; }
+		//	if (commerceConfig == null) { return false; }
+		//	if ((!Request.IsAuthenticated) && (!canCheckoutWithoutAuthentication)) { return false; }
+		//	if (!commerceConfig.GoogleCheckoutIsEnabled) { return false; }
 
-			return true;
-		}
+		//	return true;
+		//}
 
 
 

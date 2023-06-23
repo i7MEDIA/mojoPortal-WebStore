@@ -12,7 +12,6 @@
                 <strong>
                     <asp:Label ID="lblPrice" runat="server" /></strong>
                 <asp:HyperLink ID="lnkAddToCart" runat="server" />
-                <portal:mojoGCheckoutButton ID="btnGoogleCheckout" runat="server" Visible="false" /> 
             </div>
             <div class="settingrow" id="divOfferDescription" runat="server">
                 <asp:Literal ID="litOfferDescription" runat="server" />

@@ -162,7 +162,8 @@
 
 					<asp:Panel ID="pnlAddress" runat="server" CssClass="floatpanel">
 						<asp:Panel ID="pnlBillingAddress" runat="server">
-							<h3><asp:Literal ID="litBillingHeader" runat="server" /></h3>
+							<h3>
+								<asp:Literal ID="litBillingHeader" runat="server" /></h3>
 							<asp:Literal ID="litBillingName" runat="server" />
 							<asp:Literal ID="litBillingCompany" runat="server" />
 							<asp:Literal ID="litBillingAddress1" runat="server" />
@@ -175,7 +176,8 @@
 						</asp:Panel>
 
 						<asp:Panel ID="pnlShippingAddress" runat="server" Visible="false">
-							<h3><asp:Literal ID="litShippingHeader" runat="server" /></h3>
+							<h3>
+								<asp:Literal ID="litShippingHeader" runat="server" /></h3>
 							<asp:Literal ID="litShippingName" runat="server" />
 							<asp:Literal ID="litShippingCompany" runat="server" />
 							<asp:Literal ID="litShippingAddress1" runat="server" />

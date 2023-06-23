@@ -16,7 +16,7 @@
                 <div class="offercontainer">
                 <span class="offername"><asp:Literal ID="litName" runat="server" Text='<%# Eval("Name") %>' Visible='<%# (Eval("TeaserFile").ToString().Length == 0) %>' /></span>
                 <asp:HyperLink ID="lnkPreview" runat="server" Visible='<%# (Eval("TeaserFile").ToString().Length > 0) %>' Text='<%# Eval("Name") %>' NavigateUrl='<%# teaserFileBaseUrl + Eval("TeaserFile") %>' />
-                <portal:mojoRating runat="server" ID="Rating" ContentGuid='<%# Eval("Guid") %>' Visible='<%# (EnableRatings && Convert.ToBoolean(Eval("EnableRating"))) %>' AllowFeedback='<%# EnableRatingComments %>' ShowPrompt="true" PromptText='<%# Resources.WebStoreResources.RatingPrompt %>'  />
+                <%--<portal:mojoRating runat="server" ID="Rating" ContentGuid='<%# Eval("Guid") %>' Visible='<%# (EnableRatings && Convert.ToBoolean(Eval("EnableRating"))) %>' AllowFeedback='<%# EnableRatingComments %>' ShowPrompt="true" PromptText='<%# Resources.WebStoreResources.RatingPrompt %>'  />--%>
                 <a class="productdetaillink" href='<%# FormatProductUrl(Eval("Guid").ToString(), Eval("Url").ToString()) %>'><span class="linktext"><%# Resources.WebStoreResources.ProductDetailsLink%></span></a>
                 </div>
                 </ItemTemplate>
@@ -39,7 +39,7 @@
                 <div class="offercontainer">
                 <span class="offername"><asp:Literal ID="litName" runat="server" Text='<%# Eval("Name") %>' Visible='<%# (Eval("TeaserFile").ToString().Length == 0) %>' /></span>
                 <asp:HyperLink ID="lnkPreview" runat="server" CssClass="teaserfile" Visible='<%# (Eval("TeaserFile").ToString().Length > 0) %>' Text='<%# Eval("Name") %>' NavigateUrl='<%# teaserFileBaseUrl + Eval("TeaserFile") %>' />
-                <portal:mojoRating runat="server" ID="Rating" ContentGuid='<%# Eval("Guid") %>' Visible='<%# (EnableRatings && Convert.ToBoolean(Eval("EnableRating"))) %>' AllowFeedback='<%# EnableRatingComments %>' ShowPrompt="true" PromptText='<%# Resources.WebStoreResources.RatingPrompt %>'  />
+                <%--<portal:mojoRating runat="server" ID="Rating" ContentGuid='<%# Eval("Guid") %>' Visible='<%# (EnableRatings && Convert.ToBoolean(Eval("EnableRating"))) %>' AllowFeedback='<%# EnableRatingComments %>' ShowPrompt="true" PromptText='<%# Resources.WebStoreResources.RatingPrompt %>'  />--%>
                 <a class="productdetaillink" href='<%# FormatProductUrl(Eval("Guid").ToString(), Eval("Url").ToString()) %>'><span class="linktext"><%# Resources.WebStoreResources.ProductDetailsLink%></span></a>
                 </div>
                 </ItemTemplate>

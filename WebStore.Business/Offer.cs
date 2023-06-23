@@ -1,15 +1,3 @@
-/// Author:					
-/// Created:				2007-02-28
-/// Last Modified:			2010-05-31
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
 using System;
 using System.Data;
 using mojoPortal.Business;
@@ -35,224 +23,78 @@ namespace WebStore.Business
             GetOffer(guid);
         }
 
-        #endregion
+		#endregion
 
-        #region Private Properties
+		#region Private Properties
 
-        private Guid guid = Guid.Empty;
-        private Guid storeGuid = Guid.Empty;
-        private bool isVisible;
-        private bool isSpecial;
-        private Guid taxClassGuid = Guid.Empty;
-        private string url = string.Empty;
-        private DateTime created = DateTime.UtcNow;
-        private Guid createdBy = Guid.Empty;
-        private string createdFromIP = string.Empty;
-        private bool isDeleted;
-        private DateTime deletedTime = DateTime.MaxValue;
-        private Guid deletedBy = Guid.Empty;
-        private string deletedFromIP = string.Empty;
-        private DateTime lastModified = DateTime.UtcNow;
-        private Guid lastModifiedBy = Guid.Empty;
-        private string lastModifiedFromIP;
-        private string name = string.Empty;
-        private string productListName = string.Empty;
-        private string description = string.Empty;
-        private string teaser = string.Empty;
-
-        private bool availabilityChecked = false;
+		private bool availabilityChecked = false;
         private bool isAvailable = false;
-        private bool isDonation = false;
-        private bool showDetailLink = true;
-        private decimal price = 0;
 
-        private string metaKeywords = string.Empty;
-        private string metaDescription = string.Empty;
-        private string compiledMeta = string.Empty;
+		#endregion
 
-        private bool userCanSetPrice = false;
-        private int maxPerOrder = 0; // 0 = unlimited
-        private int sortRank1 = 5000;
-        private int sortRank2 = 5000;
+		#region Public Properties
 
-        // not persisted to the db set externally just before indexing to the search index
-        private int siteId = -1;
-        private string searchIndexPath = string.Empty;
+		public Guid Guid { get; set; } = Guid.Empty;
+		
+        public Guid StoreGuid { get; set; } = Guid.Empty;
 
-        #endregion
+		public Guid TaxClassGuid { get; set; } = Guid.Empty;
 
-        #region Public Properties
+		public string Name { get; set; } = string.Empty;
 
-        public Guid Guid
-        {
-            get { return guid; }
-            set { guid = value; }
-        }
-        public Guid StoreGuid
-        {
-            get { return storeGuid; }
-            set { storeGuid = value; }
-        }
+		public string ProductListName { get; set; } = string.Empty;
 
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
+		public string MetaKeywords { get; set; } = string.Empty;
 
-        public string ProductListName
-        {
-            get { return productListName; }
-            set { productListName = value; }
-        }
+		public string MetaDescription { get; set; } = string.Empty;
 
-        public string MetaKeywords
-        {
-            get { return metaKeywords; }
-            set { metaKeywords = value; }
-        }
+		public string CompiledMeta { get; set; } = string.Empty;
 
-        public string MetaDescription
-        {
-            get { return metaDescription; }
-            set { metaDescription = value; }
-        }
+		public decimal Price { get; set; } = 0;
 
-        public string CompiledMeta
-        {
-            get { return compiledMeta; }
-            set { compiledMeta = value; }
-        }
+		public int MaxPerOrder { get; set; } = 0;
 
-        public decimal Price
-        {
-            get { return price; }
-            set { price = value; }
-        }
+		public string Url { get; set; } = string.Empty;
 
-        public int MaxPerOrder
-        {
-            get { return maxPerOrder; }
-            set { maxPerOrder = value; }
-        }
+		public string Description { get; set; } = string.Empty;
 
-        public string Url
-        {
-            get { return url; }
-            set { url = value; }
-        }
+		public string Teaser { get; set; } = string.Empty;
 
-        public string Description
-        {
-            get { return description; }
-            set { description = value; }
-        }
+		public int SortRank1 { get; set; } = 5000;
 
-        public string Teaser
-        {
-            get { return teaser; }
-            set { teaser = value; }
-        }
+		public int SortRank2 { get; set; } = 5000;
 
-        public int SortRank1
-        {
-            get { return sortRank1; }
-            set { sortRank1 = value; }
-        }
+		public bool IsVisible { get; set; }
+		
+        public bool IsSpecial { get; set; }
 
-        public int SortRank2
-        {
-            get { return sortRank2; }
-            set { sortRank2 = value; }
-        }
+		public bool IsDonation { get; set; } = false;
 
-        public bool IsVisible
-        {
-            get { return isVisible; }
-            set { isVisible = value; }
-        }
-        public bool IsSpecial
-        {
-            get { return isSpecial; }
-            set { isSpecial = value; }
-        }
+		public bool UserCanSetPrice { get; set; } = false;
 
-        public bool IsDonation
-        {
-            get { return isDonation; }
-            set { isDonation = value; }
-        }
+		public bool ShowDetailLink { get; set; } = true;
 
-        public bool UserCanSetPrice
-        {
-            get { return userCanSetPrice; }
-            set { userCanSetPrice = value; }
-        }
+		public DateTime Created { get; set; } = DateTime.UtcNow;
+		
+        public Guid CreatedBy { get; set; } = Guid.Empty;
+		
+        public string CreatedFromIP { get; set; } = string.Empty;
 
-        public bool ShowDetailLink
-        {
-            get { return showDetailLink; }
-            set { showDetailLink = value; }
-        }
+		public DateTime LastModified { get; set; } = DateTime.UtcNow;
 
-        public Guid TaxClassGuid
-        {
-            get { return taxClassGuid; }
-            set { taxClassGuid = value; }
-        }
+		public Guid LastModifiedBy { get; set; } = Guid.Empty;
 
-        public DateTime Created
-        {
-            get { return created; }
-            set { created = value; }
-        }
-        public Guid CreatedBy
-        {
-            get { return createdBy; }
-            set { createdBy = value; }
-        }
-        public string CreatedFromIP
-        {
-            get { return createdFromIP; }
-            set { createdFromIP = value; }
-        }
-        public bool IsDeleted
-        {
-            get { return isDeleted; }
-            set { isDeleted = value; }
-        }
-        public DateTime DeletedTime
-        {
-            get { return deletedTime; }
-            set { deletedTime = value; }
-        }
-        public Guid DeletedBy
-        {
-            get { return deletedBy; }
-            set { deletedBy = value; }
-        }
-        public string DeletedFromIP
-        {
-            get { return deletedFromIP; }
-            set { deletedFromIP = value; }
-        }
-        public DateTime LastModified
-        {
-            get { return lastModified; }
-            set { lastModified = value; }
-        }
-        public Guid LastModifiedBy
-        {
-            get { return lastModifiedBy; }
-            set { lastModifiedBy = value; }
-        }
-        public string LastModifiedFromIP
-        {
-            get { return lastModifiedFromIP; }
-            set { lastModifiedFromIP = value; }
-        }
+		public string LastModifiedFromIP { get; set; }
 
-        public bool IsAvailable
+		public bool IsDeleted { get; set; }
+		
+        public DateTime DeletedTime { get; set; } = DateTime.MaxValue;
+		
+        public Guid DeletedBy { get; set; } = Guid.Empty;
+		
+        public string DeletedFromIP { get; set; } = string.Empty;
+
+		public bool IsAvailable
         {
             get
             {
@@ -264,33 +106,25 @@ namespace WebStore.Business
             }
         }
 
-        /// <summary>
-        /// This is not persisted to the db. It is only set and used when indexing forum threads in the search index.
-        /// Its a convenience because when we queue the task to index on a new thread we can only pass one object.
-        /// So we store extra properties here so we don't need any other objects.
-        /// </summary>
-        public int SiteId
-        {
-            get { return siteId; }
-            set { siteId = value; }
-        }
+		/// <summary>
+		/// This is not persisted to the db. It is only set and used when indexing forum threads in the search index.
+		/// Its a convenience because when we queue the task to index on a new thread we can only pass one object.
+		/// So we store extra properties here so we don't need any other objects.
+		/// </summary>
+		public int SiteId { get; set; } = -1;
 
-        /// <summary>
-        /// This is not persisted to the db. It is only set and used when indexing forum threads in the search index.
-        /// Its a convenience because when we queue the task to index on a new thread we can only pass one object.
-        /// So we store extra properties here so we don't need any other objects.
-        /// </summary>
-        public string SearchIndexPath
-        {
-            get { return searchIndexPath; }
-            set { searchIndexPath = value; }
-        }
+		/// <summary>
+		/// This is not persisted to the db. It is only set and used when indexing forum threads in the search index.
+		/// Its a convenience because when we queue the task to index on a new thread we can only pass one object.
+		/// So we store extra properties here so we don't need any other objects.
+		/// </summary>
+		public string SearchIndexPath { get; set; } = string.Empty;
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        private void CheckAvailability()
+		private void CheckAvailability()
         {
             // TODO: lookup
 
@@ -305,95 +139,92 @@ namespace WebStore.Business
             {
                 if (reader.Read())
                 {
-                    this.guid = new Guid(reader["Guid"].ToString());
-                    this.storeGuid = new Guid(reader["StoreGuid"].ToString());
-                    this.isVisible = Convert.ToBoolean(reader["IsVisible"]);
-                    this.isSpecial = Convert.ToBoolean(reader["IsSpecial"]);
-                    this.created = Convert.ToDateTime(reader["Created"]);
-                    this.createdBy = new Guid(reader["CreatedBy"].ToString());
-                    this.url = reader["Url"].ToString();
-                    this.createdFromIP = reader["CreatedFromIP"].ToString();
-                    this.isDeleted = Convert.ToBoolean(reader["IsDeleted"]);
+                    this.Guid = new Guid(reader["Guid"].ToString());
+                    this.StoreGuid = new Guid(reader["StoreGuid"].ToString());
+                    this.IsVisible = Convert.ToBoolean(reader["IsVisible"]);
+                    this.IsSpecial = Convert.ToBoolean(reader["IsSpecial"]);
+                    this.Created = Convert.ToDateTime(reader["Created"]);
+                    this.CreatedBy = new Guid(reader["CreatedBy"].ToString());
+                    this.Url = reader["Url"].ToString();
+                    this.CreatedFromIP = reader["CreatedFromIP"].ToString();
+                    this.IsDeleted = Convert.ToBoolean(reader["IsDeleted"]);
                     if (reader["DeletedTime"] != DBNull.Value)
                     {
-                        this.deletedTime = Convert.ToDateTime(reader["DeletedTime"]);
+                        this.DeletedTime = Convert.ToDateTime(reader["DeletedTime"]);
                     }
                     if (reader["DeletedBy"] != DBNull.Value)
                     {
-                        this.deletedBy = new Guid(reader["DeletedBy"].ToString());
+                        this.DeletedBy = new Guid(reader["DeletedBy"].ToString());
                     }
-                    this.deletedFromIP = reader["DeletedFromIP"].ToString();
-                    this.lastModified = Convert.ToDateTime(reader["LastModified"]);
-                    this.lastModifiedBy = new Guid(reader["LastModifiedBy"].ToString());
-                    this.lastModifiedFromIP = reader["LastModifiedFromIP"].ToString();
+                    this.DeletedFromIP = reader["DeletedFromIP"].ToString();
+                    this.LastModified = Convert.ToDateTime(reader["LastModified"]);
+                    this.LastModifiedBy = new Guid(reader["LastModifiedBy"].ToString());
+                    this.LastModifiedFromIP = reader["LastModifiedFromIP"].ToString();
 
-                    this.name = reader["Name"].ToString();
-                    this.description = reader["Description"].ToString();
-                    this.teaser = reader["Abstract"].ToString();
+                    this.Name = reader["Name"].ToString();
+                    this.Description = reader["Description"].ToString();
+                    this.Teaser = reader["Abstract"].ToString();
 
                     if (reader["TaxClassGuid"] != DBNull.Value)
                     {
-                        this.taxClassGuid = new Guid(reader["TaxClassGuid"].ToString());
+                        this.TaxClassGuid = new Guid(reader["TaxClassGuid"].ToString());
                     }
 
-                    this.isDonation = Convert.ToBoolean(reader["IsDonation"]);
+                    this.IsDonation = Convert.ToBoolean(reader["IsDonation"]);
 
                     if (reader["Price"] != DBNull.Value)
                     {
-                        this.price = Convert.ToDecimal(reader["Price"].ToString());
+                        this.Price = Convert.ToDecimal(reader["Price"].ToString());
                     }
 
-                    this.showDetailLink = Convert.ToBoolean(reader["ShowDetailLink"]);
-                    this.productListName = reader["ProductListName"].ToString();
+                    this.ShowDetailLink = Convert.ToBoolean(reader["ShowDetailLink"]);
+                    this.ProductListName = reader["ProductListName"].ToString();
 
-                    this.userCanSetPrice = Convert.ToBoolean(reader["UserCanSetPrice"]);
+                    this.UserCanSetPrice = Convert.ToBoolean(reader["UserCanSetPrice"]);
 
-                    this.maxPerOrder = Convert.ToInt32(reader["MaxPerOrder"]);
-                    this.sortRank1 = Convert.ToInt32(reader["SortRank1"]);
-                    this.sortRank2 = Convert.ToInt32(reader["SortRank2"]);
-                    this.metaDescription = reader["MetaDescription"].ToString();
-                    this.metaKeywords = reader["MetaKeywords"].ToString();
-                    this.compiledMeta = reader["CompiledMeta"].ToString();
-
+                    this.MaxPerOrder = Convert.ToInt32(reader["MaxPerOrder"]);
+                    this.SortRank1 = Convert.ToInt32(reader["SortRank1"]);
+                    this.SortRank2 = Convert.ToInt32(reader["SortRank2"]);
+                    this.MetaDescription = reader["MetaDescription"].ToString();
+                    this.MetaKeywords = reader["MetaKeywords"].ToString();
+                    this.CompiledMeta = reader["CompiledMeta"].ToString();
                 }
-
             }
-
         }
 
         private bool Create()
         {
             Guid newID = Guid.NewGuid();
 
-            this.guid = newID;
+            this.Guid = newID;
 
             int rowsAffected = DBOffer.Create(
-                this.guid,
-                this.storeGuid,
-                this.isVisible,
-                this.isSpecial,
-                this.taxClassGuid,
-                this.url,
-                this.created,
-                this.createdBy,
-                this.createdFromIP,
-                this.lastModified,
-                this.lastModifiedBy,
-                this.lastModifiedFromIP,
-                this.isDonation,
-                this.name,
-                this.description,
-                this.teaser,
-                this.price,
-                this.productListName,
-                this.showDetailLink,
-                this.userCanSetPrice,
-                this.maxPerOrder,
-                this.sortRank1,
-                this.sortRank2,
-                this.metaDescription,
-                this.metaKeywords,
-                this.compiledMeta);
+                this.Guid,
+                this.StoreGuid,
+                this.IsVisible,
+                this.IsSpecial,
+                this.TaxClassGuid,
+                this.Url,
+                this.Created,
+                this.CreatedBy,
+                this.CreatedFromIP,
+                this.LastModified,
+                this.LastModifiedBy,
+                this.LastModifiedFromIP,
+                this.IsDonation,
+                this.Name,
+                this.Description,
+                this.Teaser,
+                this.Price,
+                this.ProductListName,
+                this.ShowDetailLink,
+                this.UserCanSetPrice,
+                this.MaxPerOrder,
+                this.SortRank1,
+                this.SortRank2,
+                this.MetaDescription,
+                this.MetaKeywords,
+                this.CompiledMeta);
 
             bool result = (rowsAffected > 0);
             if (result)
@@ -403,14 +234,11 @@ namespace WebStore.Business
             }
 
             return result;
-
         }
-
-
 
         private bool Update()
         {
-            Offer offer = new Offer(this.guid);
+            Offer offer = new Offer(this.Guid);
 
             DBOffer.AddOfferHistory(
                 Guid.NewGuid(),
@@ -433,28 +261,28 @@ namespace WebStore.Business
                 offer.Url);
 
             bool result = DBOffer.Update(
-                this.guid,
-                this.isVisible,
-                this.isSpecial,
-                this.taxClassGuid,
-                this.url,
-                this.lastModified,
-                this.lastModifiedBy,
-                this.lastModifiedFromIP,
-                this.isDonation,
-                this.name,
-                this.description,
-                this.teaser,
-                this.price,
-                this.productListName,
-                this.showDetailLink,
-                this.userCanSetPrice,
-                this.maxPerOrder,
-                this.sortRank1,
-                this.sortRank2,
-                this.metaDescription,
-                this.metaKeywords,
-                this.compiledMeta);
+                this.Guid,
+                this.IsVisible,
+                this.IsSpecial,
+                this.TaxClassGuid,
+                this.Url,
+                this.LastModified,
+                this.LastModifiedBy,
+                this.LastModifiedFromIP,
+                this.IsDonation,
+                this.Name,
+                this.Description,
+                this.Teaser,
+                this.Price,
+                this.ProductListName,
+                this.ShowDetailLink,
+                this.UserCanSetPrice,
+                this.MaxPerOrder,
+                this.SortRank1,
+                this.SortRank2,
+                this.MetaDescription,
+                this.MetaKeywords,
+                this.CompiledMeta);
 
             if (result)
             {
@@ -463,25 +291,17 @@ namespace WebStore.Business
             }
 
             return result;
-
         }
-
-
-        
 
         #endregion
 
         #region Public Methods
 
-
         public bool Save()
         {
-           
-            //if (String.IsNullOrEmpty(name)) return false;
-
-            bool result = false;
-
-            if (this.guid != Guid.Empty)
+			bool result;
+			
+            if (this.Guid != Guid.Empty)
             {
                 result = Update();
             }
@@ -490,17 +310,8 @@ namespace WebStore.Business
                 result = Create();
             }
 
-            
-
             return result;
         }
-
-
-        
-
-
-
-
         #endregion
 
         #region Static Methods
@@ -538,10 +349,6 @@ namespace WebStore.Business
                 deletedBy,
                 deletedFromIP);
         }
-
-
-        
-
 
         /// <summary>
         /// this is for admin view and includes hidden products where IsVisible is false
@@ -618,60 +425,6 @@ namespace WebStore.Business
 
         }
 
-        
-        //public static DataTable GetPage(
-        //    Guid storeGuid,
-        //    Guid languageGuid,
-        //    int pageNumber, 
-        //    int pageSize)
-        //{
-        //    DataTable dataTable = new DataTable();
-        //    dataTable.Columns.Add("Guid",typeof(Guid));
-        //    dataTable.Columns.Add("StoreGuid",typeof(Guid));
-        //    dataTable.Columns.Add("Name", typeof(string));
-        //    dataTable.Columns.Add("IsVisible",typeof(bool));
-        //    dataTable.Columns.Add("IsSpecial",typeof(bool));
-        //    dataTable.Columns.Add("Created",typeof(DateTime));
-        //    dataTable.Columns.Add("CreatedBy",typeof(Guid));
-        //    dataTable.Columns.Add("CreatedFromIP",typeof(string));
-            
-        //    dataTable.Columns.Add("LastModified",typeof(DateTime));
-        //    dataTable.Columns.Add("LastModifiedBy",typeof(Guid));
-        //    dataTable.Columns.Add("LastModifiedFromIP",typeof(string));
-        //    dataTable.Columns.Add("TotalPages", typeof(int));
-		
-        //    IDataReader reader = DBOffer.GetPage(
-        //        storeGuid, 
-        //        languageGuid, 
-        //        pageNumber, 
-        //        pageSize);	
-
-        //    while (reader.Read())
-        //    {
-        //        DataRow row = dataTable.NewRow();
-        //        row["Guid"] = reader["Guid"];
-        //        row["StoreGuid"] = reader["StoreGuid"];
-        //        row["Name"] = reader["Name"];
-        //        row["IsVisible"] = reader["IsVisible"];
-        //        row["IsSpecial"] = reader["IsSpecial"];
-        //        row["Created"] = reader["Created"];
-        //        row["CreatedBy"] = reader["CreatedBy"];
-        //        row["CreatedFromIP"] = reader["CreatedFromIP"];
-                
-        //        row["LastModified"] = reader["LastModified"];
-        //        row["LastModifiedBy"] = reader["LastModifiedBy"];
-        //        row["LastModifiedFromIP"] = reader["LastModifiedFromIP"];
-        //        row["TotalPages"] = Convert.ToInt32(reader["TotalPages"]);
-        //        dataTable.Rows.Add(row);
-        //    }
-		
-        //    reader.Close();
-		
-        //    return dataTable;
-		
-        //}
-
-
         public static DataTable GetBySitePage(int siteId, int pageId)
         {
             DataTable dataTable = new DataTable();
@@ -733,9 +486,6 @@ namespace WebStore.Business
                 ContentChanged(this, e);
             }
         }
-
-
-
 
         #endregion
 

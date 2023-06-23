@@ -319,7 +319,7 @@ namespace WebStore.UI
 								// this also happens in StoreHelper.ConfirmOrder
 								StoreHelper.ConfirmOrder(store, order);
 								PayPalLog.DeleteByCart(order.OrderGuid);
-								GoogleCheckoutLog.DeleteByCart(order.OrderGuid);
+								//GoogleCheckoutLog.DeleteByCart(order.OrderGuid);
 							}
 							catch (Exception ex)
 							{
@@ -333,7 +333,7 @@ namespace WebStore.UI
 								+ "&mid=" + moduleId.ToInvariantString()
 								+ "&orderid=" + order.OrderGuid.ToString();
 
-							//TODO: if we charged a card here we can safely delete any paypal log or googlecheckout logs
+							//TODO: if we charged a card here we can safely delete any paypal logs
 							// need methods to delete those by carguid
 
 							if (WebStoreConfiguration.LogCardTransactionStatus)

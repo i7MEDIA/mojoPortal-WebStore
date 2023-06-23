@@ -1,6 +1,7 @@
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.Commerce;
+using Config = mojoPortal.Core.Configuration;
 using mojoPortal.FileSystem;
 using mojoPortal.SearchIndex;
 using mojoPortal.Web;
@@ -17,7 +18,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebStore.Business;
 using WebStore.Helpers;
-
 namespace WebStore.UI
 {
 	public partial class AdminProductEditPage : NonCmsBasePage
@@ -51,7 +51,7 @@ namespace WebStore.UI
            
             PopulateLabels();
             PopulateControls();
-            AnalyticsSection = ConfigHelper.GetStringProperty("AnalyticsWebStoreSection", "store");
+            AnalyticsSection = Config.ConfigHelper.GetStringProperty("AnalyticsWebStoreSection", "store");
         }
 
         
@@ -161,6 +161,7 @@ namespace WebStore.UI
                 txtWeight.Text = product.Weight.ToString();
                 txtShippingAmount.Text = product.ShippingAmount.ToString("c", currencyCulture);
                 txtQuantityOnHand.Text = product.QuantityOnHand.ToInvariantString();
+				txtSoldByQtys.Text = product.SoldByQtys;
                 txtSortRank1.Text = product.SortRank1.ToInvariantString();
                 txtSortRank2.Text = product.SortRank2.ToInvariantString();
             }

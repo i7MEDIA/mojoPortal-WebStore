@@ -5,7 +5,7 @@
     <ItemTemplate>
         <div class="hproduct hreview productcontainer store-product">
             <%# GetProductLink(Eval("Guid").ToString(), Eval("Url").ToString(), Eval("Name").ToString(), heading: true) %>
-            <portal:mojoRating runat="server" ID="Rating" ContentGuid='<%# Eval("Guid") %>' Visible='<%# (EnableRatings && Convert.ToBoolean(Eval("EnableRating"))) %>' AllowFeedback='<%# EnableRatingComments %>' ShowPrompt="true" PromptText='<%# Resources.WebStoreResources.RatingPrompt %>'  />
+            <%--<portal:mojoRating runat="server" ID="Rating" ContentGuid='<%# Eval("Guid") %>' Visible='<%# (EnableRatings && Convert.ToBoolean(Eval("EnableRating"))) %>' AllowFeedback='<%# EnableRatingComments %>' ShowPrompt="true" PromptText='<%# Resources.WebStoreResources.RatingPrompt %>'  />--%>
             <div class="description"><%# Eval("Abstract") %></div>
             <%# GetProductLink(Eval("Guid").ToString(), Eval("Url").ToString(), Resources.WebStoreResources.ProductDetailsLink, heading: false) %>
             <asp:HyperLink ID="lnkPreview" CssClass="previewlink" runat="server" Visible='<%# (Eval("TeaserFile").ToString().Length > 0) %>' Text='<%# Eval("TeaserFileLink") %>' NavigateUrl='<%# teaserFileBaseUrl + Eval("TeaserFile") %>' />

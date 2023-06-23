@@ -1866,4 +1866,10 @@
   <data name="ImageTitleLabel" xml:space="preserve">
     <value>Caption</value>
   </data>
+  <data name="ImageStartPath" xml:space="preserve">
+    <value>Location of Images</value>
+  </data>
+  <data name="ProductSoldByQtysLabel" xml:space="preserve">
+    <value>Sold in Quantities of</value>
+  </data>
 </root>
