@@ -11,37 +11,34 @@
 // You must not remove this notice, or any other, from this software.
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Web;
-using mojoPortal.Business;
 using WebStore.Business;
 
 namespace WebStore.Components
 {
-    public delegate void OrderCompletedEventHandler(object sender, OrderCompletedEventArgs e);
+	public delegate void OrderCompletedEventHandler(object sender, OrderCompletedEventArgs e);
 
-    public class OrderCompletedEventArgs : EventArgs
-    {
-        public OrderCompletedEventArgs(Order order, CultureInfo currencyCulture)
-        {
-            _order = order;
-            _currencyCulture = currencyCulture;
-        }
-        
-        private Order _order = null;
+	public class OrderCompletedEventArgs : EventArgs
+	{
+		public OrderCompletedEventArgs(Order order, CultureInfo currencyCulture)
+		{
+			_order = order;
+			_currencyCulture = currencyCulture;
+		}
 
-        public Order Order
-        {
-            get { return _order; }
-        }
+		private Order _order = null;
 
-        private CultureInfo _currencyCulture = new CultureInfo("en-US");
+		public Order Order
+		{
+			get { return _order; }
+		}
 
-        public CultureInfo CurrencyCulture
-        {
-            get { return _currencyCulture; }
-        }
+		private CultureInfo _currencyCulture = new CultureInfo("en-US");
 
-    }
+		public CultureInfo CurrencyCulture
+		{
+			get { return _currencyCulture; }
+		}
+
+	}
 }

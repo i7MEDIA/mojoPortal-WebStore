@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="Current">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -15,8 +15,9 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <TargetFrameworkProfile />
+	  <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -150,8 +151,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\mojoportal\packages\log4net.2.0.15\lib\net45\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\mojoportal-clean\packages\log4net.3.0.3\lib\net462\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -170,6 +171,7 @@
     <Compile Include="DiscountLog.cs" />
     <Compile Include="FullfillDownloadTerms.cs" />
     <Compile Include="FullfillDownloadTicket.cs" />
+    <Compile Include="GlobalUsings.cs" />
     <Compile Include="Offer.cs" />
     <Compile Include="OfferAvailability.cs" />
     <Compile Include="OfferProduct.cs" />
@@ -184,21 +186,21 @@
     <Compile Include="Store.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\mojoportal\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
-      <Project>{4EAD30EC-4F97-4F38-8530-1B7EDDB8FC8E}</Project>
-      <Name>mojoPortal.Business.WebHelpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\mojoportal\mojoPortal.Business\mojoPortal.Business.csproj">
-      <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
-      <Name>mojoPortal.Business</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\mojoportal\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
-      <Project>{e0d12031-bfdd-4069-9024-8b00a2aa6dbc}</Project>
-      <Name>mojoPortal.Web.Framework</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\..\mojoportal-clean\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
+      <Project>{4ead30ec-4f97-4f38-8530-1b7eddb8fc8e}</Project>
+      <Name>mojoPortal.Business.WebHelpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mojoportal-clean\mojoPortal.Business\mojoPortal.Business.csproj">
+      <Project>{8582d51e-126b-4d64-b080-07ad8245b38f}</Project>
+      <Name>mojoPortal.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mojoportal-clean\mojoPortal.Core\mojoPortal.Core.csproj">
+      <Project>{fea72210-0415-4133-bdf9-8877683ba832}</Project>
+      <Name>mojoPortal.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(Configuration)'=='Debug'">

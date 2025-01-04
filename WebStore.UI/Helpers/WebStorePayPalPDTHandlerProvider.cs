@@ -44,7 +44,7 @@ namespace WebStore.Helpers
 
             Store store = new Store(cart.StoreGuid);
 
-            bool debugPayPal = WebConfigSettings.DebugPayPal;
+            bool debugPayPal = AppConfig.Debug;
 
             string firstName = string.Empty;
             string lastName = string.Empty;

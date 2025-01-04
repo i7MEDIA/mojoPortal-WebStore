@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="Current">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -15,8 +15,9 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <TargetFrameworkProfile />
+	  <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -171,8 +172,8 @@
     <Compile Include="WebStoreConnectionString.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\mojoportal\mojoPortal.Data.MSSQL\mojoPortal.Data.MSSQL.csproj">
-      <Project>{6DDFE292-37AA-4A02-B2F0-BA7968A026EF}</Project>
+    <ProjectReference Include="..\..\mojoportal-clean\mojoPortal.Data.MSSQL\mojoPortal.Data.MSSQL.csproj">
+      <Project>{6ddfe292-37aa-4a02-b2f0-ba7968a026ef}</Project>
       <Name>mojoPortal.Data.MSSQL</Name>
     </ProjectReference>
   </ItemGroup>

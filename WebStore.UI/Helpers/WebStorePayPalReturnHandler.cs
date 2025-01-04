@@ -66,7 +66,7 @@ namespace WebStore.Helpers
                     commerceConfig.PayPalAPISignature,
                     commerceConfig.PayPalStandardEmailAddress);
 
-			if (WebConfigSettings.DebugPayPal && gateway == null) log.Error("gateway is null");
+			if (AppConfig.Debug && gateway == null) log.Error("gateway is null");
 
 			gateway.UseTestMode = commerceConfig.PaymentGatewayUseTestMode;
             gateway.PayPalToken = payPalToken;
@@ -75,7 +75,7 @@ namespace WebStore.Helpers
 
             Cart savedCart = (Cart)SerializationHelper.DeserializeFromString(typeof(Cart), setExpressCheckoutLog.SerializedObject);
 
-			if (WebConfigSettings.DebugPayPal && savedCart == null) log.Error("cart is null");
+			if (AppConfig.Debug && savedCart == null) log.Error("cart is null");
 
 			savedCart.DeSerializeCartOffers();
 
@@ -108,7 +108,7 @@ namespace WebStore.Helpers
 				UserGuid = savedCart.UserGuid
 			};
 
-			if (WebConfigSettings.DebugPayPal && payPalLog == null) log.Error("payPalLog is null");
+			if (AppConfig.Debug && payPalLog == null) log.Error("payPalLog is null");
 
 
 			// update the order with customer shipping info
@@ -145,9 +145,9 @@ namespace WebStore.Helpers
             //}
 
             GeoCountry country = new GeoCountry(savedCart.OrderInfo.DeliveryCountry);
-			if (WebConfigSettings.DebugPayPal && country == null)
+			if (AppConfig.Debug && country == null)
 			{
-				if (WebConfigSettings.DebugPayPal) log.Error("country is null");
+				if (AppConfig.Debug) log.Error("country is null");
 				country = new GeoCountry(SiteUtils.GetDefaultCountry());
 			}
 			
@@ -155,7 +155,7 @@ namespace WebStore.Helpers
 
 			if (taxZone == null)
 			{
-				if (WebConfigSettings.DebugPayPal) log.Error("taxZone is null");
+				if (AppConfig.Debug) log.Error("taxZone is null");
 
 				country = new GeoCountry(SiteUtils.GetDefaultCountry());
 				var siteSettings = CacheHelper.GetCurrentSiteSettings();
@@ -194,7 +194,7 @@ namespace WebStore.Helpers
             int pageId = -1;
 
             List<PageModule> pageModules = PageModule.GetPageModulesByModule(store.ModuleId);
-			if (WebConfigSettings.DebugPayPal && pageModules == null) log.Error("pageModules is null");
+			if (AppConfig.Debug && pageModules == null) log.Error("pageModules is null");
 			foreach (PageModule pm in pageModules)
             {
                 // use first pageid found, really a store should only

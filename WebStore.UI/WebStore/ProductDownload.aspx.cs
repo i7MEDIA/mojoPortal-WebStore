@@ -98,7 +98,7 @@ namespace WebStore.UI
             if (productFile == null) { return; }
 
             string fileType = Path.GetExtension(productFile.FileName).Replace(".", string.Empty).ToLowerInvariant();
-            string mimeType = SiteUtils.GetMimeType(fileType);
+            string mimeType = IOHelper.GetMimeType(fileType);
             Page.Response.ContentType = mimeType;
 
             if (WebConfigSettings.DownloadScriptTimeout > -1)
@@ -106,7 +106,7 @@ namespace WebStore.UI
                 Server.ScriptTimeout = WebConfigSettings.DownloadScriptTimeout;
             }
 
-            if (SiteUtils.IsNonAttacmentFileType(fileType))
+            if (IOHelper.IsNonAttachmentFileType(fileType))
             {
                 Page.Response.AddHeader("Content-Disposition", "filename=" + productFile.FileName);
             }

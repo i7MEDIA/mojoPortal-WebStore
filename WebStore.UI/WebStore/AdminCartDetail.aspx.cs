@@ -112,15 +112,15 @@ namespace WebStore.UI
                 lblCustomerTelephoneDay.Text = cart.OrderInfo.CustomerTelephoneDay;
                 lblCustomerTelephoneNight.Text = cart.OrderInfo.CustomerTelephoneNight;
 
-                Control c = Page.LoadControl("~/Controls/GCheckoutLogList.ascx");
-                if (c != null)
-                {
-                    GCheckoutLogList googleLog = c as GCheckoutLogList;
-                    googleLog.CartGuid = cart.CartGuid;
-                    pnlCheckoutLog.Controls.Add(googleLog);
-                }
+                //Control c = Page.LoadControl("~/Controls/GCheckoutLogList.ascx");
+                //if (c != null)
+                //{
+                //    GCheckoutLogList googleLog = c as GCheckoutLogList;
+                //    googleLog.CartGuid = cart.CartGuid;
+                //    pnlCheckoutLog.Controls.Add(googleLog);
+                //}
 
-                c = Page.LoadControl("~/Controls/PayPalLogList.ascx");
+                var c = Page.LoadControl("~/Controls/PayPalLogList.ascx");
                 if (c != null)
                 {
                     PayPalLogList logList = c as PayPalLogList;

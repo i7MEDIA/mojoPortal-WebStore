@@ -56,7 +56,7 @@ namespace WebStore.Helpers
             Store store = new Store(cart.StoreGuid);
             SiteSettings siteSettings = new SiteSettings(store.SiteGuid);
 
-            bool debugPayPal = WebConfigSettings.DebugPayPal;
+            bool debugPayPal = AppConfig.Debug;
 
             //mc_gross=5.00
             //&address_status=confirmed
