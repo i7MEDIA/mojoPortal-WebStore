@@ -190,8 +190,19 @@ namespace WebStore.UI
 					{startFolder}
 					&returnFullPath=true";
 				
-				literal.Text = string.Format(displaySettings.ModalLinkMarkup, "#filePickerModal", displaySettings.ImagePickerModalLinkCssClass, displaySettings.ImagePickerModalLinkText);
+				var modalMarkup = !displaySettings.ModalLinkMarkup.Contains("data-size") ?
+					displaySettings.ModalLinkMarkup.Replace("<a ", "<a data-size='large' ") :
+					displaySettings.ModalLinkMarkup;
+
+				literal.Text = string.Format(
+					modalMarkup,
+					"#filePickerModal",
+					displaySettings.ImagePickerModalLinkCssClass,
+					displaySettings.ImagePickerModalLinkText
+				);
+
 				literal.Text += string.Format(displaySettings.ModalMarkup, "filePickerModal", WebStoreResources.ImagePickerHeading, fileManagerUrl.Replace("\r\n", string.Empty).Replace("\t", string.Empty));
+		
 				if (divInputGroup != null)
 				{
 					divInputGroup.Controls.Add(literal);

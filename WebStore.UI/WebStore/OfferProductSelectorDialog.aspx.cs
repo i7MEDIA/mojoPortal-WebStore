@@ -104,21 +104,27 @@ public partial class OfferProductSelectorDialog : mojoDialogBasePage
 
 	void grdProduct_RowDataBound(object sender, GridViewRowEventArgs e)
 	{
-		Button btnAddProduct = (Button)e.Row.FindControl("btnAddProduct");
-		if (btnAddProduct == null) { return; }
+		var btnAddProduct = (Button)e.Row.FindControl("btnAddProduct");
 
-		string[] pair = btnAddProduct.CommandArgument.Split('|');
-		if (pair.Length != 2) { return; }
-		if (pair[0].Length != 36) { return; }
+		if (btnAddProduct == null)
+		{
+			return;
+		}
 
-		Guid productGuid = new Guid(pair[0]);
-		FulfillmentType fulfillmentType = Product.FulfillmentTypeFromString(pair[1]);
+		var pair = btnAddProduct.CommandArgument.Split('|');
+
+		if (pair.Length != 2 || pair[0].Length != 36)
+		{
+			return;
+		}
+
+		var productGuid = new Guid(pair[0]);
+		var fulfillmentType = Product.FulfillmentTypeFromString(pair[1]);
+
 		if (fulfillmentType != FulfillmentType.Download)
 		{
 			btnAddProduct.Attributes.Add("onclick", GetClientScriptForButton(productGuid, fulfillmentType, Guid.Empty));
 		}
-
-
 	}
 
 	void grdProduct_RowCommand(object sender, GridViewCommandEventArgs e)

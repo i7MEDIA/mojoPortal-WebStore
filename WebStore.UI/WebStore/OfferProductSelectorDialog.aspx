@@ -32,11 +32,6 @@
 										Text='<%# Resources.WebStoreResources.AddProductToOfferGridButton %>'
 										CommandName="addProduct"
 										CommandArgument='<%# Eval("Guid").ToString() + "|" + Eval("FulFillmentType").ToString() %>'
-										data-modal=""
-										data-size="fluid-xlarge"
-										data-close-text="Close"
-										data-modal-type="iframe"
-										data-height="full"
 									/>
 								</ItemTemplate>
 							</asp:TemplateField>

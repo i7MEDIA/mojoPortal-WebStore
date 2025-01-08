@@ -302,3 +302,5 @@ __pycache__/
 # Project specific
 **/bin/
 **/obj/
+/WebStore.UI/Content/themes/base
+/WebStore.UI/Scripts

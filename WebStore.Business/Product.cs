@@ -102,13 +102,13 @@ namespace WebStore.Business
 
 		private byte fulfillmentType = 3; //none
 		public FulfillmentType FulfillmentType
-        {
-            get { return FulfillmentTypeFromInt32(fulfillmentType); }
-            set { fulfillmentType = (byte)value; }
-        }
+		{
+			get => FulfillmentTypeFromInt32(fulfillmentType);
+			set => fulfillmentType = (byte)value;
+		}
 		public decimal Weight { get; set; } = 0;
 		//public int QuantityOnHand { get; set; } = 1;
-		public decimal QuantityOnHand { get; set; } = 1M;
+		public decimal QuantityOnHand { get; set; } = 1;
 		public string SoldByQtys { get; set; } = "1";
 		public string ImageFileName { get; set; }
 		public byte[] ImageFileBytes { get; set; } = null;

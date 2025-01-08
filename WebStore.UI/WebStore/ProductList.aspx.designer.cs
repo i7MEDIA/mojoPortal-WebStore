@@ -85,14 +85,5 @@ namespace WebStore.UI
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
 		protected global::WebStore.UI.ProductListControl productList1;
-
-		/// <summary>
-		/// divCleared control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.UI.EmptyPanel divCleared;
 	}
 }

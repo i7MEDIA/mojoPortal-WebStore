@@ -184,8 +184,6 @@
 					</div>
 					<asp:Panel ID="pnlCheckoutLog" runat="server">
 					</asp:Panel>
-
-
 				</portal:InnerBodyPanel>
 			</portal:OuterBodyPanel>
 		</portal:InnerWrapperPanel>

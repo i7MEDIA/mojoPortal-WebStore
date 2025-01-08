@@ -1,19 +1,20 @@
 <%@ Page Language="C#" AutoEventWireup="false" MasterPageFile="~/App_MasterPages/layout.Master"
 	CodeBehind="AdminOfferEdit.aspx.cs" Inherits="WebStore.UI.AdminOfferEditPage" %>
+
 <%@ Register TagPrefix="webstore" TagName="AdminImageGridView" Src="~/WebStore/Controls/AdminImageGridView.ascx" %>
 <%@ Register Namespace="WebStore.UI" Assembly="WebStore.UI" TagPrefix="webstore" %>
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
-	<webstore:WebStoreDisplaySettings id="displaySettings" runat="server" />
+	<webstore:WebStoreDisplaySettings ID="displaySettings" runat="server" />
 
 	<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
 		<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper webstore webstoreadminoffer">
-			<portal:HeadingControl ID="heading" runat="server" CssClass="m-b-0"/>
+			<portal:HeadingControl ID="heading" runat="server" CssClass="m-b-0" />
 			<a href='<%= GetReturnUrl() %>' class="btn btn-link"><%= Resources.WebStoreResources.BackToOffersListLabel %></a>
 
 			<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
 				<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
-					<asp:Panel id="divtabs" runat="server" DefaultButton="btnSaveContinue">
+					<asp:Panel ID="divtabs" runat="server" DefaultButton="btnSaveContinue">
 						<div class="settingrow">
 							<mp:SiteLabel ID="SiteLabel1" runat="server" CssClass="settinglabel" ConfigKey="OfferNameLabel"
 								ResourceFile="WebStoreResources" ForControl="txtName" />
@@ -28,7 +29,7 @@
 								<li><a href="#tabDescription">
 									<asp:Literal ID="litDescriptionTab" runat="server" /></a></li>
 								<li><a href="#tabProducts">
-									<asp:Literal ID="litProductsTab" runat="server"/></a></li>
+									<asp:Literal ID="litProductsTab" runat="server" /></a></li>
 								<li><a href="#tabAvailability">
 									<asp:Literal ID="litAvailabilityTab" runat="server" /></a></li>
 								<li><a href="#tabMeta">
@@ -83,7 +84,7 @@
 								</div>
 							</div>
 							<div id="tabImages">
-								<mp:SiteLabel ID="lblImagesAfterSave" runat="server" ResourceFile="WebStoreResources" ConfigKey="AddImagesAfterSaveOffer" Visible="false"/>
+								<mp:SiteLabel ID="lblImagesAfterSave" runat="server" ResourceFile="WebStoreResources" ConfigKey="AddImagesAfterSaveOffer" Visible="false" />
 								<webstore:AdminImageGridView ID="grdImages" runat="server" />
 							</div>
 
@@ -100,66 +101,127 @@
 
 							<div id="tabProducts">
 								<mp:SiteLabel ID="lblProductsAfterSave" runat="server" ResourceFile="WebStoreResources" ConfigKey="AddProductsAfterSave" Visible="false" />
+
 								<asp:UpdatePanel ID="upProducts" UpdateMode="Conditional" runat="server">
-										<ContentTemplate>
-											<mp:mojoGridView ID="grdOfferProduct" runat="server" AllowPaging="false" AllowSorting="false" AutoGenerateColumns="false" CssClass="editgrid" DataKeyNames="Guid" SkinID="StoreAdmin">
-												<columns>
-													<asp:TemplateField ItemStyle-CssClass="editgridcell" HeaderStyle-CssClass="editgridheader">
-														<ItemTemplate>
-															<asp:Button ID="btnEdit" runat="server" CommandName="Edit" CssClass="btn btn-link" Text='<%# Resources.WebStoreResources.OfferProductGridEditButton %>' />
-														</ItemTemplate>
-														<EditItemTemplate><div class="btn-group btn-group-xs">
-															<asp:Button ID="btnGridUpdate" runat="server" Text='<%# Resources.WebStoreResources.OfferProductGridUpdateButton %>'
-																CommandName="Update" CssClass="btn btn-success" />
-															<asp:Button ID="btnGridDelete" runat="server" Text='<%# Resources.WebStoreResources.OfferProductGridDeleteButton %>'
-																CommandName="Delete" CssClass="btn btn-danger" />
-															<asp:Button ID="btnGridCancel" runat="server" Text='<%# Resources.WebStoreResources.OfferProductGridCancelButton %>'
-																CommandName="Cancel" CssClass="btn btn-warning" />
-																</div>
-														</EditItemTemplate>
-													</asp:TemplateField>
-													<asp:TemplateField SortExpression="Name" ItemStyle-CssClass="editgridcell" HeaderStyle-CssClass="editgridheader">
-														<ItemTemplate><%# Eval("Name") %></ItemTemplate>
-														<EditItemTemplate>
-																<asp:Label ID="lblProduct" runat="server" Text='<%# Eval("Name") %>' CssClass="productname" />                                                          
-														</EditItemTemplate>
-													</asp:TemplateField>
-													<asp:TemplateField SortExpression="FullfillType" ItemStyle-CssClass="editgridcell" HeaderStyle-CssClass="editgridheader">
-														<ItemTemplate>
-															<%# WebStore.Helpers.StoreHelper.GetFulfillmentTypeLabel(Eval("FullfillType").ToString())%>
-														</ItemTemplate>
-														<EditItemTemplate>
-															<asp:HiddenField ID="hdnFType" runat="server" Value='<%# Eval("FullfillType") %>' />
-															<asp:HiddenField ID="hdnFTerms" runat="server" Value='<%# Eval("FullFillTermsGuid") %>' />
-															<asp:Label ID="lblFulfilltype" runat="server" Text='<%# WebStore.Helpers.StoreHelper.GetFulfillmentTypeLabel(Eval("FullfillType").ToString())%>' />
-															<asp:DropDownList ID="ddFullFillTerms" runat="server" DataValueField="Guid" DataTextField="Name" CssClass="forminput" />
-														</EditItemTemplate>
-													</asp:TemplateField>
-													<asp:TemplateField SortExpression="Quantity" ItemStyle-CssClass="editgridcell" HeaderStyle-CssClass="editgridheader">
-														<ItemTemplate><%# Eval("Quantity") %></ItemTemplate>
-														<EditItemTemplate>
-															<asp:TextBox ID="txtQuantity" Text='<%# Eval("Quantity") %>' runat="server" TextMode="Number" MaxLength="8" CssClass="forminput" />
-														</EditItemTemplate>
-													</asp:TemplateField>
-													<asp:TemplateField HeaderStyle-CssClass="editgridheader">
-														<ItemTemplate>
-															<%# Eval("SortOrder") %>
-														</ItemTemplate>
-														<EditItemTemplate>
-															<asp:TextBox ID="txtSortOrder" Text='<%# Eval("SortOrder") %>' runat="server" TextMode="Number" MaxLength="8" CssClass="forminput" />
-														</EditItemTemplate>
-													</asp:TemplateField>
-												</columns>
-											</mp:mojoGridView>
-											<div class="settingrow text-right">
-												<asp:HyperLink ID="lnkProductsAdd" runat="server" CssClass="btn btn-success btn-xs" />
-												<asp:HiddenField ID="hdnProductGuid" runat="server" />
-												<asp:HiddenField ID="hdnFulfillmentType" runat="server" />
-												<asp:HiddenField ID="hdnFulfillmentTermsGuid" runat="server" />
-												<asp:ImageButton ID="btnAddFromGreyBox" runat="server" />
-											</div>
-										</ContentTemplate>
-									</asp:UpdatePanel>
+									<ContentTemplate>
+										<mp:mojoGridView runat="server"
+											ID="grdOfferProduct"
+											AllowPaging="false"
+											AllowSorting="false"
+											AutoGenerateColumns="false"
+											CssClass="table table-condensed table-bordered table-striped"
+											DataKeyNames="Guid"
+											SkinID="StoreAdmin">
+
+											<columns>
+												<asp:TemplateField
+													ItemStyle-CssClass="editgridcell"
+													HeaderStyle-CssClass="editgridheader">
+
+													<itemtemplate>
+														<asp:Button runat="server"
+															ID="btnEdit"
+															CommandName="Edit"
+															CssClass="btn btn-link btn-xs"
+															SkinID="WebStore_Offer_AddProduct_BtnEdit"
+															Text='<%# Resources.WebStoreResources.OfferProductGridEditButton %>' />
+													</itemtemplate>
+
+													<edititemtemplate>
+														<div class="btn-group btn-group-xs">
+															<asp:Button runat="server"
+																ID="btnGridUpdate"
+																Text='<%# Resources.WebStoreResources.OfferProductGridUpdateButton %>'
+																CommandName="Update"
+																CssClass="btn btn-success" />
+															<asp:Button runat="server"
+																ID="btnGridDelete"
+																Text='<%# Resources.WebStoreResources.OfferProductGridDeleteButton %>'
+																CommandName="Delete"
+																CssClass="btn btn-danger" />
+															<asp:Button runat="server"
+																ID="btnGridCancel"
+																Text='<%# Resources.WebStoreResources.OfferProductGridCancelButton %>'
+																CommandName="Cancel"
+																CssClass="btn btn-warning" />
+														</div>
+													</edititemtemplate>
+												</asp:TemplateField>
+
+												<asp:TemplateField SortExpression="Name" ItemStyle-CssClass="editgridcell" HeaderStyle-CssClass="editgridheader">
+													<itemtemplate><%# Eval("Name") %></itemtemplate>
+
+													<edititemtemplate>
+														<asp:Label ID="lblProduct" runat="server" Text='<%# Eval("Name") %>' CssClass="productname" />
+													</edititemtemplate>
+												</asp:TemplateField>
+
+												<asp:TemplateField SortExpression="FullfillType" ItemStyle-CssClass="editgridcell" HeaderStyle-CssClass="editgridheader">
+													<itemtemplate>
+														<%# WebStore.Helpers.StoreHelper.GetFulfillmentTypeLabel(Eval("FullfillType").ToString())%>
+													</itemtemplate>
+
+													<edititemtemplate>
+														<asp:HiddenField ID="hdnFType" runat="server" Value='<%# Eval("FullfillType") %>' />
+														<asp:HiddenField ID="hdnFTerms" runat="server" Value='<%# Eval("FullFillTermsGuid") %>' />
+														<asp:Label ID="lblFulfilltype" runat="server" Text='<%# WebStore.Helpers.StoreHelper.GetFulfillmentTypeLabel(Eval("FullfillType").ToString())%>' />
+
+														<asp:DropDownList runat="server"
+															ID="ddFullFillTerms"
+															DataValueField="Guid"
+															DataTextField="Name"
+															CssClass="forminput"
+															SkinID="WebStore_Offer_AddProduct_DDFullFillTerms" />
+													</edititemtemplate>
+												</asp:TemplateField>
+
+												<asp:TemplateField SortExpression="Quantity" ItemStyle-CssClass="editgridcell" HeaderStyle-CssClass="editgridheader">
+													<itemtemplate><%# Eval("Quantity") %></itemtemplate>
+
+													<edititemtemplate>
+														<asp:TextBox runat="server"
+															ID="txtQuantity"
+															Text='<%# Eval("Quantity") %>'
+															TextMode="Number"
+															MaxLength="8"
+															CssClass="form-control input-sm"
+															SkinID="WebStore_Offer_AddProduct_TxtQuantity" />
+													</edititemtemplate>
+												</asp:TemplateField>
+
+												<asp:TemplateField HeaderStyle-CssClass="editgridheader">
+													<itemtemplate>
+														<%# Eval("SortOrder") %>
+													</itemtemplate>
+
+													<edititemtemplate>
+														<asp:TextBox runat="server"
+															ID="txtSortOrder"
+															Text='<%# Eval("SortOrder") %>'
+															TextMode="Number"
+															MaxLength="8"
+															CssClass="form-control input-sm"
+															SkinID="WebStore_Offer_AddProduct_TxtSortOrder" />
+													</edititemtemplate>
+												</asp:TemplateField>
+											</columns>
+										</mp:mojoGridView>
+
+										<div class="settingrow text-right">
+											<asp:HyperLink runat="server"
+												ID="lnkProductsAdd"
+												CssClass="btn btn-success btn-xs"
+												data-modal=""
+												data-size="xlarge"
+												data-close-text="Close"
+												data-modal-type="iframe" />
+											<asp:HiddenField ID="hdnProductGuid" runat="server" />
+											<asp:HiddenField ID="hdnFulfillmentType" runat="server" />
+											<asp:HiddenField ID="hdnFulfillmentTermsGuid" runat="server" />
+											<asp:ImageButton ID="btnAddFromGreyBox" runat="server" />
+										</div>
+									</ContentTemplate>
+								</asp:UpdatePanel>
 							</div>
 							<div id="tabAvailability">
 								<div class="settingrow">
@@ -177,36 +239,37 @@
 											AutoGenerateColumns="false" CssClass="editgrid" DataKeyNames="Guid" SkinID="plain">
 											<columns>
 												<asp:TemplateField ItemStyle-CssClass="editgridcell" HeaderStyle-CssClass="editgridheader">
-													<ItemTemplate>
+													<itemtemplate>
 														<asp:ImageButton ID="btnEdit" runat="server" CommandName="Edit" ToolTip='<%# Resources.WebStoreResources.OfferAvailabilityGridEditButton %>'
 															AlternateText='<%# Resources.WebStoreResources.OfferAvailabilityGridEditButton %>'
 															ImageUrl="~/Data/SiteImages/edit.gif" />
-													</ItemTemplate>
-													<EditItemTemplate><div class="btn-group btn-group-xs">
-														<asp:Button ID="btnGridUpdate" runat="server" Text='<%# Resources.WebStoreResources.OfferAvailabilityGridUpdateButton %>'
-															CommandName="Update" SkinID="SaveButton" CssClass="btn btn-success" />
-														<asp:Button ID="btnGridDelete" runat="server" Text='<%# Resources.WebStoreResources.OfferAvailabilityGridDeleteButton %>'
-															CommandName="Delete" SkinID="DeleteButton" CssClass="btn btn-danger" />
-														<asp:Button ID="btnGridCancel" runat="server" Text='<%# Resources.WebStoreResources.OfferAvailabilityGridCancelButton %>'
-															CommandName="Cancel" SkinID="LinkButton" CssClass="btn btn-warning" />
+													</itemtemplate>
+													<edititemtemplate>
+														<div class="btn-group btn-group-xs">
+															<asp:Button ID="btnGridUpdate" runat="server" Text='<%# Resources.WebStoreResources.OfferAvailabilityGridUpdateButton %>'
+																CommandName="Update" SkinID="SaveButton" CssClass="btn btn-success" />
+															<asp:Button ID="btnGridDelete" runat="server" Text='<%# Resources.WebStoreResources.OfferAvailabilityGridDeleteButton %>'
+																CommandName="Delete" SkinID="DeleteButton" CssClass="btn btn-danger" />
+															<asp:Button ID="btnGridCancel" runat="server" Text='<%# Resources.WebStoreResources.OfferAvailabilityGridCancelButton %>'
+																CommandName="Cancel" SkinID="LinkButton" CssClass="btn btn-warning" />
 														</div>
-													</EditItemTemplate>
+													</edititemtemplate>
 												</asp:TemplateField>
 												<asp:TemplateField SortExpression="BeginUTC" ItemStyle-CssClass="editgridcell" HeaderStyle-CssClass="editgridheader">
-													<ItemTemplate>
+													<itemtemplate>
 														<%# Eval("BeginUTC") %>
-													</ItemTemplate>
-													<EditItemTemplate>
-														<mp:DatePickerControl ID="dpBeginDate" runat="server" Text='<%# GetBeginDate(Eval("BeginUTC")) %>' Columns="15" Required="True" MaxLength="50" ShowTime="True" SkinID="AdminOffer"/>
-													</EditItemTemplate>
+													</itemtemplate>
+													<edititemtemplate>
+														<mp:DatePickerControl ID="dpBeginDate" runat="server" Text='<%# GetBeginDate(Eval("BeginUTC")) %>' Columns="15" Required="True" MaxLength="50" ShowTime="True" SkinID="AdminOffer" />
+													</edititemtemplate>
 												</asp:TemplateField>
 												<asp:TemplateField SortExpression="EndUTC" ItemStyle-CssClass="editgridcell" HeaderStyle-CssClass="editgridheader">
-													<ItemTemplate>
+													<itemtemplate>
 														<%# Eval("EndUTC") %>
-													</ItemTemplate>
-													<EditItemTemplate>
-														<mp:DatePickerControl ID="dpEndDate" runat="server" Text='<%# Bind("EndUTC") %>' Columns="15" Required="False" MaxLength="50" ShowTime="True"/>
-													</EditItemTemplate>
+													</itemtemplate>
+													<edititemtemplate>
+														<mp:DatePickerControl ID="dpEndDate" runat="server" Text='<%# Bind("EndUTC") %>' Columns="15" Required="False" MaxLength="50" ShowTime="True" />
+													</edititemtemplate>
 												</asp:TemplateField>
 												<%--<asp:TemplateField SortExpression="RequiresOfferCode" ItemStyle-CssClass="editgridcell" HeaderStyle-CssClass="editgridheader">
 													<ItemTemplate>
@@ -235,7 +298,7 @@
 											</columns>
 										</mp:mojoGridView>
 										<div class="settingrow text-right">
-											<asp:Button ID="btnAddNewAvailability" runat="server" CssClass="btn btn-success btn-xs"/>
+											<asp:Button ID="btnAddNewAvailability" runat="server" CssClass="btn btn-success btn-xs" />
 										</div>
 									</ContentTemplate>
 								</asp:UpdatePanel>
@@ -260,6 +323,7 @@
 									</mp:SiteLabel>
 									<portal:mojoHelpLink ID="MojoHelpLink25" runat="server" HelpKey="pagesettingsadditionalmetahelp" />
 								</div>
+
 								<div class="settingrow">
 									<asp:UpdatePanel ID="updMetaLinks" runat="server" UpdateMode="Conditional">
 										<ContentTemplate>
@@ -267,22 +331,22 @@
 												DataKeyNames="Guid">
 												<columns>
 													<asp:TemplateField>
-														<ItemTemplate>
+														<itemtemplate>
 															<asp:Button ID="btnEditMetaLink" runat="server" CommandName="Edit" Text='<%# Resources.WebStoreResources.ContentMetaGridEditButton %>' />
 															<asp:ImageButton ID="btnMoveUpMetaLink" runat="server" ImageUrl="~/Data/SiteImages/up.gif"
 																CommandName="MoveUp" CommandArgument='<%# Eval("Guid") %>' AlternateText='<%# Resources.WebStoreResources.ContentMetaGridMoveUpButton %>'
 																Visible='<%# (Convert.ToInt32(Eval("SortRank")) > 3) %>' />
 															<asp:ImageButton ID="btnMoveDownMetaLink" runat="server" ImageUrl="~/Data/SiteImages/dn.gif"
 																CommandName="MoveDown" CommandArgument='<%# Eval("Guid") %>' AlternateText='<%# Resources.WebStoreResources.ContentMetaGridMoveDownButton %>' />
-														</ItemTemplate>
-														<EditItemTemplate>
-														</EditItemTemplate>
+														</itemtemplate>
+														<edititemtemplate>
+														</edititemtemplate>
 													</asp:TemplateField>
 													<asp:TemplateField>
-														<ItemTemplate>
+														<itemtemplate>
 															<%# Eval("Rel") %>
-														</ItemTemplate>
-														<EditItemTemplate>
+														</itemtemplate>
+														<edititemtemplate>
 															<div class="settingrow">
 																<mp:SiteLabel ID="lblNameMetaRel" runat="server" ForControl="txtRel" CssClass="settinglabel"
 																	ConfigKey="ContentMetaRelLabel" ResourceFile="WebStoreResources" />
@@ -312,14 +376,14 @@
 																<asp:Button ID="btnCancelMetaLink" runat="server" Text='<%# Resources.WebStoreResources.ContentMetaGridCancelButton %>'
 																	CommandName="Cancel" CausesValidation="false" SkinID="LinkButton" />
 															</div>
-														</EditItemTemplate>
+														</edititemtemplate>
 													</asp:TemplateField>
 													<asp:TemplateField>
-														<ItemTemplate>
+														<itemtemplate>
 															<%# Eval("Href") %>
-														</ItemTemplate>
-														<EditItemTemplate>
-														</EditItemTemplate>
+														</itemtemplate>
+														<edititemtemplate>
+														</edititemtemplate>
 													</asp:TemplateField>
 												</columns>
 											</mp:mojoGridView>
@@ -350,22 +414,22 @@
 												DataKeyNames="Guid">
 												<columns>
 													<asp:TemplateField>
-														<ItemTemplate>
+														<itemtemplate>
 															<asp:Button ID="btnEditMeta" runat="server" CommandName="Edit" Text='<%# Resources.WebStoreResources.ContentMetaGridEditButton %>' />
 															<asp:ImageButton ID="btnMoveUpMeta" runat="server" ImageUrl="~/Data/SiteImages/up.gif"
 																CommandName="MoveUp" CommandArgument='<%# Eval("Guid") %>' AlternateText='<%# Resources.WebStoreResources.ContentMetaGridMoveUpButton %>'
 																Visible='<%# (Convert.ToInt32(Eval("SortRank")) > 3) %>' />
 															<asp:ImageButton ID="btnMoveDownMeta" runat="server" ImageUrl="~/Data/SiteImages/dn.gif"
 																CommandName="MoveDown" CommandArgument='<%# Eval("Guid") %>' AlternateText='<%# Resources.WebStoreResources.ContentMetaGridMoveDownButton %>' />
-														</ItemTemplate>
-														<EditItemTemplate>
-														</EditItemTemplate>
+														</itemtemplate>
+														<edititemtemplate>
+														</edititemtemplate>
 													</asp:TemplateField>
 													<asp:TemplateField>
-														<ItemTemplate>
+														<itemtemplate>
 															<%# Eval("Name") %>
-														</ItemTemplate>
-														<EditItemTemplate>
+														</itemtemplate>
+														<edititemtemplate>
 															<div class="settingrow">
 																<mp:SiteLabel ID="lblName" runat="server" ForControl="txtName" CssClass="settinglabel"
 																	ConfigKey="ContentMetaNameLabel" ResourceFile="WebStoreResources" />
@@ -409,14 +473,14 @@
 																<asp:Button ID="btnCancelMeta" runat="server" Text='<%# Resources.WebStoreResources.ContentMetaGridCancelButton %>'
 																	CommandName="Cancel" CausesValidation="false" SkinID="LinkButton" />
 															</div>
-														</EditItemTemplate>
+														</edititemtemplate>
 													</asp:TemplateField>
 													<asp:TemplateField>
-														<ItemTemplate>
+														<itemtemplate>
 															<%# Eval("MetaContent") %>
-														</ItemTemplate>
-														<EditItemTemplate>
-														</EditItemTemplate>
+														</itemtemplate>
+														<edititemtemplate>
+														</edititemtemplate>
 													</asp:TemplateField>
 												</columns>
 											</mp:mojoGridView>
@@ -442,14 +506,9 @@
 							</div>
 						</div>
 						<div class="btn-toolbar">
-							<div class="btn-group">
-								<portal:mojoButton ID="btnSave" runat="server" ValidationGroup="Product" SkinID="SaveButton" CommandName="Save" />
-								<portal:mojoButton ID="btnSaveContinue" runat="server" ValidationGroup="Product" SkinID="InfoButton" CommandName="SaveContinue"/>
-
-							</div>
-							<div class="btn-group">
-								<portal:mojoButton ID="btnDelete" runat="server" CausesValidation="false" SkinID="DeleteButtonBig" />
-							</div>
+							<portal:mojoButton ID="btnSave" runat="server" ValidationGroup="Product" SkinID="SaveButton" CommandName="Save" />
+							<portal:mojoButton ID="btnSaveContinue" runat="server" ValidationGroup="Product" SkinID="InfoButton" CommandName="SaveContinue" />
+							<portal:mojoButton ID="btnDelete" runat="server" CausesValidation="false" SkinID="DeleteButtonSmall" />
 						</div>
 						<div>
 							<asp:RequiredFieldValidator ID="reqName" runat="server" ControlToValidate="txtName"
