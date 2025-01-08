@@ -53,7 +53,7 @@ namespace WebStore.Data
 			sph.DefineSqlParameter("@FullfillmentType", SqlDbType.TinyInt, ParameterDirection.Input, fullfillmentType);
 			sph.DefineSqlParameter("@Weight", SqlDbType.Decimal, ParameterDirection.Input, weight);
 			sph.DefineSqlParameter("@QuantityOnHand", SqlDbType.Decimal, ParameterDirection.Input, quantityOnHand);
-			sph.DefineSqlParameter("@SoldByQtys", SqlDbType.NVarChar, 255, ParameterDirection.Input, soldByQtys);
+			sph.DefineSqlParameter("@SoldByQtys", SqlDbType.NVarChar, 50, ParameterDirection.Input, soldByQtys);
 			sph.DefineSqlParameter("@ImageFileName", SqlDbType.NVarChar, 255, ParameterDirection.Input, imageFileName);
 			sph.DefineSqlParameter("@ImageFileBytes", SqlDbType.Image, ParameterDirection.Input, imageFileBytes);
 			sph.DefineSqlParameter("@Created", SqlDbType.DateTime, ParameterDirection.Input, created);
@@ -109,15 +109,15 @@ namespace WebStore.Data
 			string compiledMeta,
 			decimal shippingAmount)
 		{
-			SqlParameterHelper sph = new SqlParameterHelper(WebStoreConnectionString.GetWriteConnectionString(), "ws_Product_Update", 25);
+			SqlParameterHelper sph = new SqlParameterHelper(WebStoreConnectionString.GetWriteConnectionString(), "ws_Product_Update", 26);
 			sph.DefineSqlParameter("@Guid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, guid);
 			sph.DefineSqlParameter("@TaxClassGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, taxClassGuid);
 			sph.DefineSqlParameter("@ModelNumber", SqlDbType.NVarChar, 255, ParameterDirection.Input, modelNumber);
 			sph.DefineSqlParameter("@Status", SqlDbType.TinyInt, ParameterDirection.Input, status);
 			sph.DefineSqlParameter("@FullfillmentType", SqlDbType.TinyInt, ParameterDirection.Input, fullfillmentType);
 			sph.DefineSqlParameter("@Weight", SqlDbType.Decimal, ParameterDirection.Input, weight);
-			sph.DefineSqlParameter("@QuantityOnHand", SqlDbType.Int, ParameterDirection.Input, quantityOnHand);
-			sph.DefineSqlParameter("@SoldByQtys", SqlDbType.Decimal, ParameterDirection.Input, soldByQtys);
+			sph.DefineSqlParameter("@QuantityOnHand", SqlDbType.Decimal, ParameterDirection.Input, quantityOnHand);
+			sph.DefineSqlParameter("@SoldByQtys", SqlDbType.NVarChar, 50, ParameterDirection.Input, soldByQtys);
 			sph.DefineSqlParameter("@ImageFileName", SqlDbType.NVarChar, 255, ParameterDirection.Input, imageFileName);
 			sph.DefineSqlParameter("@ImageFileBytes", SqlDbType.Image, ParameterDirection.Input, imageFileBytes);
 			sph.DefineSqlParameter("@LastModified", SqlDbType.DateTime, ParameterDirection.Input, lastModified);
