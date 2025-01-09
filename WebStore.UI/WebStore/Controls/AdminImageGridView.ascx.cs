@@ -153,77 +153,77 @@ namespace WebStore.UI
 
 		private void grdImages_RowDataBound(object sender, GridViewRowEventArgs e)
 		{
-			//GridView grid = (GridView)sender;
-			//Guid guid = (Guid)grid.DataKeys[e.NewEditIndex].Value;
-
-			//Guid guid = (Guid)grid.DataKeys[e.Row.RowIndex].Value;
 			if (e.Row.RowType == DataControlRowType.DataRow && (e.Row.RowState & DataControlRowState.Edit) == DataControlRowState.Edit)
 			{
-				//ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "testscript1", $"alert('ScriptManager.RegisterClientScriptBlock({this.GetType().ToString()})');", true);
-				//ScriptManager.RegisterStartupScript(this, this.GetType(), "testscript2", $"alert('ScriptManager.RegisterStartupScript({this.GetType().ToString()})');", true);
-				//ScriptManager.RegisterClientScriptBlock(e.Row, e.Row.GetType(), "testscript5", "alert('ScriptManager.RegisterClientScriptBlock(Row)');", true);
-				//ScriptManager.RegisterStartupScript(e.Row, e.Row.GetType(), "testscript6", "alert('ScriptManager.RegisterStartupScript(Row)');", true);
-			
-				Button btnDelete = (Button)e.Row.Cells[4].FindControl("btnDelete");
-				if (btnDelete != null)
-				{
-					btnDelete.Attributes.Add("OnClick", $"return confirm('{WebStoreResources.DeleteImageWarning}');");
-				}
-				Panel divInputGroup = (Panel)e.Row.Cells[0].FindControl("divInputGroup");
-				//TextBox txtImageUrl = (TextBox)divInputGroup.FindControl("txtImageUrl");
-			
-				Literal literal = new Literal();
-				//Image imgPreview = (Image)e.Row.Cells[0].FindControl("imgPreview");
-			
-				string fileManagerUrl = string.Empty;
-				string startFolder = string.Empty;
+				var btnDelete = (Button)e.Row.Cells[4].FindControl("btnDelete");
+
+				btnDelete?.Attributes.Add("OnClick", $"return confirm('{WebStoreResources.DeleteImageWarning}');");
+
+				var divInputGroup = (Panel)e.Row.Cells[0].FindControl("divInputGroup");
+				var imagePickerLink = new Literal();
+				var startFolder = string.Empty;
 
 				if (!string.IsNullOrWhiteSpace(Config.ImageStartPath))
 				{
 					startFolder = "&startFolder=" + Config.ImageStartPath;
 				}
 
-				fileManagerUrl = $@"{SiteUtils.GetNavigationSiteRoot()}{WebConfigSettings.FileDialogRelativeUrl}?
+				var fileManagerUrl = $@"{SiteUtils.GetNavigationSiteRoot()}{WebConfigSettings.FileDialogRelativeUrl}?
 					editor=filepicker
 					&type=image
 					&inputId=txtImageUrl
 					{startFolder}
 					&returnFullPath=true";
-				
-				var modalMarkup = !displaySettings.ModalLinkMarkup.Contains("data-size") ?
-					displaySettings.ModalLinkMarkup.Replace("<a ", "<a data-size='large' ") :
-					displaySettings.ModalLinkMarkup;
 
-				literal.Text = string.Format(
-					modalMarkup,
-					"#filePickerModal",
-					displaySettings.ImagePickerModalLinkCssClass,
-					displaySettings.ImagePickerModalLinkText
-				);
-
-				literal.Text += string.Format(displaySettings.ModalMarkup, "filePickerModal", WebStoreResources.ImagePickerHeading, fileManagerUrl.Replace("\r\n", string.Empty).Replace("\t", string.Empty));
-		
-				if (divInputGroup != null)
+				if (Page is mojoBasePage basePage)
 				{
-					divInputGroup.Controls.Add(literal);
+					if (string.IsNullOrWhiteSpace(Global.SkinConfig.ModalTemplatePath) || string.IsNullOrWhiteSpace(Global.SkinConfig.ModalScriptPath))
+					{
+						basePage.ScriptConfig.IncludeColorBox = true;
+						imagePickerLink.Text = $"""<a class="{displaySettings.ImagePickerModalLinkCssClass} cblink" href="{fileManagerUrl}">{displaySettings.ImagePickerModalLinkText}</a>""";
+					}
+					else
+					{
+						imagePickerLink.Text = $"""
+							<span class="input-group-btn">
+								<a
+									class="{displaySettings.ImagePickerModalLinkCssClass}"
+									title="File Browser"
+									data-modal
+									data-size="fluid-xlarge"
+									data-close-text="Close"
+									data-modal-type="iframe"
+									data-height="full"
+									href="{fileManagerUrl}">
+									{displaySettings.ImagePickerModalLinkText}
+								</a>
+							</span>
+						""";
+						basePage.EnsureDefaultModal();
+					}
 				}
-				else
-				{
-					e.Row.Cells[0].Controls.Add(literal);
-				}
-				string filePicker =
-					$@"<script>
-						var filePicker = {{
-							set: function(url, clientId) {{
-								var _inputImg = document.getElementById(clientId); _inputImg.value = url;
-								var _inputPrev = document.getElementById('imgPreview'); _inputPrev.src = url;
-							}},
 
-							close: function() {{
-								$('#filePickerModal').modal('toggle')
-							}}
-						}};
-					</script>";
+				var controls = divInputGroup is not null ? divInputGroup.Controls : e.Row.Cells[0].Controls;
+
+				controls.Add(imagePickerLink);
+
+				var filePicker = """
+					<script>
+						var filePicker = {
+							set: function(url, clientId) {
+								var _inputImg = document.getElementById(clientId);
+								var _inputPrev = document.getElementById('imgPreview');
+
+								_inputImg.value = url;
+								_inputPrev.src = url;
+							},
+
+							close: function() {
+								$('#filePickerModal').modal('hide');
+							}
+						};
+					</script>
+					""";
 
 				ScriptManager.RegisterClientScriptBlock(
 					e.Row,
@@ -233,23 +233,25 @@ namespace WebStore.UI
 					false
 				);
 
-				string filePickerPreview =
-					$@"<script>
-						(function() {{
+				var filePickerPreview = """
+					<script>
+						(function() {
 							var prevInput = document.getElementById('txtImageUrl');
 							var prevImage = document.getElementById('imgPreview');
 
-							if (prevInput !== null) {{
-								prevInput.addEventListener('blur', function() {{
-									if (prevInput.value.length > 0) {{
+							if (prevInput !== null) {
+								prevInput.addEventListener('blur', function() {
+									if (prevInput.value.length > 0) {
 										prevImage.src = prevInput.value;
-									}} else {{
+									}
+									else {
 										prevImage.src = '#';
-									}}
-								}});
-							}}
-						}})();
-					</script>";
+									}
+								});
+							}
+						})();
+					</script>
+					""";
 
 				ScriptManager.RegisterStartupScript(
 					e.Row, 
@@ -259,8 +261,8 @@ namespace WebStore.UI
 					false
 				);
 			}
-
 		}
+
 
 		private void grdImages_RowEditing(object sender, GridViewEditEventArgs e)
 		{

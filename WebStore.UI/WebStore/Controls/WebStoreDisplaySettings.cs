@@ -98,22 +98,9 @@ namespace WebStore.UI
 		public string ProductDetailOfferAddToCartBoxButtonWrapBottom { get; set; } = "</span>";
 		public string ProductDetailOfferAbstractMarkupTop { get; set; } = "<div class='store-product-offer-abstract'>";
 		public string ProductDetailOfferAbstractMarkupBottom { get; set; } = "</div>";
-		public string ImagePickerModalLinkCssClass { get; set; } = "input-group-addon";
+		public string ImagePickerModalLinkCssClass { get; set; } = "btn btn-default";
 		public string ImagePickerModalLinkText { get; set; } = "&hellip;";
 		public string ModalLinkMarkup { get; set; } = "<a href='{0}' data-target='{0}' data-toggle='modal' class='{1}'>{2}</a>";
-		public string ModalMarkup { get; set; } = @"<div class='modal fade' id='{0}' tabindex='-1' role='dialog'>
-						<div class='modal-dialog' role='document'>
-						<div class='modal-content'>
-							<div class='modal-header'>
-							<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
-							<h4 class='modal-title'>{1}</h4>
-							</div>
-							<div class='modal-body'>
-								<iframe src='{2}' width='100%' height='100%' border='0'></iframe>
-							</div>
-						</div><!-- /.modal-content -->
-						</div><!-- /.modal-dialog -->
-					</div><!-- /.modal -->";
 
 
 		public string AdminPanelHeadingMarkup { get; set; } = "<h3>{0} <small>{1}</small></h3>";

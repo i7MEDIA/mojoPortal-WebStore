@@ -7,45 +7,47 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebStore.UI {
-    
-    
-    public partial class AdminImageGridView {
-        
-        /// <summary>
-        /// displaySettings control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::WebStore.UI.WebStoreDisplaySettings displaySettings;
-        
-        /// <summary>
-        /// upImages control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upImages;
-        
-        /// <summary>
-        /// grdImages control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.Controls.mojoGridView grdImages;
-        
-        /// <summary>
-        /// btnAddImage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoButton btnAddImage;
-    }
+namespace WebStore.UI
+{
+
+
+	public partial class AdminImageGridView
+	{
+
+		/// <summary>
+		/// displaySettings control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::WebStore.UI.WebStoreDisplaySettings displaySettings;
+
+		/// <summary>
+		/// upImages control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.UpdatePanel upImages;
+
+		/// <summary>
+		/// grdImages control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.Controls.mojoGridView grdImages;
+
+		/// <summary>
+		/// btnAddImage control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.UI.mojoButton btnAddImage;
+	}
 }
