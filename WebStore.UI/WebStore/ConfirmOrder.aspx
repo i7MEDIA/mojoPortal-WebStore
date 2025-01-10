@@ -1,42 +1,54 @@
 <%@ Page Language="C#" AutoEventWireup="false" MasterPageFile="~/App_MasterPages/layout.Master" CodeBehind="ConfirmOrder.aspx.cs" Inherits="WebStore.UI.ConfirmOrderPage" MaintainScrollPositionOnPostback="true" %>
+
 <%@ Register Src="~/WebStore/Controls/CartLink.ascx" TagPrefix="ws" TagName="CartLink" %>
+
+<asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
 	<div class="breadcrumbs">
 		<ws:CartLink ID="lnkCart" runat="server" EnableViewState="false" />
 	</div>
+
 	<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
 		<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper webstore webstoreconfirmorder">
 			<portal:HeadingControl ID="heading" runat="server" />
+
 			<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
 				<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
 					<asp:Panel ID="pnlRequireLogin" runat="server">
 						<portal:SignInOrRegisterPrompt ID="srPrompt" runat="server" ShowJanrainWidget="true" />
 					</asp:Panel>
+
 					<asp:Panel ID="pnlCartItems" runat="server" CssClass="clearpanel">
 						<h3 class="heading cartheading">
 							<asp:Literal ID="litCartHeader" runat="server" />
 						</h3>
+
 						<asp:Repeater ID="rptCartItems" runat="server">
-							<headertemplate>
-								<table class="cartgrid">
-									<tr>
-										<th><%# Resources.WebStoreResources.CartItemsHeading%></th>
-										<th><%# Resources.WebStoreResources.CartPriceHeading%></th>
-										<th><%# Resources.WebStoreResources.CartQuantityHeading%></th>
-									</tr>
-							</headertemplate>
-							<itemtemplate>
+							<HeaderTemplate>
+								<table class="table table-condensed table-striped cartgrid">
+									<thead>
+										<tr>
+											<th><%# Resources.WebStoreResources.CartItemsHeading%></th>
+											<th><%# Resources.WebStoreResources.CartPriceHeading%></th>
+											<th><%# Resources.WebStoreResources.CartQuantityHeading%></th>
+										</tr>
+									</thead>
+									<tbody>
+							</HeaderTemplate>
+
+							<ItemTemplate>
 								<tr>
 									<td><%# Eval("Name")%></td>
 									<td><%# string.Format(currencyCulture, "{0:c}", Convert.ToDecimal(Eval("OfferPrice")))%></td>
 									<td><%# Eval("Quantity") %></td>
 								</tr>
-							</itemtemplate>
+							</ItemTemplate>
 
-							<footertemplate>
+							<FooterTemplate>
+								</tbody>
 								</table>
-							</footertemplate>
+							</FooterTemplate>
 						</asp:Repeater>
 					</asp:Panel>
 
@@ -72,8 +84,8 @@
 								ResourceFile="WebStoreResources" />
 							<asp:Literal ID="litOrderTotal" runat="server" />
 						</asp:Panel>
-
 					</div>
+
 					<asp:Panel ID="pnlOrderDetail" runat="server" CssClass="clear orderdetail" Visible="false">
 						<asp:Panel ID="pnlCustomer" runat="server" CssClass="floatpanel" DefaultButton="btnSaveAndValidate">
 							<fieldset>
