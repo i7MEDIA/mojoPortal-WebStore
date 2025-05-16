@@ -49,8 +49,6 @@ namespace WebStore.UI
                 return;
             }
 
-            if (SiteUtils.SslIsAvailable()) SiteUtils.ForceSsl();
-
             LoadSettings();
 
             if (store == null)

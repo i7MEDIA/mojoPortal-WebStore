@@ -43,8 +43,6 @@ namespace WebStore.UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (SiteUtils.SslIsAvailable()) SiteUtils.ForceSsl();
-
             LoadSettings();
 
             if (!UserCanViewPage(ModuleId, Store.FeatureGuid))

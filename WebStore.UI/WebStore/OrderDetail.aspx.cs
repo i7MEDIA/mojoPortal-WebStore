@@ -34,8 +34,6 @@ namespace WebStore.UI
 		private CommerceConfiguration commerceConfig = null;
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			if (SiteUtils.SslIsAvailable()) { SiteUtils.ForceSsl(); }
-
 			LoadParams();
 
 			if (!Request.IsAuthenticated)

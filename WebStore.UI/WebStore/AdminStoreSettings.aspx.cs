@@ -36,8 +36,6 @@ public partial class AdminStoreSettingsPage : NonCmsBasePage
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		if (SiteUtils.SslIsAvailable()) SiteUtils.ForceSsl();
-
 		LoadSettings();
 
 		if ((store == null) || (!UserCanEditModule(moduleId, Store.FeatureGuid)))
