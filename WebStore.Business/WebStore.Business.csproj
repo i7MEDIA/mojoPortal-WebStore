@@ -161,6 +161,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\mojoportal\Plugins\PluginAssemblyInfo.cs">
+      <Link>Properties\PluginAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Cart.cs" />
     <Compile Include="CartOffer.cs" />
     <Compile Include="CartOrderInfo.cs" />

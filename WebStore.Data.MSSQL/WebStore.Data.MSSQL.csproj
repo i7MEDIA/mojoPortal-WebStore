@@ -150,6 +150,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\mojoportal\Plugins\PluginAssemblyInfo.cs">
+      <Link>Properties\PluginAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="DBCart.cs" />
     <Compile Include="DBCartOffer.cs" />
     <Compile Include="DBCartOrderInfo.cs" />

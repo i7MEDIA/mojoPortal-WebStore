@@ -366,6 +366,9 @@
     <Content Include="Setup\applications\webstore\SchemaUpgradeScripts\mysql\7.5.0.6.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\mojoportal\Plugins\PluginAssemblyInfo.cs">
+      <Link>Properties\PluginAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="App_GlobalResources\WebStoreResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
