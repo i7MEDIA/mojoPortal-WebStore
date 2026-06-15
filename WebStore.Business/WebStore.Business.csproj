@@ -183,62 +183,62 @@
     <Compile Include="Store.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\mojoportal-clean\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
-      <Project>{4ead30ec-4f97-4f38-8530-1b7eddb8fc8e}</Project>
-      <Name>mojoPortal.Business.WebHelpers</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\mojoportal-clean\mojoPortal.Business\mojoPortal.Business.csproj">
-      <Project>{8582d51e-126b-4d64-b080-07ad8245b38f}</Project>
-      <Name>mojoPortal.Business</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\mojoportal-clean\mojoPortal.Core\mojoPortal.Core.csproj">
-      <Project>{fea72210-0415-4133-bdf9-8877683ba832}</Project>
-      <Name>mojoPortal.Core</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="CsvHelper">
       <Version>33.0.1</Version>
     </PackageReference>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.12.4</Version>
+    </PackageReference>
     <PackageReference Include="log4net">
-      <Version>3.0.3</Version>
+      <Version>3.3.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces">
-      <Version>9.0.1</Version>
+      <Version>10.0.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CSharp">
       <Version>4.7.0</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.3</Version>
+      <Version>13.0.4</Version>
     </PackageReference>
     <PackageReference Include="System.Buffers">
-      <Version>4.6.0</Version>
+      <Version>4.6.1</Version>
     </PackageReference>
     <PackageReference Include="System.IO.Pipelines">
-      <Version>9.0.1</Version>
+      <Version>10.0.2</Version>
     </PackageReference>
     <PackageReference Include="System.Memory">
-      <Version>4.6.0</Version>
+      <Version>4.6.3</Version>
     </PackageReference>
     <PackageReference Include="System.Numerics.Vectors">
-      <Version>4.6.0</Version>
+      <Version>4.6.1</Version>
     </PackageReference>
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe">
-      <Version>6.1.0</Version>
+      <Version>6.1.2</Version>
     </PackageReference>
     <PackageReference Include="System.Text.Json">
-      <Version>9.0.1</Version>
+      <Version>10.0.2</Version>
     </PackageReference>
     <PackageReference Include="System.Threading.Tasks.Extensions">
-      <Version>4.5.4</Version>
+      <Version>4.6.3</Version>
     </PackageReference>
     <PackageReference Include="System.ValueTuple">
-      <Version>4.5.0</Version>
+      <Version>4.6.2</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\mojoportal\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
+      <Project>{4ead30ec-4f97-4f38-8530-1b7eddb8fc8e}</Project>
+      <Name>mojoPortal.Business.WebHelpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mojoportal\mojoPortal.Business\mojoPortal.Business.csproj">
+      <Project>{8582d51e-126b-4d64-b080-07ad8245b38f}</Project>
+      <Name>mojoPortal.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mojoportal\mojoPortal.Core\mojoPortal.Core.csproj">
+      <Project>{fea72210-0415-4133-bdf9-8877683ba832}</Project>
+      <Name>mojoPortal.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(Configuration)'=='Debug'">
